@@ -1,0 +1,23 @@
+<app-header pageTitle="Home"></app-header>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
+
+<script defer src="/__/firebase/8.10.0/firebase-auth.js"></script>
+<mat-card>
+  <mat-card-content>
+    <div *ngIf="(toggleField=='searchMode') " > 
+    <form #searchForm="ngForm">
+      <mat-form-field class="example-form">
+          <input matInput type="text" placeholder="Search" #search="ngModel" ngModel id="search" name="search" minlength="3" maxlength="50">
+      </mat-form-field>
+      <span matTooltip="Search All">
+          <mat-icon color="primary" (click)="this.searchForm.reset();">clear</mat-icon>
+      </span>
+      <span class="small-spacer"></span>
+      <span matTooltip="Search All">
+          <mat-icon color="primary" (click)="getFilterData(search.value)">search</mat-icon>
+      </span>
+  </form>
+    </div>
+  </mat-card-content>
+</mat-card>

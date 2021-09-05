@@ -1,0 +1,40 @@
+<mat-toolbar fxLayout="row"  >
+  <button   fxLayoutAlign="center center" mat-mini-fab color="blue" [matMenuTriggerFor]="navMenu">
+    <mat-icon>dashboard</mat-icon>
+  </button>
+
+
+
+  <span class ="example-icon">
+  <h3 >
+  {{pageTitle}}
+</h3>
+</span>
+<span fxFlex="90%" class ="example-spacer"  class ="example-icon" fxLayout="row" fxLayoutAlign= "end center">
+<button   fxLayoutAlign="center center" mat-mini-fab color="blue" [matMenuTriggerFor]="Account" yPosition="below"   >
+  <mat-icon  >account_circle</mat-icon>
+</button>
+</span>
+
+  <mat-icon  class ="example-spacer" fxLayoutAlign="end center " >settings</mat-icon>
+</mat-toolbar>
+
+
+
+<mat-menu fxLayout="row" #navMenu="matMenu">
+  <button mat-menu-item (click)="link('home')">Home</button>
+  <button mat-menu-item>Profile</button>
+  <button mat-menu-item (click)="link('aboutus')"> About us</button>
+  <button mat-menu-item (click)="link('merchant')"> Merchant</button>
+  <button mat-menu-item>Contact</button>
+  <button mat-menu-item>Log Out</button>
+</mat-menu>
+
+
+
+
+<mat-menu fxLayout="row" #Account="matMenu">
+  <button mat-menu-item (click)="link('home')">log In</button>
+  <button mat-menu-item>Log Out</button>
+
+</mat-menu>
