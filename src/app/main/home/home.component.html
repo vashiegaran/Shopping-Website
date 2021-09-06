@@ -3,21 +3,41 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
 
 <script defer src="/__/firebase/8.10.0/firebase-auth.js"></script>
-<mat-card>
-  <mat-card-content>
-    <div *ngIf="(toggleField=='searchMode') " > 
-    <form #searchForm="ngForm">
-      <mat-form-field class="example-form">
-          <input matInput type="text" placeholder="Search" #search="ngModel" ngModel id="search" name="search" minlength="3" maxlength="50">
-      </mat-form-field>
-      <span matTooltip="Search All">
-          <mat-icon color="primary" (click)="this.searchForm.reset();">clear</mat-icon>
-      </span>
-      <span class="small-spacer"></span>
-      <span matTooltip="Search All">
-          <mat-icon color="primary" (click)="getFilterData(search.value)">search</mat-icon>
-      </span>
-  </form>
-    </div>
-  </mat-card-content>
-</mat-card>
+
+
+<mat-form-field fxLayoutAlign="center center" appearance="standard" >
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field >
+<div   fxLayout="column wrap" fxLayoutAlign="center center" >
+
+<div  class="example-container mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>id</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row._id}} </mat-cell>
+  </ng-container>
+
+      <ng-container matColumnDef="category">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+          <mat-cell *matCellDef="let row" > {{row.category}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="price">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
+          </ng-container>
+     
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+</div>

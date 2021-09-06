@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule ,ViewEncapsulation} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule ,NO_ERRORS_SCHEMA,ViewEncapsulation} from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
@@ -23,11 +23,23 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { SettingsComponent } from './settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SetProductComponent } from './set-product/set-product.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { LoginComponent } from './login/login/login.component';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatProgressSpinnerModule} from '@angular/material'
+import {MatChipsModule} from '@angular/material/chips';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { SetProductComponent } from './admin/set-product/set-product.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import { AdmintabComponent } from './admin/admintab/admintab.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ProductComponent } from './user/product/product.component';
+
 firebase.initializeApp(environment.firebaseConfig)
 @NgModule({
   declarations: [
@@ -37,7 +49,10 @@ firebase.initializeApp(environment.firebaseConfig)
     FooterComponent,
     HomeComponent,
     SettingsComponent,
+    LoginComponent,
     SetProductComponent,
+    AdmintabComponent,
+    ProductComponent
   
 
     
@@ -61,11 +76,23 @@ firebase.initializeApp(environment.firebaseConfig)
     MatFormFieldModule,
     MatProgressBarModule,
     MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatChipsModule, 
+    MatBadgeModule,
+    MatTabsModule,
+
     
 
   
   ],
-  providers: [AngularFirestore],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ],
+  providers: [AngularFirestore,AngularFireAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

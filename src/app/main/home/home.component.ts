@@ -1,13 +1,17 @@
 
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild,AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import firebase = require("firebase");
 import { FireBaseService,IUser } from './service/fire-base.service';
 import _ = require('underscore');
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
-
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import { TouchSequence } from 'selenium-webdriver';
+import{BackendService} from 'src/app/services/backend.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,21 +20,72 @@ import { AppComponent } from 'src/app/app.component';
 
 export class HomeComponent  implements OnInit{
 
-  public form: FormGroup ;
+  savedChanges = false;
+  error: boolean = false;
+  errorMessage :String = "";
+  dataLoading : boolean= false;
+  private querySubcription;
+  dataSource: MatTableDataSource<any>;
 
-  public userList : IUser[]=[];
+  members: any[];
+  //public form: FormGroup ;
+
+ // public userList : IUser[]=[];
   toolgeField: string;
-  public userDetails:IUser;
-  
-  constructor(private fb:FormBuilder,private fireBaseService:FireBaseService,private router:Router){}
+  //public userDetails:IUser;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
+  constructor(private fb:FormBuilder,private fireBaseService:FireBaseService,private router:Router,
+    private _backendService:BackendService){}
+
+    displayedColumns = [ 'category', 'name', 'price','_id'];
 
 
   ngOnInit(): void {
     this.toolgeField="";
-    this.getUsers();
+    //this.getUsers();
+    this.dataSource = new MatTableDataSource(this.members);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.getData();
   }
 
+
+  getData(){
+
+    this.dataLoading = true;
+    this.querySubcription =this._backendService.getProducts('product')
+        .subscribe(members =>{
+            this.members = members;
+            this.dataSource=new MatTableDataSource(members);
+            this.dataSource.paginator=this.paginator;
+            this.dataSource.sort=this.sort;
+
+
+        },
+
+        (error)=>{
+          this.error=true;
+          this.errorMessage=error.message;
+          this.dataLoading=false;
+        },
+        ()=>{this.error=false; this.dataLoading=false});
+        
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+
+
+/*
   toggle(filter?){
     if(!filter) {filter="searchMode"}
     else {filter=filter}
@@ -120,7 +175,7 @@ public LogoutUser(){
 
 
 
-
+*/
 }
 
 

@@ -11,3 +11,16 @@
   td {
     padding-right: 8px;
   }
+
+  .but{
+
+    margin-top:10px;
+
+  }
+
+  .cardList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
