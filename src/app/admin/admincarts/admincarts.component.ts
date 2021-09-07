@@ -149,24 +149,17 @@ export class AdmincartsComponent implements OnInit {
     if (confirm("Are you sure want to delete this record ?")) {
       this.dataLoading = true;
     this.dataLoading = true;
-    this.querySubcription =this._backendService.delOneProduct('cart',docId)
-        .subscribe(res =>{
-          if(res){
-            this.myDocData = res;
-            this.toggle('searchMode');
+    this.querySubcription =this._backendService.deleteOneDocs('cart',docId)
+    .then((res) =>{
+      this.savedChanges=true;
+      this.dataLoading=false;
 
-
-          } 
-     
-
-        },
-
-        (error)=>{
-          this.error=true;
-          this.errorMessage=error.message;
-          this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
+    }).catch(error=>{
+      this.error=true;
+      this.errorMessage=error.message;
+      this.dataLoading=false;
+    })
+    
         
   }
 }

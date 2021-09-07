@@ -5,7 +5,7 @@
   <mat-card-header>
     <mat-card-subtitle>eCommerce App</mat-card-subtitle>
   </mat-card-header>
-  <div *ngIf="userLoggedin; else showShopping">
+  <div *ngIf="userLoggedin ">
     <button type="button" routerLink="/home" mat-raised-button color="primary">Continue Shopping</button>
   </div >
   <ng-template #showShopping>

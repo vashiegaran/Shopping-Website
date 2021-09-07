@@ -57,7 +57,7 @@ export class SetProductComponent implements OnInit {
   getData(){
 
     this.dataLoading = true;
-    this.querySubcription =this._backendService.getProducts('product')
+    this.querySubcription =this._backendService.getDocs('product')
         .subscribe(members =>{
             this.members = members;
             this.dataSource=new MatTableDataSource(members);
@@ -80,45 +80,34 @@ export class SetProductComponent implements OnInit {
   setData(formData){
 
     this.dataLoading = true;
-    this.querySubcription =this._backendService.setProducts('product',formData)
-        .subscribe(members =>{
-            this.members = members;
-            this.dataSource=new MatTableDataSource(members);
-            this.dataSource.paginator=this.paginator;
-            this.dataSource.sort=this.sort;
+    this.querySubcription =this._backendService.setDocs('product',formData)
+        .then((res) =>{
+          this.savedChanges=true;
+          this.dataLoading=false;
 
-
-        },
-
-        (error)=>{
+        }).catch(error=>{
           this.error=true;
           this.errorMessage=error.message;
           this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
+        })
         
   }
 
   updateData(formData){
 
     this.dataLoading = true;
-    this.querySubcription =this._backendService.updateProduct('product',formData)
-        .subscribe(members =>{
-          if(members){
-            this.savedChanges = true;
-
-          } 
+    this.querySubcription =this._backendService.updateDocs('product',formData)
+        .then((res) =>{
+            this.savedChanges=true;
+            this.dataLoading=false;
+  
+          }).catch(error=>{
+            this.error=true;
+            this.errorMessage=error.message;
+            this.dataLoading=false;
+          })
+          
      
-
-        },
-
-        (error)=>{
-          this.error=true;
-          this.errorMessage=error.message;
-          this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
-        
   }
 
   getDoc(docId){
@@ -148,25 +137,17 @@ export class SetProductComponent implements OnInit {
     if (confirm("Are you sure want to delete this record ?")) {
       this.dataLoading = true;
     this.dataLoading = true;
-    this.querySubcription =this._backendService.delOneProduct('product',docId)
-        .subscribe(res =>{
-          if(res){
-            this.myDocData = res;
-            this.toggle('searchMode');
+    this.querySubcription =this._backendService.deleteOneDocs('product',docId)
+    .then((res) =>{
+      this.savedChanges=true;
+      this.dataLoading=false;
 
-
-          } 
-     
-
-        },
-
-        (error)=>{
-          this.error=true;
-          this.errorMessage=error.message;
-          this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
-        
+    }).catch(error=>{
+      this.error=true;
+      this.errorMessage=error.message;
+      this.dataLoading=false;
+    })
+    
   }
 }
 
@@ -180,9 +161,6 @@ getFilterData(docId){
           this.dataSource=new MatTableDataSource(members);
           this.dataSource.paginator=this.paginator;
           this.dataSource.sort=this.sort;
-
-
-
         } 
    
 
