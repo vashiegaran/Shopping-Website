@@ -138,16 +138,24 @@ export class SetProductComponent implements OnInit {
       this.dataLoading = true;
     this.dataLoading = true;
     this.querySubcription =this._backendService.deleteOneDocs('product',docId)
-    .then((res) =>{
-      this.savedChanges=true;
-      this.dataLoading=false;
+    subscribe(res =>{
+      if(res){
+        this.myDocData = res;
+        this.toggle('editMode');
 
-    }).catch(error=>{
+
+      } 
+ 
+
+    },
+
+    (error)=>{
       this.error=true;
       this.errorMessage=error.message;
       this.dataLoading=false;
-    })
-    
+    },
+    ()=>{this.error=false; this.dataLoading=false});
+        
   }
 }
 
@@ -178,3 +186,7 @@ getFilterData(docId){
  
 
 }
+function subscribe(arg0: (res: any) => void, arg1: (error: any) => void, arg2: () => void) {
+  throw new Error('Function not implemented.');
+}
+

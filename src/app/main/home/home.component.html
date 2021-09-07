@@ -5,6 +5,37 @@
 <script defer src="/__/firebase/8.10.0/firebase-auth.js"></script>
 
 
+
+
+
+
+
+
+<div fxLayoutGap ="50px"  fxLayout="column wrap" >
+
+  <div fxLayoutAlign= "center center"  fxLayoutGap ="10px" fxFlex="50%">
+  <mat-label >Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+  </div>
+<div fxLayoutAlign= "start center" fxLayout="row" fxLayoutGap ="10px" fxFlex="50%">
+
+  <mat-label>Category</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!---
+
 <mat-form-field fxLayoutAlign="center center" appearance="standard" >
   <mat-label>Search</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
@@ -41,3 +72,5 @@
 </div>
 
 </div>
+
+-->
