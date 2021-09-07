@@ -1,9 +1,8 @@
 
 
 import { Component, OnInit, ViewChild,AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,ReactiveFormsModule, FormGroup,FormsModule, Validators } from '@angular/forms';
 import firebase = require("firebase");
-import { FireBaseService,IUser } from './service/fire-base.service';
 import _ = require('underscore');
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
@@ -12,10 +11,11 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { TouchSequence } from 'selenium-webdriver';
 import{BackendService} from 'src/app/services/backend.service'
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 
 export class HomeComponent  implements OnInit{
@@ -26,7 +26,7 @@ export class HomeComponent  implements OnInit{
   dataLoading : boolean= false;
   private querySubcription;
   dataSource: MatTableDataSource<any>;
-
+  toppings :FormGroup;
   members: any[];
   //public form: FormGroup ;
 
@@ -36,8 +36,15 @@ export class HomeComponent  implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private fb:FormBuilder,private fireBaseService:FireBaseService,private router:Router,
-    private _backendService:BackendService){}
+  constructor(private fb:FormBuilder,private router:Router,
+    private _backendService:BackendService,){
+
+      this.toppings = fb.group({
+      Fashion: false,
+      Electronics: false,
+      Food: false
+    });
+    }
 
     displayedColumns = [ 'category', 'name', 'price','_id'];
 
@@ -55,13 +62,10 @@ export class HomeComponent  implements OnInit{
   getData(){
 
     this.dataLoading = true;
-    this.querySubcription =this._backendService.getProducts('product')
+    this.querySubcription =this._backendService.getDocs('product')
         .subscribe(members =>{
-            this.members = members;
-            this.dataSource=new MatTableDataSource(members);
-            this.dataSource.paginator=this.paginator;
-            this.dataSource.sort=this.sort;
-
+          this.members = members;
+            console.log(this.members);
 
         },
 
@@ -82,6 +86,8 @@ export class HomeComponent  implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
+
+  
 
 
 

@@ -1,36 +1,42 @@
-<app-header pageTitle="Home"></app-header>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
+<div fxLayout="row wrap" >
+  <app-header fxFlex="100%" pageTitle="Home"></app-header>
+  <div fxLayoutAlign="center center" style="height:100px; background-color: #00ffff;"fxLayout="row wrap" fxFlex="100%">
+    <mat-form-field style="width: 700px;" class="example-full-width" appearance="standard" >
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+    </mat-form-field >
 
-<script defer src="/__/firebase/8.10.0/firebase-auth.js"></script>
-
-
-
-
-
-
-
-
-<div fxLayoutGap ="50px"  fxLayout="column wrap" >
-
-  <div fxLayoutAlign= "center center"  fxLayoutGap ="10px" fxFlex="50%">
-  <mat-label >Search</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
   </div>
-<div fxLayoutAlign= "start center" fxLayout="row" fxLayoutGap ="10px" fxFlex="50%">
+  <div style="height:700px;width: 20px;" fxFlex="20%" fxLayout="row wrap" fxLayoutAlign = "center">
+    <section class="example-section" [formGroup]="toppings">
+      <h4>Category:</h4>
+      <p><mat-checkbox formControlName="Fashion">Fashion</mat-checkbox></p>
+      <p><mat-checkbox formControlName="Electronics">Electronics</mat-checkbox></p>
+      <p><mat-checkbox formControlName="Food">Food</mat-checkbox></p>
+    </section>
+    <!---
+    <section class="example-section" [formGroup]="toppings">
+      <h4>You chose:</h4>
+      {{toppings.value | json}}
+    </section>
+    --->
+    
+    
+  </div>
+  <div style="width: 100px; margin-top: 50px;" fxLayout.lt-sm="row"   fxFlex="60%" fxLayout="column" fxLayoutAlign="flex-start">
 
-  <mat-label>Category</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+            <div fxFlex="5%" *ngFor="let data of members" > {{data.name}} </div>
+            <div  fxFlex="5%"  *ngFor="let data of members" >{{data.price}} </div>
+
+       
+
+
+  </div>
+  <div  style="height:700px;width: 20px; background-color:#f11212;" fxFlex="20%"></div>
+
+
 </div>
-
-</div>
-
-
-
-
-
-
-
 
 
 

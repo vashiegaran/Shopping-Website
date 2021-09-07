@@ -39,6 +39,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { AdmintabComponent } from './admin/admintab/admintab.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProductComponent } from './user/product/product.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 firebase.initializeApp(environment.firebaseConfig)
 @NgModule({
@@ -83,6 +84,7 @@ firebase.initializeApp(environment.firebaseConfig)
     MatChipsModule, 
     MatBadgeModule,
     MatTabsModule,
+    MatCheckboxModule
 
     
 

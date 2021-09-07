@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 @Component({
   selector: 'app-set-product',
   templateUrl: './set-product.component.html',
-  styleUrls: ['./set-product.component.css']
+  styleUrls: ['./set-product.component.scss']
 })
 export class SetProductComponent implements OnInit {
 

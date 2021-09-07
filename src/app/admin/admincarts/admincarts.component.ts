@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 @Component({
   selector: 'app-admincarts',
   templateUrl: './admincarts.component.html',
-  styleUrls: ['./admincarts.component.css']
+  styleUrls: ['./admincarts.component.scss']
 })
 export class AdmincartsComponent implements OnInit {
 
