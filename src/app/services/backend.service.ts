@@ -120,17 +120,18 @@ export class BackendService {
       });
   }
   getCart(coll: string) {
-
-    this.itemCollection = this.afs.collection<any>(this.getCollectionURL(coll));
-    return this.itemCollection.valueChanges();
-    /*
     return this.afs.collection(this.getCollectionURL(coll), ref =>
         ref.where('delete_flag', '==', 'N')
-            .where('authid', '==', this.authState.uid)
+            .where('authid', '==', this.afAuth.auth.currentUser.uid)
             .orderBy('name', 'desc')
     ).valueChanges();
-    */
-     
+        // .snapshotChanges().map(actions => {
+        //     return actions.map(a => {
+        //         const data = a.payload.doc.data();
+        //         const id = a.payload.doc.id;
+        //         return { id, ...data };
+        //     });
+        // });
 }
   logout(){
     return this.afAuth.auth.signOut();

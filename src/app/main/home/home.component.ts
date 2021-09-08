@@ -28,8 +28,8 @@ export class HomeComponent  implements OnInit{
   dataSource: MatTableDataSource<any>;
   toppings :FormGroup;
   members: any[];
-  carts :any[]
-  counter=0
+  carts :any[];
+  counter=0;
   myDocData;
 
  // profileUrl :Observable<string |null>;
@@ -74,7 +74,7 @@ export class HomeComponent  implements OnInit{
     this.querySubcription =this._backendService.getDocs('product')
         .subscribe(members =>{
           this.members = members;
-            console.log(this.members);
+           // console.log(this.members);
         },
 
         (error)=>{
@@ -86,12 +86,21 @@ export class HomeComponent  implements OnInit{
         
   }
   getCartDetails(){
+    this.dataLoading = true;
+    this.querySubcription =this._backendService.getCart('cart')
+        .subscribe(carts =>{
+          console.log("cart data")
 
-    return this._backendService.getCart('cart')
-    .map(res =>
-      {
-        this.carts=res;
-       })
+          this.carts = carts;
+          console.log(this.carts);
+        },
+
+        (error)=>{
+          this.error=true;
+          this.errorMessage=error.message;
+          this.dataLoading=false;
+        },
+        ()=>{this.error=false; this.dataLoading=false});
         
   }
 
