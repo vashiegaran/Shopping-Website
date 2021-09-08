@@ -14,7 +14,14 @@ export class BackendService {
   private itemDoc:AngularFirestoreDocument<any>;
   item:Observable<any>;
   private itemCollection :AngularFirestoreCollection<any>;
-  constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore) { }
+  authState: any = null;
+
+  constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore) {
+
+    this.afAuth.authState.subscribe( authState => {
+      this.authState = authState;
+    });
+   }
   public member = {
     company: '',
     counter: 25,
@@ -102,9 +109,29 @@ export class BackendService {
   }
 
   redirectLogin(){
-      return this.afAuth.auth.getRedirectResult();
-  }
+      return this.afAuth.auth.onAuthStateChanged(function(user){
+        if (user)
+        {
+          return true;
+        }else{
+          return false;
+        }
 
+      });
+  }
+  getCart(coll: string) {
+
+    this.itemCollection = this.afs.collection<any>(this.getCollectionURL(coll));
+    return this.itemCollection.valueChanges();
+    /*
+    return this.afs.collection(this.getCollectionURL(coll), ref =>
+        ref.where('delete_flag', '==', 'N')
+            .where('authid', '==', this.authState.uid)
+            .orderBy('name', 'desc')
+    ).valueChanges();
+    */
+     
+}
   logout(){
     return this.afAuth.auth.signOut();
   }
@@ -243,37 +270,46 @@ export class BackendService {
 
 
   
-  updateShoppingInterest(_collType,data){
-    let fake=true;
-    return Observable.create(
+  updateShoppingInterest(coll: string, data){
+    const id = this.afs.createId();
+    const item = { id, name };
+    const timestamp = this.timestamp
+    var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
+    return docRef.set({
+        ...data,
+        author: this.authState.uid,
+        authorName: this.authState.displayName,
+        authorEmail: this.authState.email,
+        authorPhoto: this.authState.photoURL,
+        authorPhone: this.authState.phoneNumber,
+        updatedAt: timestamp,
+        createdAt: timestamp,
+        delete_flag: "N",
+    });
+}
 
-      observe=>{
-        setTimeout(()=>{
-          observe.next(fake)
-        },2000
-        )
-      }
-    )
-
-
-
-  }
-
-  updateShoppingCart(_collType,data){
-    let fake=true;
-    return Observable.create(
-
-      observe=>{
-        setTimeout(()=>{
-          observe.next(fake)
-        },2000
-        )
-      }
-    )
-
-
-
-  }
+  updateShoppingCart(coll: string, data){
+    const id = this.afs.createId();
+    const item = { id, name };
+    const timestamp = this.timestamp
+    var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
+    return docRef.set({
+        ...data,
+        //author: this.afAuth.currentUser.uid,
+        author: this.authState.uid,
+        // authorName: this.afAuth.currentUser.displayName,
+        // authorEmail: this.afAuth.currentUser.email,
+        // authorPhoto: this.afAuth.currentUser.photoURL,
+        // authorPhone: this.afAuth.currentUser.phoneNumber,
+        authorName: this.authState.displayName,
+        authorEmail: this.authState.email,
+        authorPhoto: this.authState.photoURL,
+        authorPhone: this.authState.phoneNumber,
+        updatedAt: timestamp,
+        createdAt: timestamp,
+        delete_flag: "N",
+    });
+}
 
   updateDocs(coll:string,data:any,docId?:any)
   {
@@ -286,8 +322,8 @@ export class BackendService {
         _id:id, 
         updatedAt:timestamp,
         authid: this.afAuth.auth.currentUser.uid,
-        username:this.afAuth.auth.currentUser.displayName,
-        useremail:this.afAuth.auth.currentUser.email
+        userName:this.afAuth.auth.currentUser.displayName,
+        userEmail:this.afAuth.auth.currentUser.email
 
 
       })

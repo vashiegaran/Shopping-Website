@@ -6,8 +6,8 @@
       <mat-label>Search</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
     </mat-form-field >
-
   </div>
+
   <div style="height:700px;width: 20px;" fxFlex="20%" fxLayout="row wrap" fxLayoutAlign = "center">
     <section class="example-section" [formGroup]="toppings">
       <h4>Category:</h4>
@@ -15,25 +15,97 @@
       <p><mat-checkbox formControlName="Electronics">Electronics</mat-checkbox></p>
       <p><mat-checkbox formControlName="Food">Food</mat-checkbox></p>
     </section>
-    <!---
-    <section class="example-section" [formGroup]="toppings">
-      <h4>You chose:</h4>
-      {{toppings.value | json}}
+  </div>
+
+  <div *ngIf="toggle ; else showProductDetails" style="width: 100px; margin-top: 50px;"   fxFlex="60%" fxLayout="column" fxLayoutAlign="flex-start">
+    <section class="products">    
+      <div class="product-card">
+        <div class="product-image">
+        </div>
+          <div style="margin-top: 10px; width: 300px;" *ngFor="let data of members" (click)="showDetails(data);toggle=!toggle" class="product-info">
+            <mat-card>
+            <img src="assets/img/coat-01.jpeg">
+            <h4>{{data.name}}</h4>
+            <h5>RM:{{data.price}}</h5>
+          </mat-card>
+          </div>
+      </div>
     </section>
-    --->
-    
-    
   </div>
-  <div style="width: 100px; margin-top: 50px;" fxLayout.lt-sm="row"   fxFlex="60%" fxLayout="column" fxLayoutAlign="flex-start">
 
-            <div fxFlex="5%" *ngFor="let data of members" > {{data.name}} </div>
-            <div  fxFlex="5%"  *ngFor="let data of members" >{{data.price}} </div>
+ 
+      <ng-template #showProductDetails>
+        <div style="height:700px;width: 20px;" fxFlex="60%" fxLayout="row wrap" fxLayoutAlign = "center">
+<!---
+      <b>{{ myDocData.name }}</b>
+      <span class="small-spacer"></span>
+      <span matTooltip="Show All Products">
+          <mat-icon color="primary" (click)="toggle=!toggle">backspace</mat-icon>
+      </span>
+      <p class="label-go" mat-line> {{myDocData.sname }}  {{myDocData.lname }}</p>
+      <p class="label-hint" mat-line> {{myDocData.descr }}</p>
+      <p class="label-go" mat-line> Color: {{myDocData.color }} Size: {{myDocData.size }} Price: {{myDocData.price }} </p>
+      <p class="label-error" mat-line> Shipping: {{myDocData.shipping }} Discount: {{myDocData.discount }} </p>
+      <mat-error *ngIf="savedChanges">
+          <br/>
+          <br/> Shopping cart is updated.
+          <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
+          <span class="med-spacer"></span>
+          <br/>
+      </mat-error>
+      <br/>
+      <mat-icon (click)="countProd('remove')" color="primary">remove</mat-icon>
+      {{ counter }}
+      <mat-icon (click)="countProd('add')" color="primary">add</mat-icon>
+      <span class="med-spacer"></span>
+      <button [disabled]="counter < 1" mat-raised-button color="primary" (click)="addToCart(myDocData, counter)">Add to Cart</button>
+      <br/>
+      <img [src]="profileUrl | async" width="300" height="300" />
+      -->
+      <section class="products">    
+        <div class="product-card">
+          <div class="product-image">
+          </div>
+          
+            <div style="margin-top: 10px; height: 600px; width: 500px;"  class="product-info">
+              <mat-card>
+              <img src="assets/img/coat-01.jpeg">
+              <h4>{{myDocData.name}}</h4>
+              <h5>RM:{{myDocData.price}}</h5>
+              <h5>Color:{{myDocData.color}}</h5>
+              <h5>Size:{{myDocData.size}}</h5>
+              <h5>Shpping:{{myDocData.shipping}}</h5>
+              <h5>Discount:{{myDocData.discount}}</h5>
+              <h5>Details:{{myDocData.descr}}</h5>
 
-       
 
+              <mat-error *ngIf="savedChanges">
+                <br/>
+                <br/> Shopping cart is updated.
+                <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
+                <span class="med-spacer"></span>
+                <br/>
+            </mat-error>
+            <br/>
+            <mat-icon (click)="countProd('remove')" color="primary">remove</mat-icon>
+            {{ counter }}
+            <mat-icon (click)="countProd('add')" color="primary">add</mat-icon>
+            <span class="med-spacer"></span>
+            <button [disabled]="counter < 1" mat-raised-button color="primary" (click)="addToCart(myDocData, counter)">Add to Cart</button>
+            <br/>
+            </mat-card>
+            </div>
+        </div>
+      </section>
+    </div>
 
-  </div>
-  <div  style="height:700px;width: 20px; background-color:#f11212;" fxFlex="20%"></div>
+    </ng-template>
+
+ 
+  <mat-card *ngFor="let cart of carts" style="height:700px;width: 20px; background-color:#b3b3b3;" fxFlex="20%">
+    <h3>Your Cart</h3>
+    <h5>{{cart.name}}</h5>
+</mat-card>
 
 
 </div>

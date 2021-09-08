@@ -79,37 +79,17 @@ export class ProductComponent implements OnInit {
     this.profileUrl="";
   }
 
-  ShowDetails(item){
-    this.counter=0;
+  showDetails(item) {
+    this.counter = 0;
     this.myDocData = item;
     this.getPic(item.path);
-    this.dataLoading=true;
-    let data = item;
- 
-
+    // capture user interest event, user has looked into product details
     this.dataLoading = true;
-    this.querySubcription =this._backendService.updateShoppingInterest('product',item)
-        .subscribe(members =>{
-          if(members){
-            this.members = members;
-            this.dataLoading=false;
-            this.savedChanges=true;
-  
-  
-          } 
-     
-  
-        },
-  
-        (error)=>{
-          this.error=true;
-          this.errorMessage=error.message;
-          this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
-
-  }
-
+    let data = item;
+    return this._backendService.updateShoppingInterest('interests',data).then((success)=> {
+        this.dataLoading = false;
+    });
+}
   countProd(filter){
     if(filter =="add"){
 
@@ -123,35 +103,15 @@ export class ProductComponent implements OnInit {
 
   }
 
-  addTocart(item,counter){
-
-    this.dataLoading=true;
+  addToCart(item, counter){
+    this.dataLoading = true;
     let data = item;
-    data.qty=counter;
-
-    this.querySubcription =this._backendService.updateShoppingCart('interests',data)
-        .subscribe(members =>{
-          if(members){
-            this.savedChanges = true;
-            this.dataLoading=false;
-            this.counter=0;
-
-  
-  
-          } 
-     
-  
-        },
-  
-        (error)=>{
-          this.error=true;
-          this.errorMessage=error.message;
-          this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
-
-
-  }
-
+    data.qty = counter;
+    return this._backendService.updateShoppingCart('cart',data).then((success)=> {
+        this.dataLoading = false;
+        this.counter=0;
+        this.savedChanges=true;
+    });
+}
 
 }

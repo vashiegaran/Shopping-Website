@@ -28,11 +28,17 @@ export class HomeComponent  implements OnInit{
   dataSource: MatTableDataSource<any>;
   toppings :FormGroup;
   members: any[];
+  carts :any[]
+  counter=0
+  myDocData;
+
+ // profileUrl :Observable<string |null>;
+ profileUrl: String;
   //public form: FormGroup ;
 
  // public userList : IUser[]=[];
-  toolgeField: string;
-  //public userDetails:IUser;
+ toggle: boolean =true;
+ //public userDetails:IUser;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -50,12 +56,15 @@ export class HomeComponent  implements OnInit{
 
 
   ngOnInit(): void {
-    this.toolgeField="";
     //this.getUsers();
     this.dataSource = new MatTableDataSource(this.members);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.getData();
+    this.getCartDetails();
+  }
+  getPic(picId){
+    this.profileUrl="";
   }
 
 
@@ -66,7 +75,6 @@ export class HomeComponent  implements OnInit{
         .subscribe(members =>{
           this.members = members;
             console.log(this.members);
-
         },
 
         (error)=>{
@@ -75,6 +83,15 @@ export class HomeComponent  implements OnInit{
           this.dataLoading=false;
         },
         ()=>{this.error=false; this.dataLoading=false});
+        
+  }
+  getCartDetails(){
+
+    return this._backendService.getCart('cart')
+    .map(res =>
+      {
+        this.carts=res;
+       })
         
   }
 
@@ -87,7 +104,43 @@ export class HomeComponent  implements OnInit{
     }
   }
 
+
+  showDetails(item) {
+    this.counter = 0;
+    this.myDocData = item;
+    this.getPic(item.path);
+    // capture user interest event, user has looked into product details
+    this.dataLoading = true;
+    let data = item;
+    return this._backendService.updateShoppingInterest('interests',data).then((success)=> {
+        this.dataLoading = false;
+    });
+}
+
   
+countProd(filter){
+  if(filter =="add"){
+
+    this.counter=this.counter+1;
+
+  }else{
+      if(this.counter>0){
+        this.counter =this.counter-1;
+      }
+  }
+
+}
+
+addToCart(item, counter){
+  this.dataLoading = true;
+  let data = item;
+  data.qty = counter;
+  return this._backendService.updateShoppingCart('cart',data).then((success)=> {
+      this.dataLoading = false;
+      this.counter=0;
+      this.savedChanges=true;
+  });
+}
 
 
 

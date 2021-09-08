@@ -23,16 +23,28 @@ export class LoginComponent implements OnInit {
   getAuthStatus() {
 
     this.dataLoading=true;
+    if(this._backendService.redirectLogin())
+    {
+      this.userLoggedin=true;
+      console.log("logged in")
 
+    }else{
+      this.userLoggedin=false;
+
+    }
+  /*
      this._backendService.redirectLogin().then((result)=>{
+      console.log(result.user.displayName)
 
       if(result.credential){
         console.log(result.credential);
         if(result.credential["accessToken"] !=null){
-          console.log("it works")
+          console.log("works")
           this.userLoggedin=true;
 
         
+        }else{
+          console.log("doesnt work")
         }
        
       }
@@ -47,7 +59,7 @@ export class LoginComponent implements OnInit {
         this.dataLoading=false;
 
       });
-
+*/
       this.dataLoading=false;
 
 

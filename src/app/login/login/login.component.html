@@ -5,10 +5,11 @@
   <mat-card-header>
     <mat-card-subtitle>eCommerce App</mat-card-subtitle>
   </mat-card-header>
-  <div *ngIf="userLoggedin ">
+  <div *ngIf="userLoggedin; else showShopping;">
     <button type="button" routerLink="/home" mat-raised-button color="primary">Continue Shopping</button>
+    <button (click)="logout()"> Logout</button>
   </div >
-  <ng-template #showShopping>
+  <ng-template #showShopping >
     <mat-card-content   fxLayoutAlign="center center">
       <mat-divider></mat-divider>
       <form #formData="ngForm" (ngSubmit)="login('email',formData.value)" class="example-form">
