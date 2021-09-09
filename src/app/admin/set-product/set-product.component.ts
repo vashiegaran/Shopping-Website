@@ -18,6 +18,7 @@ export class SetProductComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   myDocData:any;
     toggleField: string;
+    changePage: boolean =true;
 
   members: any[];
   //public form: FormGroup ;
@@ -131,13 +132,13 @@ export class SetProductComponent implements OnInit {
         ()=>{this.error=false; this.dataLoading=false});
         
   }
-
+/*
   deleteDoc(docId){
     if (confirm("Are you sure want to delete this record ?")) {
       this.dataLoading = true;
     this.dataLoading = true;
     this.querySubcription =this._backendService.deleteOneDocs('product',docId)
-    subscribe(res =>{
+    .subscribe(res =>{
       if(res){
         this.myDocData = res;
         this.toggle('editMode');
@@ -157,7 +158,7 @@ export class SetProductComponent implements OnInit {
         
   }
 }
-
+*/
 getFilterData(docId){
 
   this.dataLoading = true;
@@ -185,7 +186,5 @@ getFilterData(docId){
  
 
 }
-function subscribe(arg0: (res: any) => void, arg1: (error: any) => void, arg2: () => void) {
-  throw new Error('Function not implemented.');
-}
+
 

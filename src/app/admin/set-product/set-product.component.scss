@@ -24,3 +24,69 @@
     flex-wrap: wrap;
     justify-content: flex-start;
   }
+
+  .p3 {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 4px;
+    line-height: 2.6;
+    word-spacing: 4px;
+    
+  }
+
+  .mat-icon {
+    font-size: 50px;
+  }
+
+  .example-card {
+    max-width: 400px;
+    margin-bottom: 8px;
+  }
+
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .product-card {
+    padding: 2%;
+    flex-grow: 1;
+    flex-basis: 16%;
+  
+    display: flex; /* so child elements can use flexbox stuff too! */
+  }
+
+  .product-info {
+    margin-top: auto;
+  }
+
+  .form-control {
+    box-shadow: 0 10px 40px 0 #B0C1D9;
+  }
+  .form-control::placeholder  {
+    font-family: FontAwesome;
+  }
+
+  #example2 {
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px #888888;
+  }
+  
+  .example-container {
+    width: 500px;
+    height: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+  }
+
+ 

@@ -1,9 +1,66 @@
 
 
+
+<div *ngIf="(toggleField=='searchMode') else (toggleField=='addMode')? showAddMode : ((toggleField=='editMode')? showEditMode : showResMode)" fxLayout="column"  fxFlex="100%" fxLayoutGap="20px">
+    <app-header pageTitle="Welcome to merchant page"></app-header>
+    <div fxLayoutAlign="center center">
+        <mat-card fxLayoutAlign="flex-start" 
+        style="background-color: rgb(228, 233, 227); margin-top: 2%; height:300px;width:50%;">
+    
+       <h4 class="p3"> We welcome you to sell your products with only few steps 
+
+       </h4> 
+
+    </mat-card>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-start" >
+        <mat-card (click)="toggle('resMode'); getData()" fxLayoutAling="center center" fxFlex="15%" style="margin-left: 15%; margin-top: 50px; height: 300px; background-color: rgb(248, 245, 252);"  >
+            <mat-icon class="mat-icon "> fastfood</mat-icon>
+            <h2 class="p3" >Your Product</h2>
+        </mat-card>
+
+        <mat-card  (click)="toggle('addMode')" fxFlex="15%" style="margin-left: 5%; margin-top: 50px; height: 300px; background-color: rgb(255, 255, 255);"  >
+            <mat-icon class="mat-icon "> add_shopping_cart</mat-icon>
+            <h2 class="p3" >Add Product</h2>
+        </mat-card>
+
+        <mat-card fxFlex="15%" style="margin-left: 5%; margin-top: 50px; height: 300px;; background-color: rgb(242, 236, 247);"  >
+            <mat-icon class="mat-icon "> screen_share</mat-icon>
+            <h2 class="p3" >Share Your Product</h2>
+        </mat-card>
+
+        <mat-card fxFlex="15%" style="margin-left: 5%; margin-top: 50px; height: 300px; background-color: rgb(247, 247, 247);"  >
+            <mat-icon class="mat-icon "> help_outline</mat-icon>
+            <h2 class="p3" >Help</h2>
+        </mat-card>
+    </div>
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!---
+
 <mat-card>
     <mat-card-content>
         <div *ngIf="(toggleField=='searchMode') else (toggleField=='addMode')? showAddMode : ((toggleField=='editMode')? showEditMode : showResMode)">
-            <!-- searchmode -->
             <form #searchFormData="ngForm" class="example-form">
                 <mat-card-actions align="start">
                     <button type="button" (click)="toggle('resMode');getFilterData(searchFormData.value);" mat-raised-button [disabled]="!searchFormData.valid"
@@ -42,8 +99,7 @@
         </div>
     </mat-card-content>
 </mat-card>
- 
-<!-- addMode -->
+ --->
 <ng-template #showAddMode>
 
     <form #addDataForm="ngForm" (ngSubmit)="setData(addDataForm.value);" novalidate>
@@ -104,9 +160,7 @@
         </div>
     </form>
 </ng-template>
-<!-- edit mode -->
 
-<!-- edit mode -->
 <ng-template #showEditMode>
     <form #editDataForm="ngForm" (ngSubmit)="updateData(editDataForm.value);" novalidate>
         <input type="hidden" name="_id" id="_id" [ngModel]="myDocData._id" required>
@@ -170,6 +224,48 @@
         </div>
     </form>
 </ng-template>
+
+<ng-template  #showResMode>
+
+<div style="width: 100px;"   fxFlex="100%" fxLayout="column" >
+  
+  <section class="products">    
+    <div class="product-card">
+      <div  *ngIf="changePage ; else showProductDetails" fxFlex="50%" class="product-image">
+        <mat-card>
+        <div  style="margin-top: 50px; width: 300px;" *ngFor="let data of members" class="product-info" >
+          <mat-card id="example2" style="width: 300px;">
+          <h4>{{data.name}}</h4>
+          <h5>{{data.price}}</h5>
+          <button mat-raised-button (click)="deleteCart(data)" >Remove</button>
+         
+          <button mat-raised-button color ="primary" (click)="toggle('editMode');getData()" >Edit</button>
+        </mat-card>
+        </div>
+        <mat-error *ngIf="savedChanges">
+          <br/>
+          <br/> Successfully purchased.
+          <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
+          <span class="med-spacer"></span>
+          <br/>
+      </mat-error>
+      </mat-card>
+    </div>
+
+    
+   
+
+
+
+
+
+
+    </div>
+  </section>
+
+    </div>
+</ng-template>
+<!--
 
 <ng-template #showResMode>
     <mat-card-actions align="start">
@@ -249,3 +345,4 @@
     </div>
 </ng-template>
 
+-->
