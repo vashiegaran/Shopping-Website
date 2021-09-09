@@ -1,6 +1,6 @@
 
-
-import { Component, OnInit, ViewChild,AfterViewInit } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+import { Component, ViewChild,AfterViewInit,EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder,ReactiveFormsModule, FormGroup,FormsModule, Validators } from '@angular/forms';
 import firebase = require("firebase");
 import _ = require('underscore');
@@ -12,6 +12,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { TouchSequence } from 'selenium-webdriver';
 import{BackendService} from 'src/app/services/backend.service'
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,6 +20,7 @@ import{BackendService} from 'src/app/services/backend.service'
 })
 
 export class HomeComponent  implements OnInit{
+
 
   savedChanges = false;
   error: boolean = false;
@@ -31,10 +33,10 @@ export class HomeComponent  implements OnInit{
   carts :any[];
   counter=0;
   myDocData;
-
  // profileUrl :Observable<string |null>;
  profileUrl: String;
   //public form: FormGroup ;
+  searchModel: string;
 
  // public userList : IUser[]=[];
  toggle: boolean =true;
@@ -44,24 +46,24 @@ export class HomeComponent  implements OnInit{
 
   constructor(private fb:FormBuilder,private router:Router,
     private _backendService:BackendService,){
-
+      
       this.toppings = fb.group({
       Fashion: false,
       Electronics: false,
       Food: false
     });
     }
-
+ 
     displayedColumns = [ 'category', 'name', 'price','_id'];
 
 
   ngOnInit(): void {
     //this.getUsers();
-    this.dataSource = new MatTableDataSource(this.members);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    //this.dataSource = new MatTableDataSource(this.members);
+  //  this.dataSource.paginator = this.paginator;
+   // this.dataSource.sort = this.sort;
     this.getData();
-    this.getCartDetails();
+   // this.getCartDetails();
   }
   getPic(picId){
     this.profileUrl="";
@@ -85,12 +87,14 @@ export class HomeComponent  implements OnInit{
         ()=>{this.error=false; this.dataLoading=false});
         
   }
+
   getCartDetails(){
     this.dataLoading = true;
+    console.log(this._backendService.afAuth.auth.currentUser.uid)
+
     this.querySubcription =this._backendService.getCart('cart')
         .subscribe(carts =>{
-          console.log("cart data")
-
+          
           this.carts = carts;
           console.log(this.carts);
         },
@@ -124,6 +128,7 @@ export class HomeComponent  implements OnInit{
     return this._backendService.updateShoppingInterest('interests',data).then((success)=> {
         this.dataLoading = false;
     });
+    
 }
 
   

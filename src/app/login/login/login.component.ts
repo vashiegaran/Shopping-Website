@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private _backendService:BackendService) { }
 
-  ngOnInit() {
+   ngOnInit() {
   //  this.userLoggedin=false;
     this.getAuthStatus();
   }
@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       this.userLoggedin=false;
 
     }
+    
   /*
      this._backendService.redirectLogin().then((result)=>{
       console.log(result.user.displayName)
@@ -85,10 +86,13 @@ export class LoginComponent implements OnInit {
    
   }
 
+
+
   logout(){
       this.dataLoading=true;
+      this.userLoggedin=false;
+
       return this._backendService.logout().then((success)=>{
-        this.userLoggedin=false;
         this.dataLoading=false;
 
       });

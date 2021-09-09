@@ -20,6 +20,8 @@ export class AuthGuardService implements CanActivate {
       {
         if (!authenticated)
           this.router.navigate(['/login']);
+          console.log(this.afAuth.auth.currentUser.displayName)
+
       })
   }
 }

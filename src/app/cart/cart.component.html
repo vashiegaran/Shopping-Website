@@ -1,0 +1,76 @@
+
+
+
+
+
+<div style="width: 100px;"   fxFlex="100%" fxLayout="column" >
+  <app-header></app-header>
+  
+  <section class="products">    
+    <div class="product-card">
+      <div  *ngIf="toggle ; else showProductDetails" fxFlex="50%" class="product-image">
+        <mat-card>
+        <div  style="margin-top: 50px; width: 300px;" *ngFor="let data of carts" class="product-info" >
+          <mat-card id="example2" style="width: 300px;">
+          <h4>{{data.name}}</h4>
+          <h5>{{data.price}}</h5>
+          <button mat-raised-button (click)="deleteCart(data)" >Remove</button>
+         
+          <button mat-raised-button color ="primary" (click)="showDetails(data);toggle=!toggle">Buy</button>
+        </mat-card>
+        </div>
+        <mat-error *ngIf="savedChanges">
+          <br/>
+          <br/> Successfully purchased.
+          <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
+          <span class="med-spacer"></span>
+          <br/>
+      </mat-error>
+      </mat-card>
+    </div>
+
+      <ng-template #showProductDetails>
+
+      <div fxFlex="100%" fxLayoytAlign="center center">
+        <mat-card>
+          <img src="assets/img/coat-01.jpeg">
+              <h4>{{myDocData.name}}</h4>
+              <h5>RM:{{myDocData.price}}</h5>
+              <h5>Color:{{myDocData.color}}</h5>
+              <h5>Size:{{myDocData.size}}</h5>
+              <h5>Shpping:{{myDocData.shipping}}</h5>
+              <h5>Discount:{{myDocData.discount}}</h5>
+              <h5>Details:{{myDocData.descr}}</h5>
+
+
+              <mat-error *ngIf="savedChanges">
+                <br/>
+                <br/> Successfully purchased.
+                <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
+                <span class="med-spacer"></span>
+                <br/>
+            </mat-error>
+            <br/>
+            <mat-icon (click)="countProd('remove')" color="primary">remove</mat-icon>
+            {{ counter }}
+            <mat-icon (click)="countProd('add')" color="primary">add</mat-icon>
+       
+            <br/>
+        <button mat-raised-button >Cancel</button>
+        <button  [disabled]="counter < 1" (click)="purchaseProd(myDocData, counter)" mat-raised-button color ="primary">Purchase</button>      
+      </mat-card>
+    </div>
+
+      </ng-template>
+   
+
+
+
+
+
+
+    </div>
+  </section>
+
+    </div>
+

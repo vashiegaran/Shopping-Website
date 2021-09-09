@@ -1,11 +1,14 @@
 
 <div fxLayout="row wrap" >
   <app-header fxFlex="100%" pageTitle="Home"></app-header>
-  <div fxLayoutAlign="center center" style="height:100px; background-color: #00ffff;"fxLayout="row wrap" fxFlex="100%">
-    <mat-form-field style="width: 700px;" class="example-full-width" appearance="standard" >
-      <mat-label>Search</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-    </mat-form-field >
+  <div class="search-hero" fxLayoutAlign="center center" style="height:100px; background-color: #00ffff;"fxLayout="row wrap" fxFlex="100%">
+    <mat-form-field style="width: 80%" floatLabel='never'>
+      <input  
+             matInput 
+             [(ngModel)]="searchText" 
+             placeholder="Search" 
+             autocomplete="off" >
+    </mat-form-field>
   </div>
 
   <div style="height:700px;width: 20px;" fxFlex="20%" fxLayout="row wrap" fxLayoutAlign = "center">
@@ -17,14 +20,13 @@
     </section>
   </div>
 
-  <div *ngIf="toggle ; else showProductDetails" style="width: 100px; margin-top: 50px;"   fxFlex="60%" fxLayout="column" fxLayoutAlign="flex-start">
+  <div *ngIf="toggle ; else showProductDetails" style="width: 100px; margin-top: 50px;"   fxFlex="70%" fxLayout="column" fxLayoutAlign="flex-start">
     <section class="products">    
       <div class="product-card">
         <div class="product-image">
         </div>
-          <div style="margin-top: 10px; width: 300px;" *ngFor="let data of members" (click)="showDetails(data);toggle=!toggle" class="product-info">
+          <div style="margin-top: 10px; width: 300px;" *ngFor="let data of members | search:searchText"(click)="showDetails(data);toggle=!toggle" class="product-info">
             <mat-card>
-            <img src="assets/img/coat-01.jpeg">
             <h4>{{data.name}}</h4>
             <h5>RM:{{data.price}}</h5>
           </mat-card>
@@ -35,33 +37,8 @@
 
  
       <ng-template #showProductDetails>
-        <div style="height:700px;width: 20px;" fxFlex="60%" fxLayout="row wrap" fxLayoutAlign = "center">
-<!---
-      <b>{{ myDocData.name }}</b>
-      <span class="small-spacer"></span>
-      <span matTooltip="Show All Products">
-          <mat-icon color="primary" (click)="toggle=!toggle">backspace</mat-icon>
-      </span>
-      <p class="label-go" mat-line> {{myDocData.sname }}  {{myDocData.lname }}</p>
-      <p class="label-hint" mat-line> {{myDocData.descr }}</p>
-      <p class="label-go" mat-line> Color: {{myDocData.color }} Size: {{myDocData.size }} Price: {{myDocData.price }} </p>
-      <p class="label-error" mat-line> Shipping: {{myDocData.shipping }} Discount: {{myDocData.discount }} </p>
-      <mat-error *ngIf="savedChanges">
-          <br/>
-          <br/> Shopping cart is updated.
-          <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
-          <span class="med-spacer"></span>
-          <br/>
-      </mat-error>
-      <br/>
-      <mat-icon (click)="countProd('remove')" color="primary">remove</mat-icon>
-      {{ counter }}
-      <mat-icon (click)="countProd('add')" color="primary">add</mat-icon>
-      <span class="med-spacer"></span>
-      <button [disabled]="counter < 1" mat-raised-button color="primary" (click)="addToCart(myDocData, counter)">Add to Cart</button>
-      <br/>
-      <img [src]="profileUrl | async" width="300" height="300" />
-      -->
+        <div style="height:700px;width: 20px;" fxFlex="70%" fxLayout="row wrap" fxLayoutAlign = "center">
+
       <section class="products">    
         <div class="product-card">
           <div class="product-image">
@@ -102,11 +79,9 @@
     </ng-template>
 
  
-  <mat-card *ngFor="let cart of carts" style="height:700px;width: 20px; background-color:#b3b3b3;" fxFlex="20%">
-    <h3>Your Cart</h3>
-    <h5>{{cart.name}}</h5>
-</mat-card>
-
+   
+  
+  
 
 </div>
 

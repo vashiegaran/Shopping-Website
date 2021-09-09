@@ -6,6 +6,8 @@ import {auth} from 'firebase';
 import firebase = require('firebase');
 import { ObserversModule } from '@angular/cdk/observers';
 import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument } from 'angularfire2/firestore';
+import { TouchSequence } from 'selenium-webdriver';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,8 @@ export class BackendService {
   private itemDoc:AngularFirestoreDocument<any>;
   item:Observable<any>;
   private itemCollection :AngularFirestoreCollection<any>;
+  private cartColletion :AngularFirestoreCollection<any>;
+
   authState: any = null;
 
   constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore) {
@@ -22,13 +26,7 @@ export class BackendService {
       this.authState = authState;
     });
    }
-  public member = {
-    company: '',
-    counter: 25,
-    usertype: 'regular',
-    name: '',
-    email: ''
-}
+
   getDoc(callUrl:string){
       this.itemDoc= this.afs.doc<any>(callUrl);
       return this.itemDoc.valueChanges();
@@ -109,7 +107,9 @@ export class BackendService {
   }
 
   redirectLogin(){
+
       return this.afAuth.auth.onAuthStateChanged(function(user){
+       console.log(user.displayName)
         if (user)
         {
           return true;
@@ -119,19 +119,24 @@ export class BackendService {
 
       });
   }
-  getCart(coll: string) {
-    return this.afs.collection(this.getCollectionURL(coll), ref =>
+  getCart(coll) {
+    console.log(this.afAuth.auth.currentUser.uid)
+    this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
+    ref.where('author','==',this.afAuth.auth.currentUser.uid)
+    )
+    return this.cartColletion.valueChanges();
+   
+    /*
+    console.log(this.afAuth.auth.currentUser.uid);
+    this.cartColletion =this.afs.collection(this.getCollectionURL(coll), ref =>
         ref.where('delete_flag', '==', 'N')
             .where('authid', '==', this.afAuth.auth.currentUser.uid)
             .orderBy('name', 'desc')
-    ).valueChanges();
-        // .snapshotChanges().map(actions => {
-        //     return actions.map(a => {
-        //         const data = a.payload.doc.data();
-        //         const id = a.payload.doc.id;
-        //         return { id, ...data };
-        //     });
-        // });
+            
+    )
+    //console.log(this.cartColletion);
+    return this.cartColletion.valueChanges();
+    */
 }
   logout(){
     return this.afAuth.auth.signOut();
@@ -268,8 +273,6 @@ export class BackendService {
 
   }
 
-
-
   
   updateShoppingInterest(coll: string, data){
     const id = this.afs.createId();
@@ -312,6 +315,29 @@ export class BackendService {
     });
 }
 
+updatePurchase(coll: string, data){
+  const id = this.afs.createId();
+  const item = { id, name };
+  const timestamp = this.timestamp
+  var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
+  return docRef.set({
+      ...data,
+      //author: this.afAuth.currentUser.uid,
+      author: this.authState.uid,
+      // authorName: this.afAuth.currentUser.displayName,
+      // authorEmail: this.afAuth.currentUser.email,
+      // authorPhoto: this.afAuth.currentUser.photoURL,
+      // authorPhone: this.afAuth.currentUser.phoneNumber,
+      authorName: this.authState.displayName,
+      authorEmail: this.authState.email,
+      authorPhoto: this.authState.photoURL,
+      authorPhone: this.authState.phoneNumber,
+      purhcasedAt: timestamp,
+      createdAt: timestamp,
+      delete_flag: "N",
+  });
+}
+
   updateDocs(coll:string,data:any,docId?:any)
   {
       const id = this.afs.createId();
@@ -330,27 +356,14 @@ export class BackendService {
       })
   }
 
-  deleteOneDocs(coll,docId)
+  deleteOneDocs(coll:string,data:any)
   {
       const id = this.afs.createId();
       const item = { id,name };
       const timestamp = this.timestamp;
-      console.log("delete")
-      var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(docId);
-      return docRef.update({
-
-        delete_flag :"Y",
-        _id:id, 
-        updatedAt:timestamp,
-        createAt: timestamp,
-        authid: this.afAuth.auth.currentUser.uid,
-        username:this.afAuth.auth.currentUser.displayName,
-        useremail:this.afAuth.auth.currentUser.email
-
-
-      })
+      return this.afs.collection(this.getCollectionURL(coll)).doc(data._id).delete();
+     
   }
-
 
  
 
@@ -358,3 +371,5 @@ export class BackendService {
 
 
 }
+
+

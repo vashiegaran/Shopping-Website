@@ -21,7 +21,6 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { SettingsComponent } from './settings/settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -38,8 +37,12 @@ import { SetProductComponent } from './admin/set-product/set-product.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { AdmintabComponent } from './admin/admintab/admintab.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ProductComponent } from './user/product/product.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {SearchPipe} from './search.pipe'
+import { CartComponent } from './cart/cart.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 firebase.initializeApp(environment.firebaseConfig)
 @NgModule({
@@ -49,11 +52,12 @@ firebase.initializeApp(environment.firebaseConfig)
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    SettingsComponent,
     LoginComponent,
     SetProductComponent,
     AdmintabComponent,
-    ProductComponent
+    SearchPipe,
+    CartComponent,
+    
   
 
     
@@ -84,7 +88,9 @@ firebase.initializeApp(environment.firebaseConfig)
     MatChipsModule, 
     MatBadgeModule,
     MatTabsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSidenavModule
 
     
 
