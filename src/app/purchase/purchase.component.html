@@ -1,0 +1,48 @@
+<div fxLayoutGap="32px" fxLayout="column">
+  <app-header pageTitle="Order Tracking"></app-header>
+
+
+
+
+
+  <div fxLayout="column">
+        <h2 > My Orders / Tracking </h2>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+            <h6>Order ID: OD45345345435</h6>
+            <article class="card">
+                <div class="card-body row">
+                    <div class="col"> <strong>Estimated Delivery time:</strong> <br> </div>
+                    <div class="col"> <strong>Shipping BY:</strong> <br>  </div>
+                    <div class="col"> <strong>Status:</strong> <br> </div>
+                    <div class="col"> <strong>Tracking #:</strong> <br>  </div>
+                </div>
+            </article>
+            <div class="track">
+                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+                <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+                <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Order Delivered</span> </div>
+            </div>
+            <mat-divider></mat-divider>
+
+            <mat-card *ngFor="let data of items" fxLayout="row wrap" fxLayoutAlign="flex-start" fxLayoutGap="10px">
+                <mat-card fxLayout="row wrap" style="margin-top:10%; height: 200px; width: 20%;">
+                  <div fxFlex="60%" class="aside"><img src="https://i.imgur.com/iDwDQ4o.png" class="img-sm border"></div>
+                
+                  <div style="margin-top: 30px;"fxFlex="40%" class="aside"><h3>{{data.name}} {{data.price}}</h3></div>
+
+
+                </mat-card >
+    
+
+
+                
+            </mat-card>
+            <a href="#" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+        </div>
+  </div>
+
+</div>
+
+

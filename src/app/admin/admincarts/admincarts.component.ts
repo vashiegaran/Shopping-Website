@@ -104,22 +104,15 @@ export class AdmincartsComponent implements OnInit {
 
     this.dataLoading = true;
     this.querySubcription =this._backendService.updateProduct('cart',formData)
-        .subscribe(members =>{
-          if(members){
-            this.savedChanges = true;
+    .then((members) =>{
+      this.savedChanges=true;
+      this.dataLoading=false;
 
-          } 
-     
-
-        },
-
-        (error)=>{
-          this.error=true;
-          this.errorMessage=error.message;
-          this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
-        
+    }).catch(error=>{
+      this.error=true;
+      this.errorMessage=error.message;
+      this.dataLoading=false;
+    })
   }
 
   getDoc(docId){

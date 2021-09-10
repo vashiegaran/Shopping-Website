@@ -42,7 +42,8 @@ import {SearchPipe} from './search.pipe'
 import { CartComponent } from './cart/cart.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSidenavModule} from '@angular/material/sidenav';
-
+import {MatSelectModule} from '@angular/material/select';
+import { PurchaseComponent } from './purchase/purchase.component';
 
 firebase.initializeApp(environment.firebaseConfig)
 @NgModule({
@@ -57,6 +58,8 @@ firebase.initializeApp(environment.firebaseConfig)
     AdmintabComponent,
     SearchPipe,
     CartComponent,
+    PurchaseComponent,
+    
     
   
 
@@ -90,7 +93,8 @@ firebase.initializeApp(environment.firebaseConfig)
     MatTabsModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSelectModule
 
     
 

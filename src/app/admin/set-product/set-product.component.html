@@ -101,7 +101,8 @@
 </mat-card>
  --->
 <ng-template #showAddMode>
-
+ <div fxLayout="column wrap" fxFlex="100%">
+     <app-header pageTitle="Add Your Product"></app-header>
     <form #addDataForm="ngForm" (ngSubmit)="setData(addDataForm.value);" novalidate>
         <mat-error *ngIf="savedChanges">
             Data is saved.
@@ -120,10 +121,19 @@
               
           </mat-card-actions>
             <div style="width:500px;"  fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="center center">
+                <mat-form-field appearance="fill">
+                    <mat-label>Category</mat-label>
+                    <mat-select [(ngModel)]="selectedValue" name="category" id="category" ngModel>
+                      <mat-option *ngFor="let cat of category" [value]="cat.value">
+                        {{cat.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!--
             <mat-form-field  >
                 <input matInput placeholder="Category" name="category" id="category" ngModel required minlength="1">
                 <mat-hint align="end">eg. Men Garments</mat-hint>
-            </mat-form-field>
+            </mat-form-field>-->
             <mat-form-field>
                 <input matInput placeholder="Product Name" name="name" id="name" ngModel required minlength="1">
                 <mat-hint align="end">eg. Shirt</mat-hint>
@@ -159,6 +169,7 @@
           </div>
         </div>
     </form>
+</div>
 </ng-template>
 
 <ng-template #showEditMode>
@@ -239,7 +250,7 @@
           <h5>{{data.price}}</h5>
           <button mat-raised-button (click)="deleteCart(data)" >Remove</button>
          
-          <button mat-raised-button color ="primary" (click)="toggle('editMode');getData()" >Edit</button>
+          <button mat-raised-button color ="primary" (click)="toggle('editMode');getDoc(data._id)" >Edit</button>
         </mat-card>
         </div>
         <mat-error *ngIf="savedChanges">

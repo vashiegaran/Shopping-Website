@@ -90,7 +90,6 @@ export class BackendService {
   }
 
   
-
   login(loginType,formData?){
     // this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
     
@@ -119,6 +118,7 @@ export class BackendService {
 
       });
   }
+
   getCart(coll) {
     console.log(this.afAuth.auth.currentUser.uid)
     this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
@@ -138,6 +138,27 @@ export class BackendService {
     return this.cartColletion.valueChanges();
     */
 }
+
+getUserProd(coll) {
+  console.log(this.afAuth.auth.currentUser.uid)
+  this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
+  ref.where('author','==',this.afAuth.auth.currentUser.uid)
+  )
+  return this.cartColletion.valueChanges();
+ 
+  /*
+  console.log(this.afAuth.auth.currentUser.uid);
+  this.cartColletion =this.afs.collection(this.getCollectionURL(coll), ref =>
+      ref.where('delete_flag', '==', 'N')
+          .where('authid', '==', this.afAuth.auth.currentUser.uid)
+          .orderBy('name', 'desc')
+          
+  )
+  //console.log(this.cartColletion);
+  return this.cartColletion.valueChanges();
+  */
+}
+
   logout(){
     return this.afAuth.auth.signOut();
   }
@@ -247,30 +268,18 @@ export class BackendService {
   }
 
 
-  updateProduct(_collType,filter){
-
-    let fake=true;
-    return Observable.create(
-
-      observe=>{
-        setTimeout(()=>{
-          observe.next(fake)
-        },2000
-        )
-      }
-    )
-
-  }
+  updateProduct(coll,formData){
+    console.log(formData.id)
+    return this.updateDocs(this.getCollectionURL(coll),formData._id,formData);
+}
 
   getOneProductDoc(_collType,docId){
-
+    
     let docUrl =this.getCollectionURL(_collType)+"/"+docId;
-
     this.itemDoc = this.afs.doc<any>(docUrl);
     return this.itemDoc.valueChanges();
-
-
-
+    
+    
   }
 
   
@@ -338,12 +347,12 @@ updatePurchase(coll: string, data){
   });
 }
 
-  updateDocs(coll:string,data:any,docId?:any)
+  updateDocs(coll:string,data:any,docId?:string)
   {
       const id = this.afs.createId();
       const item = { id,name };
       const timestamp = this.timestamp;
-      var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(data._id);
+      var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(docId);
       return docRef.update({
         ...data,
         _id:id, 
@@ -356,11 +365,11 @@ updatePurchase(coll: string, data){
       })
   }
 
+
+
   deleteOneDocs(coll:string,data:any)
   {
-      const id = this.afs.createId();
-      const item = { id,name };
-      const timestamp = this.timestamp;
+    
       return this.afs.collection(this.getCollectionURL(coll)).doc(data._id).delete();
      
   }

@@ -10,7 +10,6 @@
              autocomplete="off" >
     </mat-form-field>
   </div>
-
   <div style="height:700px;width: 20px;" fxFlex="20%" fxLayout="row wrap" fxLayoutAlign = "center">
     <section class="example-section" [formGroup]="toppings">
       <h4>Category:</h4>
@@ -20,21 +19,15 @@
     </section>
   </div>
 
-  <div *ngIf="toggle ; else showProductDetails" style="width: 100px; margin-top: 50px;"   fxFlex="70%" fxLayout="column" fxLayoutAlign="flex-start">
-    <section class="products">    
-      <div class="product-card">
-        <div class="product-image">
-        </div>
-          <div style="margin-top: 10px; width: 300px;" *ngFor="let data of members | search:searchText"(click)="showDetails(data);toggle=!toggle" class="product-info">
-            <mat-card>
+  <div fxLayoutAlign="flex-start" fxLayout="row wrap" *ngIf="toggle ; else showProductDetails"  fxFlex="80%" >
+
+            <mat-card style="margin-top: 10px; width: 300px;" *ngFor="let data of members | search:searchText"(click)="showDetails(data);toggle=!toggle" class="product-info">
             <h4>{{data.name}}</h4>
             <h5>RM:{{data.price}}</h5>
           </mat-card>
-          </div>
       </div>
-    </section>
-  </div>
 
+</div>
  
       <ng-template #showProductDetails>
         <div style="height:700px;width: 20px;" fxFlex="70%" fxLayout="row wrap" fxLayoutAlign = "center">
@@ -83,7 +76,7 @@
   
   
 
-</div>
+
 
 
 

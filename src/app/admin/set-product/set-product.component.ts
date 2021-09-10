@@ -3,13 +3,22 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { BackendService } from 'src/app/services/backend.service';
 import { of } from 'rxjs';
+
 @Component({
   selector: 'app-set-product',
   templateUrl: './set-product.component.html',
   styleUrls: ['./set-product.component.scss']
 })
-export class SetProductComponent implements OnInit {
 
+
+export class SetProductComponent implements OnInit {
+  category: Category[] = [
+    {value: 'Fashion', viewValue: 'Fashion'},
+    {value: 'Food', viewValue: 'Food'},
+    {value: 'Electronics', viewValue: 'Electronics'}
+  ];
+
+  userProd:any;
   savedChanges = false;
   error: boolean = false;
   errorMessage :String = "";
@@ -31,13 +40,22 @@ export class SetProductComponent implements OnInit {
   constructor(private _backendService:BackendService) { }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.members);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getUserProd();
     this.toggleField = "searchMode";
 
 
   }
+
+  showDetails(item: any) {
+    this.myDocData = item;
+   // this.getPic(item.path);
+    // capture user interest event, user has looked into product details
+    this.dataLoading = true;
+    let data = item;
+    return this._backendService.updateShoppingInterest('product',data).then((success)=> {
+        this.dataLoading = false;
+    });
+}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -75,7 +93,33 @@ export class SetProductComponent implements OnInit {
         ()=>{this.error=false; this.dataLoading=false});
         
   }
+  
+  getUserProd(){
 
+    
+      this.dataLoading = true;
+  
+  
+      //console.log(this._backendService.getCart('cart'))
+      console.log(this.userProd)
+  
+      this.querySubcription =this._backendService.getUserProd('product')
+      .subscribe(userProd =>{
+        this.userProd = userProd;
+        console.log("User prod is working")
+          },
+  
+          (error)=>{
+            this.error=true;
+            this.errorMessage=error.message;
+            this.dataLoading=false;
+          },
+          ()=>{this.error=false; this.dataLoading=false});
+          
+    
+  
+
+  }
 
   setData(formData){
 
@@ -96,7 +140,8 @@ export class SetProductComponent implements OnInit {
   updateData(formData){
 
     this.dataLoading = true;
-    this.querySubcription =this._backendService.updateDocs('product',formData)
+    console.log(formData)
+    this.querySubcription =this._backendService.updateProduct('product',formData)
         .then((res) =>{
             this.savedChanges=true;
             this.dataLoading=false;
@@ -112,14 +157,19 @@ export class SetProductComponent implements OnInit {
 
   getDoc(docId){
     this.dataLoading = true;
+    console.log(docId)
     this.querySubcription =this._backendService.getOneProductDoc('product',docId)
         .subscribe(res =>{
           if(res){
+            console.log("res is working");
             this.myDocData = res;
+            console.log(this.myDocData)
             this.toggle('editMode');
 
 
-          } 
+          } else{
+            console.log("not working")
+          }
      
 
         },
@@ -132,6 +182,9 @@ export class SetProductComponent implements OnInit {
         ()=>{this.error=false; this.dataLoading=false});
         
   }
+
+
+
 /*
   deleteDoc(docId){
     if (confirm("Are you sure want to delete this record ?")) {
@@ -185,6 +238,11 @@ getFilterData(docId){
 
  
 
+}
+
+interface Category {
+  value: string;
+  viewValue: string;
 }
 
 
