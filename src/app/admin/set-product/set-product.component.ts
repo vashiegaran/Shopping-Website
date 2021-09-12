@@ -17,6 +17,7 @@ export class SetProductComponent implements OnInit {
     {value: 'Food', viewValue: 'Food'},
     {value: 'Electronics', viewValue: 'Electronics'}
   ];
+  filePath:string
 
   userProd:any[];
   savedChanges = false;
@@ -28,7 +29,6 @@ export class SetProductComponent implements OnInit {
   myDocData:any;
     toggleField: string;
     changePage: boolean =true;
-
   members: any[];
   //public form: FormGroup ;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,7 +38,14 @@ export class SetProductComponent implements OnInit {
   displayedColumns = [ 'category', 'name', 'price','_id'];
 
   constructor(private _backendService:BackendService) { }
+  upload(event) {    
+    this.filePath = event.target.files[0]
+  }
+  
+  uploadImage(){
 
+
+  }
   ngOnInit() {
     this.toggleField = "searchMode";
 
@@ -120,11 +127,11 @@ export class SetProductComponent implements OnInit {
 
   }
 
-  /*
+  
   setData(formData){
-
+    console.log(formData)
     this.dataLoading = true;
-    this.querySubcription =this._backendService.setDocs('product',formData)
+    this.querySubcription =this._backendService.setNewDoc('product',formData,this.filePath)
         .then((res) =>{
           this.savedChanges=true;
           this.dataLoading=false;
@@ -136,7 +143,7 @@ export class SetProductComponent implements OnInit {
         })
         
   }
-  */
+  
 
   updateData(formData){
 
@@ -152,11 +159,11 @@ export class SetProductComponent implements OnInit {
     console.log(docId)
     this.querySubcription =this._backendService.getOneProductDoc('product',docId)
         .subscribe(res =>{
-          console.log(res)
+      //    console.log(res)
           if(res){
-            console.log(res);
+         //   console.log(res);
             this.myDocData = res;
-            console.log(this.myDocData)
+            console.log(this.myDocData.name)
             this.toggle('editMode');
 
 

@@ -44,7 +44,14 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import { PurchaseComponent } from './purchase/purchase.component';
+import {AngularFireStorageModule} from '@angular/fire/storage'
 
+AngularFireModule.initializeApp({
+  apiKey: "",
+  authDomain: "",
+  storageBucket: "",
+  projectId: "",
+}),
 firebase.initializeApp(environment.firebaseConfig)
 @NgModule({
   declarations: [
@@ -59,6 +66,7 @@ firebase.initializeApp(environment.firebaseConfig)
     SearchPipe,
     CartComponent,
     PurchaseComponent,
+    
     
     
   
@@ -94,7 +102,9 @@ firebase.initializeApp(environment.firebaseConfig)
     MatCheckboxModule,
     MatDialogModule,
     MatSidenavModule,
-    MatSelectModule
+    MatSelectModule,
+    AngularFireStorageModule
+
 
     
 

@@ -118,10 +118,15 @@
               <button type="reset" (click)="this.addDataForm.reset();" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Clear</button>
               <span class="med-spacer"></span>
              
-              
+              <mat-divider></mat-divider>
+
           </mat-card-actions>
             <div style="width:500px;"  fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="center center">
+                     <label for="file">File:</label>
+                    <input  type="file" name="image" id="image" (change)="upload($event)" accept=".png,.jpg,.jpeg" ngModel required />
+
                 <mat-form-field appearance="fill">
+                   
                     <mat-label>Category</mat-label>
                     <mat-select [(ngModel)]="selectedValue" name="category" id="category" ngModel>
                       <mat-option *ngFor="let cat of category" [value]="cat.value">

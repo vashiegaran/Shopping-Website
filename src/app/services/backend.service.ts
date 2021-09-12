@@ -8,6 +8,7 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument } from 'angularfire2/firestore';
 import { TouchSequence } from 'selenium-webdriver';
 import { map } from 'rxjs/internal/operators/map';
+import {AngularFireStorage} from '@angular/fire/storage'
 
 
 @Injectable({
@@ -22,12 +23,15 @@ export class BackendService {
   authState: any = null;
   iD:string;
 
-  constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore) {
+  constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore,private afStorage: AngularFireStorage) {
 
     this.afAuth.authState.subscribe( authState => {
       this.authState = authState;
     });
    }
+
+
+
 
   getDoc(callUrl:string){
       this.itemDoc= this.afs.doc<any>(callUrl);
@@ -215,8 +219,28 @@ export class BackendService {
     return "/OnlineStore/Store/" +filter;
   }
 
+  setNewDoc(coll: string, data: any,filePath:string) {
+    const id = this.afs.createId();
+    const item = { id, name };
+    const timestamp = this.timestamp
+    var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
+    this.afStorage.upload('/images'+id+this.afAuth.auth.currentUser.uid+filePath, filePath);
+    return docRef.set({
+        ...data,
+        _id: id,
+        updatedAt: timestamp,
+        createdAt: timestamp,
+        delete_flag: "N",
+        username: this.authState.displayName,
+        useremail: this.authState.email,
+        author:this.afAuth.auth.currentUser.uid
+        
+    });
+}
+
   setDocs(coll:string,data:any,docId?:any)
   {
+    console.log(data._id)
       const id = this.afs.createId();
       const item = { id,name };
       const timestamp = this.timestamp;
@@ -231,14 +255,12 @@ export class BackendService {
            console.log(a)
            return this.afs.collection(this.getCollectionURL(coll)).doc(a).set({
             ...data,
-            _id:id, 
-            author: this.authState.uid,
-            updatedAt:timestamp,
-            createAt: timestamp,
-            delete_flag:"N",
-            authid: this.afAuth.auth.currentUser.uid,
-            username:this.afAuth.auth.currentUser.displayName,
-            useremail:this.afAuth.auth.currentUser.email
+            updatedAt: timestamp,
+            createdAt: timestamp,
+            delete_flag: "N",
+            username: this.authState.displayName,
+            useremail: this.authState.email,
+            author:this.afAuth.auth.currentUser.uid
     
     
           })
@@ -280,25 +302,7 @@ export class BackendService {
 }
 
   getOneProductDoc(_collType,docId){
-   // console.log(docId)
-    this.afs.collection(this.getCollectionURL(_collType),ref=>ref.where('_id','==',docId)
-   .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
-    map(actions => actions.map(a => {
-        const id = a.payload.doc.id;
-        return  id ;
-    }))) .subscribe(docID=>{
-      docID.map(a=>{
-        console.log(a)
-        this.iD =a;
-        
-     
-        
-
-      })
-    })
-    console.log("please work"+this.afs.collection(this.getCollectionURL(_collType)).doc(this.iD).valueChanges())
-    console.log(this.iD)
-    return this.afs.collection(this.getCollectionURL(_collType)).doc(this.iD).valueChanges();
+   return this.afs.collection(this.getCollectionURL(_collType)).doc(docId).valueChanges();
   
     
   }
