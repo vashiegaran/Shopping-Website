@@ -233,7 +233,8 @@ export class BackendService {
         delete_flag: "N",
         username: this.authState.displayName,
         useremail: this.authState.email,
-        author:this.afAuth.auth.currentUser.uid
+        author:this.afAuth.auth.currentUser.uid,
+        status:"P"
         
     });
 }

@@ -101,30 +101,34 @@
 </mat-card>
  --->
 <ng-template #showAddMode>
- <div fxLayout="column wrap" fxFlex="100%">
+    <div fxLayout="column wrap" fxFlex="100%">
      <app-header pageTitle="Add Your Product"></app-header>
+     <button mat-flat-button color="primary" (click)="Back()">Go Back</button>
+     <div fxLayout="column wrap" fxFlex="60%">
     <form #addDataForm="ngForm" (ngSubmit)="setData(addDataForm.value);" novalidate>
         <mat-error *ngIf="savedChanges">
-            Data is saved.
+            Your product has been submitted for review. You will an email regarding the status as soon as possible.
             <label class="small-spacer"></label>
             <mat-icon (click)="this.addDataForm.reset();savedChanges=false;toggle('searchMode');">clear</mat-icon>
         </mat-error>
+
         <div fxLayout="column wrap" fxLayoutAlign="center center" *ngIf="!savedChanges">
           
+
             <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
             <mat-error *ngIf="error">Error: {{ errorMessage }}</mat-error>
             <mat-card-actions align="start">
-              <button type="submit" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Add</button>
+              <button type="submit" mat-raised-button [disabled]="!addDataForm.valid"  color="primary">Submit</button>
               <button type="reset" (click)="this.addDataForm.reset();" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Clear</button>
               <span class="med-spacer"></span>
              
               <mat-divider></mat-divider>
 
           </mat-card-actions>
-            <div style="width:500px;"  fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="center center">
+           
                      <label for="file">File:</label>
                     <input  type="file" name="image" id="image" (change)="upload($event)" accept=".png,.jpg,.jpeg" ngModel required />
-
+                <div style="width:800px;"  fxLayout="column wrap" fxLayoutGap="6px" >
                 <mat-form-field appearance="fill">
                    
                     <mat-label>Category</mat-label>
@@ -139,22 +143,14 @@
                 <input matInput placeholder="Category" name="category" id="category" ngModel required minlength="1">
                 <mat-hint align="end">eg. Men Garments</mat-hint>
             </mat-form-field>-->
-            <mat-form-field>
+            <mat-form-field  style="width: 500px;">
                 <input matInput placeholder="Product Name" name="name" id="name" ngModel required minlength="1">
                 <mat-hint align="end">eg. Shirt</mat-hint>
             </mat-form-field>
 
-            <mat-form-field>
-                <input matInput placeholder="Short Name" name="sname" id="sname" ngModel>
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="Long Name" name="lname" id="lname" ngModel>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
+            <mat-form-field style="width:800px;">
                 <textarea matInput placeholder="Description" name="descr" id="descr" ngModel></textarea>
             </mat-form-field>
-            <br>
             <mat-form-field>
                 <input matInput placeholder="Color" name="color" id="color" ngModel>
             </mat-form-field>
@@ -164,16 +160,31 @@
             <mat-form-field>
                 <input matInput placeholder="Price" name="price" id="price" ngModel required pattern="[0-9]+">
             </mat-form-field>
-            <mat-form-field >
-                <input matInput placeholder="Shipping" name="shipping" id="shipping" ngModel pattern="[0-9]+">
-            </mat-form-field>
+            <mat-form-field appearance="fill">
+
+            <mat-label>Courrier Service</mat-label>
+            <mat-select [(ngModel)]="shippingvalues" name="shipping" id="shipping" ngModel>
+              <mat-option *ngFor="let ship of shipping" [value]="ship.value">
+                {{ship.viewValue}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Shipping Price" name="shipPrice" id="shipPrice" ngModel pattern="[0-9]+">
+            <mat-hint align="end"></mat-hint>
+        </mat-form-field>
             <mat-form-field>
                 <input matInput placeholder="Discount" name="discount" id="discount" ngModel pattern="[0-9]+">
+                <mat-hint align="end"></mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Address" name="address" id="Address" ngModel required >
                 <mat-hint align="end">eg. 0 if no discount is offered.</mat-hint>
             </mat-form-field>
           </div>
         </div>
     </form>
+</div>
 </div>
 </ng-template>
 
@@ -244,12 +255,14 @@
             </mat-form-field>
         </div>
     </form>
+    
 </ng-template>
 
 <ng-template  #showResMode>
 
 <div style="width: 100px;"   fxFlex="100%" fxLayout="column" >
         <app-header pageTitle="Your Product"></app-header>
+        <button mat-flat-button color="primary" (click)="Back()">Go Back</button>
         <mat-divider></mat-divider>
         <h1>Your Product</h1>
         <mat-divider></mat-divider>

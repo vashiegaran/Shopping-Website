@@ -3,6 +3,9 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { BackendService } from 'src/app/services/backend.service';
 import { of } from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-set-product',
@@ -12,11 +15,23 @@ import { of } from 'rxjs';
 
 
 export class SetProductComponent implements OnInit {
+
   category: Category[] = [
     {value: 'Fashion', viewValue: 'Fashion'},
     {value: 'Food', viewValue: 'Food'},
     {value: 'Electronics', viewValue: 'Electronics'}
   ];
+
+  shipping: Shipping[] = [
+    {value: 'GDex', viewValue: 'GDex'},
+    {value: 'J&T Express', viewValue: 'J&T Express'},
+    {value: 'TA-Q-BIN', viewValue: 'TA-Q-BIN'},
+    {value: 'Citylink', viewValue: 'Citylink'},
+    {value: 'FedEx', viewValue: 'FedEx'},
+    {value: 'Pgeon', viewValue: 'Pgeon'},
+    {value: 'Pos Laju', viewValue: 'Pos Laju'},
+  ];
+  
   filePath:string
 
   userProd:any[];
@@ -37,15 +52,15 @@ export class SetProductComponent implements OnInit {
   toolgeField: string;
   displayedColumns = [ 'category', 'name', 'price','_id'];
 
-  constructor(private _backendService:BackendService) { }
+  constructor(private _backendService:BackendService,private _location: Location) { }
   upload(event) {    
     this.filePath = event.target.files[0]
   }
   
-  uploadImage(){
-
-
+  Back(){
+    this.toggle('searchMode')
   }
+  
   ngOnInit() {
     this.toggleField = "searchMode";
 
@@ -227,4 +242,14 @@ interface Category {
   viewValue: string;
 }
 
+interface Shipping {
+  value: string;
+  viewValue: string;
+}
+
+@Component({
+  selector: 'dialog',
+  templateUrl: 'dialog.html',
+})
+export class Message {}
 
