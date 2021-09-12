@@ -92,7 +92,7 @@ export class HomeComponent  implements OnInit{
     this.dataLoading = true;
     console.log(this._backendService.afAuth.auth.currentUser.uid)
 
-    this.querySubcription =this._backendService.getCart('cart')
+    this.querySubcription =this._backendService.getYourItem('cart')
         .subscribe(carts =>{
           
           this.carts = carts;

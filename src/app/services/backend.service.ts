@@ -7,6 +7,7 @@ import firebase = require('firebase');
 import { ObserversModule } from '@angular/cdk/observers';
 import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument } from 'angularfire2/firestore';
 import { TouchSequence } from 'selenium-webdriver';
+import { map } from 'rxjs/internal/operators/map';
 
 
 @Injectable({
@@ -17,8 +18,9 @@ export class BackendService {
   item:Observable<any>;
   private itemCollection :AngularFirestoreCollection<any>;
   private cartColletion :AngularFirestoreCollection<any>;
-
+  getID:String;
   authState: any = null;
+  iD:string;
 
   constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore) {
 
@@ -119,7 +121,7 @@ export class BackendService {
       });
   }
 
-  getCart(coll) {
+  getYourItem(coll) {
     console.log(this.afAuth.auth.currentUser.uid)
     this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
     ref.where('author','==',this.afAuth.auth.currentUser.uid)
@@ -139,25 +141,7 @@ export class BackendService {
     */
 }
 
-getUserProd(coll) {
-  console.log(this.afAuth.auth.currentUser.uid)
-  this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
-  ref.where('author','==',this.afAuth.auth.currentUser.uid)
-  )
-  return this.cartColletion.valueChanges();
- 
-  /*
-  console.log(this.afAuth.auth.currentUser.uid);
-  this.cartColletion =this.afs.collection(this.getCollectionURL(coll), ref =>
-      ref.where('delete_flag', '==', 'N')
-          .where('authid', '==', this.afAuth.auth.currentUser.uid)
-          .orderBy('name', 'desc')
-          
-  )
-  //console.log(this.cartColletion);
-  return this.cartColletion.valueChanges();
-  */
-}
+
 
   logout(){
     return this.afAuth.auth.signOut();
@@ -236,19 +220,34 @@ getUserProd(coll) {
       const id = this.afs.createId();
       const item = { id,name };
       const timestamp = this.timestamp;
-      var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
-      return docRef.set({
-        ...data,
-        _id:id, 
-        updatedAt:timestamp,
-        createAt: timestamp,
-        delete_flag:"N",
-        authid: this.afAuth.auth.currentUser.uid,
-        username:this.afAuth.auth.currentUser.displayName,
-        useremail:this.afAuth.auth.currentUser.email
-
-
-      })
+      var docRef= this.afs.collection(this.getCollectionURL(coll),ref=>ref.where('_id', '==', data._id)
+      .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
+       map(actions => actions.map(a => {
+           const id = a.payload.doc.id;
+           return  id ;
+       })))
+       .subscribe(docID=>{
+         docID.map(a=>{
+           console.log(a)
+           return this.afs.collection(this.getCollectionURL(coll)).doc(a).set({
+            ...data,
+            _id:id, 
+            author: this.authState.uid,
+            updatedAt:timestamp,
+            createAt: timestamp,
+            delete_flag:"N",
+            authid: this.afAuth.auth.currentUser.uid,
+            username:this.afAuth.auth.currentUser.displayName,
+            useremail:this.afAuth.auth.currentUser.email
+    
+    
+          })
+ 
+         })
+       })
+ 
+ 
+    
   }
 
 
@@ -268,17 +267,39 @@ getUserProd(coll) {
   }
 
 
-  updateProduct(coll,formData){
-    console.log(formData.id)
-    return this.updateDocs(this.getCollectionURL(coll),formData._id,formData);
+  updateProduct(coll,formData:any){
+    console.log(formData._id)
+    var docId=this.afs.collection(this.getCollectionURL(coll),ref => ref.where('_id', '==', formData._id)
+     .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+          const id = a.payload.doc.id;
+          return  id ;
+      })))
+     
+    return this.updateDocs(this.getCollectionURL(coll),formData,docId);
 }
 
   getOneProductDoc(_collType,docId){
-    
-    let docUrl =this.getCollectionURL(_collType)+"/"+docId;
-    this.itemDoc = this.afs.doc<any>(docUrl);
-    return this.itemDoc.valueChanges();
-    
+   // console.log(docId)
+    this.afs.collection(this.getCollectionURL(_collType),ref=>ref.where('_id','==',docId)
+   .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
+    map(actions => actions.map(a => {
+        const id = a.payload.doc.id;
+        return  id ;
+    }))) .subscribe(docID=>{
+      docID.map(a=>{
+        console.log(a)
+        this.iD =a;
+        
+     
+        
+
+      })
+    })
+    console.log("please work"+this.afs.collection(this.getCollectionURL(_collType)).doc(this.iD).valueChanges())
+    console.log(this.iD)
+    return this.afs.collection(this.getCollectionURL(_collType)).doc(this.iD).valueChanges();
+  
     
   }
 
@@ -347,13 +368,16 @@ updatePurchase(coll: string, data){
   });
 }
 
-  updateDocs(coll:string,data:any,docId?:string)
-  {
+  updateDocs(coll:string,data:any,docId:any)
+  { 
+      console.log(data._id);
+      console.log(coll)
       const id = this.afs.createId();
       const item = { id,name };
       const timestamp = this.timestamp;
-      var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(docId);
+      var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(data._id);
       return docRef.update({
+        
         ...data,
         _id:id, 
         updatedAt:timestamp,
@@ -367,10 +391,27 @@ updatePurchase(coll: string, data){
 
 
 
-  deleteOneDocs(coll:string,data:any)
+  deleteOneDocs(coll,data)
   {
-    
-      return this.afs.collection(this.getCollectionURL(coll)).doc(data._id).delete();
+    console.log("_id"+data)
+     return (this.afs.collection(this.getCollectionURL(coll),ref => ref.where('_id', '==', data)
+     .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+          const id = a.payload.doc.id;
+          return  id ;
+      })))
+      .subscribe(docID=>{
+        docID.map(a=>{
+          console.log(a)
+          return this.afs.collection(this.getCollectionURL(coll)).doc(a).delete();
+
+        })
+      })
+
+
+     )
+      
+     // this.afs.collection(this.getCollectionURL(coll)).doc(getId)
      
   }
 

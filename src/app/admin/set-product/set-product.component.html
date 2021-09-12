@@ -14,7 +14,7 @@
     </mat-card>
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="flex-start" >
-        <mat-card (click)="toggle('resMode'); getData()" fxLayoutAling="center center" fxFlex="15%" style="margin-left: 15%; margin-top: 50px; height: 300px; background-color: rgb(248, 245, 252);"  >
+        <mat-card (click)="toggle('resMode'); getUserProd();" fxLayoutAling="center center" fxFlex="15%" style="margin-left: 15%; margin-top: 50px; height: 300px; background-color: rgb(248, 245, 252);"  >
             <mat-icon class="mat-icon "> fastfood</mat-icon>
             <h2 class="p3" >Your Product</h2>
         </mat-card>
@@ -194,10 +194,15 @@
                     <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
                 </span>
             </mat-card-actions>
-            <mat-form-field>
-                <input matInput placeholder="Category" name="category" id="category" [ngModel]="myDocData.category" required minlength="1">
-                <mat-hint align="end">eg. Men Garments</mat-hint>
-            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Category</mat-label>
+                <mat-select name="category" id="category" [ngModel]="myDocData.category" >
+                  <mat-option *ngFor="let cat of category" [value]="cat.value">
+                    {{cat.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        
             <br>
 
             <br>
@@ -239,42 +244,33 @@
 <ng-template  #showResMode>
 
 <div style="width: 100px;"   fxFlex="100%" fxLayout="column" >
-  
-  <section class="products">    
-    <div class="product-card">
-      <div  *ngIf="changePage ; else showProductDetails" fxFlex="50%" class="product-image">
-        <mat-card>
-        <div  style="margin-top: 50px; width: 300px;" *ngFor="let data of members" class="product-info" >
-          <mat-card id="example2" style="width: 300px;">
-          <h4>{{data.name}}</h4>
-          <h5>{{data.price}}</h5>
-          <button mat-raised-button (click)="deleteCart(data)" >Remove</button>
-         
-          <button mat-raised-button color ="primary" (click)="toggle('editMode');getDoc(data._id)" >Edit</button>
-        </mat-card>
+        <app-header pageTitle="Your Product"></app-header>
+        <mat-divider></mat-divider>
+        <h1>Your Product</h1>
+        <mat-divider></mat-divider>
+        <div fxLayoyt="row wrap" fxFlex="100%">
+            <mat-card style="height: 100%; width: 20%; background-color: rgb(31, 31, 31);" fxFlex=20% ></mat-card >
+                <div fxLayoutAlign="flex-start" fxLayout="row wrap"  fxFlex="80%" >
+                    <mat-card  *ngFor="let data of userProd" style="height: 150px;  width: 10%; background-color: rgb(241, 250, 250);"  >
+                    <h4>{{data.name}}</h4>
+                    <h5>{{data.price}}</h5>
+                    <button mat-raised-button (click)="deleteProd(data._id)" >Remove</button>
+                    
+                  <button mat-raised-button color ="primary" (click)="getDoc(data._id)" >Edit</button>
+                <mat-error *ngIf="savedChanges">
+                  <br/>
+                  <br/> 
+                  <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
+                  <span class="med-spacer"></span>
+                  <br/>
+              </mat-error>
+              </mat-card>
         </div>
-        <mat-error *ngIf="savedChanges">
-          <br/>
-          <br/> Successfully purchased.
-          <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
-          <span class="med-spacer"></span>
-          <br/>
-      </mat-error>
-      </mat-card>
-    </div>
-
     
-   
-
-
-
-
-
-
     </div>
-  </section>
 
-    </div>
+        
+</div>
 </ng-template>
 <!--
 

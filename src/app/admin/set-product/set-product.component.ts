@@ -18,7 +18,7 @@ export class SetProductComponent implements OnInit {
     {value: 'Electronics', viewValue: 'Electronics'}
   ];
 
-  userProd:any;
+  userProd:any[];
   savedChanges = false;
   error: boolean = false;
   errorMessage :String = "";
@@ -40,7 +40,6 @@ export class SetProductComponent implements OnInit {
   constructor(private _backendService:BackendService) { }
 
   ngOnInit() {
-    this.getUserProd();
     this.toggleField = "searchMode";
 
 
@@ -103,7 +102,7 @@ export class SetProductComponent implements OnInit {
       //console.log(this._backendService.getCart('cart'))
       console.log(this.userProd)
   
-      this.querySubcription =this._backendService.getUserProd('product')
+      this.querySubcription =this._backendService.getYourItem('product')
       .subscribe(userProd =>{
         this.userProd = userProd;
         console.log("User prod is working")
@@ -121,6 +120,7 @@ export class SetProductComponent implements OnInit {
 
   }
 
+  /*
   setData(formData){
 
     this.dataLoading = true;
@@ -136,22 +136,14 @@ export class SetProductComponent implements OnInit {
         })
         
   }
+  */
 
   updateData(formData){
 
     this.dataLoading = true;
-    console.log(formData)
-    this.querySubcription =this._backendService.updateProduct('product',formData)
-        .then((res) =>{
-            this.savedChanges=true;
-            this.dataLoading=false;
-  
-          }).catch(error=>{
-            this.error=true;
-            this.errorMessage=error.message;
-            this.dataLoading=false;
-          })
-          
+    console.log("this data:"+formData)
+    this.querySubcription =this._backendService.setDocs('product',formData);
+       
      
   }
 
@@ -160,8 +152,9 @@ export class SetProductComponent implements OnInit {
     console.log(docId)
     this.querySubcription =this._backendService.getOneProductDoc('product',docId)
         .subscribe(res =>{
+          console.log(res)
           if(res){
-            console.log("res is working");
+            console.log(res);
             this.myDocData = res;
             console.log(this.myDocData)
             this.toggle('editMode');
@@ -185,33 +178,15 @@ export class SetProductComponent implements OnInit {
 
 
 
-/*
-  deleteDoc(docId){
-    if (confirm("Are you sure want to delete this record ?")) {
-      this.dataLoading = true;
-    this.dataLoading = true;
-    this.querySubcription =this._backendService.deleteOneDocs('product',docId)
-    .subscribe(res =>{
-      if(res){
-        this.myDocData = res;
-        this.toggle('editMode');
-
-
-      } 
  
+  deleteProd(data){ 
+    console.log(data)
+   console.log(" delete1 working")
+   this.dataLoading = true;
+  this._backendService.deleteOneDocs('product',data)
 
-    },
-
-    (error)=>{
-      this.error=true;
-      this.errorMessage=error.message;
-      this.dataLoading=false;
-    },
-    ()=>{this.error=false; this.dataLoading=false});
-        
-  }
-}
-*/
+ }
+  
 getFilterData(docId){
 
   this.dataLoading = true;

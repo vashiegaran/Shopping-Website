@@ -34,7 +34,7 @@ export class CartComponent implements OnInit {
     //console.log(this._backendService.getCart('cart'))
     console.log(this.carts)
 
-    this.querySubcription =this._backendService.getCart('cart')
+    this.querySubcription =this._backendService.getYourItem('cart')
     .subscribe(carts =>{
       this.carts = carts;
       console.log("subscribe is working")
@@ -103,13 +103,11 @@ purchaseProd(item: any, counter: any){
   });
 }
   
-  deleteCart(item:any){ 
+  deleteCart(data){ 
+     console.log(data)
     console.log(" delete1 working")
     this.dataLoading = true;
-   this._backendService.deleteOneDocs('cart',item).then((success)=>
-   {
-
-   })
+   this._backendService.deleteOneDocs('cart',data)
 
   }
 }

@@ -115,6 +115,7 @@ export class AdmincartsComponent implements OnInit {
     })
   }
 
+  /*
   getDoc(docId){
     this.dataLoading = true;
     this.querySubcription =this._backendService.getOneProductDoc('cart',docId)
@@ -138,6 +139,7 @@ export class AdmincartsComponent implements OnInit {
         
   }
 
+  
   deleteDoc(docId){
     if (confirm("Are you sure want to delete this record ?")) {
       this.dataLoading = true;
@@ -156,6 +158,7 @@ export class AdmincartsComponent implements OnInit {
         
   }
 }
+*/
 
 getFilterData(docId){
 
