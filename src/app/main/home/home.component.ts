@@ -21,6 +21,8 @@ import{BackendService} from 'src/app/services/backend.service'
 
 export class HomeComponent  implements OnInit{
 
+  date: Date;
+  date2:Date;
 
   savedChanges = false;
   error: boolean = false;
@@ -63,6 +65,10 @@ export class HomeComponent  implements OnInit{
   //  this.dataSource.paginator = this.paginator;
    // this.dataSource.sort = this.sort;
     this.getData();
+    this.date2 = new Date();
+    this.date2.setDate( this.date2.getDate() + 10 );
+    this.date = new Date();
+    this.date.setDate( this.date.getDate() + 7 );
    // this.getCartDetails();
   }
   getPic(picId){
@@ -121,6 +127,7 @@ export class HomeComponent  implements OnInit{
   showDetails(item) {
     this.counter = 0;
     this.myDocData = item;
+    var date= new Date();
     this.getPic(item.path);
     // capture user interest event, user has looked into product details
     this.dataLoading = true;

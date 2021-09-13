@@ -8,13 +8,17 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument } from 'angularfire2/firestore';
 import { TouchSequence } from 'selenium-webdriver';
 import { map } from 'rxjs/internal/operators/map';
-import {AngularFireStorage} from '@angular/fire/storage'
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage'
+import ref = require('firebase');
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
+  basePath = '/images';                       //  <<<<<<<
+  downloadableURL = '';                      //  <<<<<<<
+  task: AngularFireUploadTask;               //  <<<<<<<
   private itemDoc:AngularFirestoreDocument<any>;
   item:Observable<any>;
   private itemCollection :AngularFirestoreCollection<any>;
@@ -22,6 +26,7 @@ export class BackendService {
   getID:String;
   authState: any = null;
   iD:string;
+  storageRef: firebase.storage.Reference;
 
   constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore,private afStorage: AngularFireStorage) {
 
@@ -29,7 +34,6 @@ export class BackendService {
       this.authState = authState;
     });
    }
-
 
 
 
@@ -131,7 +135,7 @@ export class BackendService {
     ref.where('author','==',this.afAuth.auth.currentUser.uid)
     )
     return this.cartColletion.valueChanges();
-   
+  
     /*
     console.log(this.afAuth.auth.currentUser.uid);
     this.cartColletion =this.afs.collection(this.getCollectionURL(coll), ref =>
@@ -145,7 +149,13 @@ export class BackendService {
     */
 }
 
-
+getImage(){
+  console.log("working")
+  this.storageRef = firebase.storage().ref().child('/images'+this.afAuth.auth.currentUser.uid+'yZeKFj8NczV5MYl0UK7r');
+return this.storageRef.getDownloadURL().then(url => ref=>{
+  console.log(ref);
+  return ref;} );
+}
 
   logout(){
     return this.afAuth.auth.signOut();
@@ -219,24 +229,27 @@ export class BackendService {
     return "/OnlineStore/Store/" +filter;
   }
 
-  setNewDoc(coll: string, data: any,filePath:string) {
+  async setNewDoc(coll: string, data: any,filePath) {
     const id = this.afs.createId();
     const item = { id, name };
     const timestamp = this.timestamp
     var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
-    this.afStorage.upload('/images'+id+this.afAuth.auth.currentUser.uid+filePath, filePath);
+    this.task =this.afStorage.upload('/images'+this.afAuth.auth.currentUser.uid+item.id, filePath);
+    (await this.task).ref.getDownloadURL().then(url => {this.downloadableURL = url; 
     return docRef.set({
         ...data,
         _id: id,
-        updatedAt: timestamp,
-        createdAt: timestamp,
+        imageUrl : this.downloadableURL,      
+         createdAt: timestamp,
         delete_flag: "N",
         username: this.authState.displayName,
         useremail: this.authState.email,
         author:this.afAuth.auth.currentUser.uid,
-        status:"P"
+        status:"P",
+        
         
     });
+  });    
 }
 
   setDocs(coll:string,data:any,docId?:any)

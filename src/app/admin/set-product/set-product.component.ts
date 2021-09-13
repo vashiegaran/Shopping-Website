@@ -33,7 +33,7 @@ export class SetProductComponent implements OnInit {
   ];
   
   filePath:string
-
+  image:any;
   userProd:any[];
   savedChanges = false;
   error: boolean = false;
@@ -51,10 +51,12 @@ export class SetProductComponent implements OnInit {
  // public userList : IUser[]=[];
   toolgeField: string;
   displayedColumns = [ 'category', 'name', 'price','_id'];
+  url='/imagesGUuKvobEppQJko2s6dHMBX9W6aL21xakjMQAGFVs5MtKQUKX'
 
   constructor(private _backendService:BackendService,private _location: Location) { }
   upload(event) {    
     this.filePath = event.target.files[0]
+    console.log(this.filePath)
   }
   
   Back(){
@@ -114,19 +116,20 @@ export class SetProductComponent implements OnInit {
         ()=>{this.error=false; this.dataLoading=false});
         
   }
-  
+
   getUserProd(){
 
     
       this.dataLoading = true;
   
-  
+
       //console.log(this._backendService.getCart('cart'))
       console.log(this.userProd)
-  
+      
       this.querySubcription =this._backendService.getYourItem('product')
       .subscribe(userProd =>{
         this.userProd = userProd;
+        this.image = this._backendService.getImage();
         console.log("User prod is working")
           },
   

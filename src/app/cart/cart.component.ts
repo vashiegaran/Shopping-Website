@@ -26,7 +26,9 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.getCartDetails();
   }
-
+  Back(){
+    this.toggle=true
+  }
   getCartDetails(){
     this.dataLoading = true;
 

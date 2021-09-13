@@ -1,6 +1,8 @@
 
 <div fxLayout="row wrap" >
   <app-header fxFlex="100%" pageTitle="Home"></app-header>
+  <mat-divider></mat-divider>
+
   <div class="search-hero" fxLayoutAlign="center center" style="height:100px; background-color: #00ffff;"fxLayout="row wrap" fxFlex="100%">
     <mat-form-field style="width: 80%" floatLabel='never'>
       <input  
@@ -21,16 +23,77 @@
 
   <div fxLayoutAlign="flex-start" fxLayout="row wrap" *ngIf="toggle ; else showProductDetails"  fxFlex="80%" >
 
-            <mat-card style="margin-top: 10px; width: 300px;" *ngFor="let data of members | search:searchText"(click)="showDetails(data);toggle=!toggle" class="product-info">
-            <h4>{{data.name}}</h4>
-            <h5>RM:{{data.price}}</h5>
+           <mat-card style = "height:300px"fxLayoutAlign="flex-center" fxLayout="column " fxFlex="20%" *ngFor="let data of members | search:searchText"(click)="showDetails(data);toggle=!toggle" >
+              
+              <div fxLayoutAlign="center center" fxFlex=40%>
+                <img style="width:180px;height:130px;" [src]=data.imageUrl>
+             </div>
+             <div fxLayoutGap ="1px" fxFlex=40%>
+                <h5 class="p3">Product:{{data.name}}</h5>
+                <h4 class="p3">RM:{{data.price}}</h4>
+                <h5 class="p3">Category:{{data.category}}</h5>
+            </div>
           </mat-card>
       </div>
 
 </div>
- 
+
+
       <ng-template #showProductDetails>
-        <div style="height:700px;width: 20px;" fxFlex="70%" fxLayout="row wrap" fxLayoutAlign = "center">
+        <div fxFlex="40%" fxLayout="column wrap" fxLayoutAlign="flex-start">
+          <img style="width:700px;height:550px; margin-top: 10px;" [src]=myDocData.imageUrl>
+          <div style="margin-left:10px ;">
+            <h3 class="size">{{myDocData.category}}</h3>
+            <h2 class ="font1">{{myDocData.name}}</h2>
+            <mat-icon> location_on </mat-icon><span class="aligned-with-icon">Delivery to entire Malaysia</span>
+            <br>
+            <br>
+            <mat-icon> local_shipping</mat-icon><span class="aligned-with-icon">Estimated Delivery Date</span>
+            <p class="date">{{date | date: 'dd-MMM'}} - {{date2 | date: 'dd-MMM-yyyy'}}</p>
+            <mat-icon> local_shipping</mat-icon><span class="aligned-with-icon">Shipping Fee</span>
+            <p class="date">RM:{{myDocData.shipPrice}}.00</p>   
+            <mat-divider horizontal></mat-divider>
+            <br>
+            <h2 class="title">Product Description</h2>   
+            <p class="des">{{myDocData.descr}}</p>   
+
+          </div>
+          <mat-divider horizontal></mat-divider>
+
+        </div>
+
+
+      <mat-card style="margin-top: 10px; width: 30%; height: 400px;"  fxFlex="20%">
+        <div fxFlex="100%" FxLayoutAlign="column wrap">
+        <div  class="card">RM:{{myDocData.price}}.00</div>
+        <mat-divier horizontal></mat-divier>
+
+        <div style="margin-top:40px;" fxLayoutAlign="row">
+          <div  fxFlex="20%" class="card">Quantity</div>
+            <div fxFlex="60%"></div>
+              <mat-icon style= "margin-top: 10px;" (click)="countProd('remove')" color="primary">remove</mat-icon>
+             <h4 style= "margin-top: 10px;">{{ counter }}</h4> 
+              <mat-icon style= "margin-top: 10px;" (click)="countProd('add')" color="primary">add</mat-icon>
+        </div>
+        <div style="margin-top:40px;" fxLayoutAlign="column">
+          <div  fxFlex="40%" class="card">Service Charge</div>
+            <div fxFlex="50%"></div>
+             <div class="card" style="margin-top:10px;" >RM:00.00</div> 
+        </div>
+        <div style="margin-top:20px;"  >
+          <div  fxFlex="40%" class="card">Total</div>
+          <div fxFlex="50%"></div>
+          <h3 style="margin-top:10px;" >RM:{{myDocData.price}}.00</h3> 
+
+        </div>
+        <button  style="margin-top:50px;" [disabled]="counter < 1" mat-raised-button color="primary" (click)="addToCart(myDocData, counter)">Add to Cart</button>
+
+
+
+
+      </div>           
+      </mat-card >
+      <!---  <div style="height:700px;width: 20px;" fxFlex="70%" fxLayout="row wrap" fxLayoutAlign = "center">
 
       <section class="products">    
         <div class="product-card">
@@ -70,6 +133,8 @@
         </div>
       </section>
     </div>
+-->
+
 
     </ng-template>
 

@@ -26,3 +26,70 @@
   .form-control::placeholder  {
     font-family: FontAwesome;
   }
+
+  .p3 {
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+
+  .size {
+    font-size: 15px;
+    color: #f01010;
+  }
+
+  .font1{
+    font-size: 30px;
+    color: #585757;
+    font-family: "Arial Black"
+
+  }
+
+  .aligned-with-icon{
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px; /* optional */
+    font-family: "Lucida Console", "Courier New", monospace;
+    
+}
+
+.date{
+  margin-top: -5px;
+  margin-left: 30px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 15px;
+  color: #747474;
+
+}
+
+.title{
+  margin-top: -5px;
+  margin-left: 30px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 15px;
+  color: #3b3b3b;
+
+}
+
+.des{
+  margin-top: -5px;
+  margin-left: 30px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 12px;
+  color: #636363;
+  display: flex; 
+   max-width: 80%;
+   flex:1;
+  height: 1.5em;
+  flex: row-wrap;
+
+}
+
+  
+.card{
+  font-family: "Lucida Console", "Courier New", monospace;
+  margin-top:10px;
+  font-size: 16px;
+  color: #141414;
+
+}
+
+

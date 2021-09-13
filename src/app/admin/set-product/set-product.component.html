@@ -266,15 +266,23 @@
         <mat-divider></mat-divider>
         <h1>Your Product</h1>
         <mat-divider></mat-divider>
-        <div fxLayoyt="row wrap" fxFlex="100%">
-            <mat-card style="height: 100%; width: 20%; background-color: rgb(31, 31, 31);" fxFlex=20% ></mat-card >
-                <div fxLayoutAlign="flex-start" fxLayout="row wrap"  fxFlex="80%" >
-                    <mat-card  *ngFor="let data of userProd" style="height: 150px;  width: 10%; background-color: rgb(241, 250, 250);"  >
-                    <h4>{{data.name}}</h4>
-                    <h5>{{data.price}}</h5>
-                    <button mat-raised-button (click)="deleteProd(data._id)" >Remove</button>
-                    
-                  <button mat-raised-button color ="primary" (click)="getDoc(data._id)" >Edit</button>
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100%"   >
+                <mat-card fxLayoutAlign="flex-center" fxLayout="row "  fxFlex="60%" *ngFor="let data of userProd;" >
+                    <div fxLayoutAlign="center center" fxFlex=40%>
+                        <img style="width:180px;height:130px;" [src]=data.imageUrl>
+                     </div>
+                     <div fxLayoutGap ="1px" fxFlex=40%>
+                        <h4 class="p3">Product:{{data.name}}</h4>
+                        <h4 class="p3">RM:{{data.price}}</h4>
+                        <h4 class="p3">Category:{{data.category}}</h4>
+                    </div>
+                    <div fxLayoutAlign="center center " fxFlex=20%>
+
+                        <button mat-raised-button (click)="deleteProd(data._id)" >Remove</button>
+                        <button mat-raised-button color ="primary" (click)="getDoc(data._id)" >Edit</button>
+                    </div>
+                    <mat-divider></mat-divider>
+
                 <mat-error *ngIf="savedChanges">
                   <br/>
                   <br/> 
@@ -282,10 +290,9 @@
                   <span class="med-spacer"></span>
                   <br/>
               </mat-error>
-              </mat-card>
-        </div>
+            </mat-card>
     
-    </div>
+        </div>
 
         
 </div>

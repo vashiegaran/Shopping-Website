@@ -45,7 +45,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import { PurchaseComponent } from './purchase/purchase.component';
 import {AngularFireStorageModule} from '@angular/fire/storage'
-import {Message} from './admin/set-product/set-product.component';
 
 AngularFireModule.initializeApp({
   apiKey: "",
@@ -67,7 +66,7 @@ firebase.initializeApp(environment.firebaseConfig)
     SearchPipe,
     CartComponent,
     PurchaseComponent,
-    Message
+    
     
     
     
