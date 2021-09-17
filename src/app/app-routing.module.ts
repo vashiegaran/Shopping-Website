@@ -12,6 +12,7 @@ import { AuthGuardAdminService } from './services/auth-guard-admin.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CartComponent } from './cart/cart.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes:Routes=[
 
@@ -23,6 +24,8 @@ const routes:Routes=[
   {path:'login', component: LoginComponent},
   {path:'admin', component: AdmintabComponent ,canActivate:[AuthGuardAdminService] } ,
   {path:'purchase', component: PurchaseComponent ,canActivate:[AuthGuardService] } ,
+  {path:'checkout', component: CheckoutComponent ,canActivate:[AuthGuardService] } ,
+
 
 
   {path:'**',redirectTo: '', pathMatch:'full'},

@@ -55,28 +55,6 @@ export class AdmincartsComponent implements OnInit {
     this.toggleField = filter;
 }
 
-  getData(){
-
-    this.dataLoading = true;
-    this.querySubcription =this._backendService.getProducts('cart')
-        .subscribe(members =>{
-            this.members = members;
-            this.dataSource=new MatTableDataSource(members);
-            this.dataSource.paginator=this.paginator;
-            this.dataSource.sort=this.sort;
-
-
-        },
-
-        (error)=>{
-          this.error=true;
-          this.errorMessage=error.message;
-          this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
-        
-  }
-
 
   setData(formData){
 
@@ -160,34 +138,6 @@ export class AdmincartsComponent implements OnInit {
 }
 */
 
-getFilterData(docId){
-
-  this.dataLoading = true;
-  this.querySubcription =this._backendService.getFilterProducts('cart',docId)
-      .subscribe(members =>{
-        if(members){
-          this.members = members;
-          this.dataSource=new MatTableDataSource(members);
-          this.dataSource.paginator=this.paginator;
-          this.dataSource.sort=this.sort;
-
-
-
-        } 
-   
-
-      },
-
-      (error)=>{
-        this.error=true;
-        this.errorMessage=error.message;
-        this.dataLoading=false;
-      },
-      ()=>{this.error=false; this.dataLoading=false});
-}
-
-
- 
 
 }
 

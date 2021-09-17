@@ -1,6 +1,9 @@
 import { BackendService } from '../services/backend.service';
 import { Component, ViewChild,AfterViewInit,EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder,ReactiveFormsModule, FormGroup,FormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
+
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +24,7 @@ export class CartComponent implements OnInit {
   showFiller = false;
   toggle: boolean =true;
 
-  constructor(private _backendService:BackendService) { }
+  constructor(private _backendService:BackendService ,private router:Router) { }
 
   ngOnInit() {
     this.getCartDetails();
@@ -29,6 +32,12 @@ export class CartComponent implements OnInit {
   Back(){
     this.toggle=true
   }
+
+  checkOut(page:string):void{
+    let Link = new AppComponent(this.router);
+    Link.goToPage(page);
+  }
+
   getCartDetails(){
     this.dataLoading = true;
 
@@ -62,6 +71,7 @@ export class CartComponent implements OnInit {
         this.dataLoading = false;
     });
 }
+
   getData(){
 
     this.dataLoading = true;
@@ -93,23 +103,13 @@ export class CartComponent implements OnInit {
   
   }
 
-purchaseProd(item: any, counter: any){
-  this.dataLoading = true;
-  let data = item;
-  data.qty = counter;
-  console.log("purchase")
-  return this._backendService.updatePurchase('purchase',data).then((success)=> {
-      this.dataLoading = false;
-      this.counter=0;
-      this.savedChanges=true;
-  });
-}
+
   
-  deleteCart(data){ 
-     console.log(data)
-    console.log(" delete1 working")
-    this.dataLoading = true;
-   this._backendService.deleteOneDocs('cart',data)
+deleteCart(data){ 
+  console.log(data)
+ console.log(" delete1 working")
+ this.dataLoading = true;
+this._backendService.deleteOneDocs('cart',data)
 
   }
 }

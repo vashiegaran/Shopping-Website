@@ -51,7 +51,6 @@ export class SetProductComponent implements OnInit {
  // public userList : IUser[]=[];
   toolgeField: string;
   displayedColumns = [ 'category', 'name', 'price','_id'];
-  url='/imagesGUuKvobEppQJko2s6dHMBX9W6aL21xakjMQAGFVs5MtKQUKX'
 
   constructor(private _backendService:BackendService,private _location: Location) { }
   upload(event) {    
@@ -212,28 +211,6 @@ export class SetProductComponent implements OnInit {
 
  }
   
-getFilterData(docId){
-
-  this.dataLoading = true;
-  this.querySubcription =this._backendService.getFilterProducts('product',docId)
-      .subscribe(members =>{
-        if(members){
-          this.members = members;
-          this.dataSource=new MatTableDataSource(members);
-          this.dataSource.paginator=this.paginator;
-          this.dataSource.sort=this.sort;
-        } 
-   
-
-      },
-
-      (error)=>{
-        this.error=true;
-        this.errorMessage=error.message;
-        this.dataLoading=false;
-      },
-      ()=>{this.error=false; this.dataLoading=false});
-}
 
 
  

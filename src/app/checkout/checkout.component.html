@@ -1,0 +1,80 @@
+<div  fxLayout="column" >
+  <app-header  fxFlex="100%" pageTitle="Buy Product"></app-header>
+  <div fxFlexLayout="row">
+  
+    <div   fxFlexLayout="row" fxFlex="60%" style="background-color: rgb(255, 255, 255); height: 500px; margin-left: 50px;">
+      <div style="width: 100px; height: 150px;" ></div>
+      <div style="background-color: rgb(255, 255, 255); height: 50px; width: 100%;">
+       <h4 class="title"> Where should we ship this order to?</h4>
+      </div>
+      <div style="background-color: rgb(255, 255, 255); height: 150px; width: 100%;">
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label> Address</mat-label>
+          <input matInput placeholder="Placeholder">
+          
+        </mat-form-field>
+
+      </div>
+
+      <div  fxLayout="column" *ngFor="let data of carts;"  style="background-color: rgb(247, 248, 247); height: 200px; width: 80%;">
+        <mat-card  >
+          <h5 class="title2"> Package {{1}} of {{count}}</h5>
+          <div fxLayout="row" >
+            <div fxFLex="30%">
+          <img style="width:80px;height:60px; margin-top: 20px;" [src]=data.imageUrl>
+          <div style="margin-left: 20px;" fxFlex="80%" fxLayout="column">
+            <h2 class="p4">{{data.name}}</h2>
+            <h3 style="margin-top: -10px;" class="p3">RM:{{data.price*data.qty}}</h3>
+          </div>
+        </div>
+        <div fxLayoutAlign="center center" fxFlex="40%">
+          <button   mat-icon-button (click)="deleteCart(data._id)" ><mat-icon>delete</mat-icon> </button>
+
+        </div>
+
+          <div fxFlex="30%" fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="12px">
+              <button (click)="countProd('remove',data)" mat-mini-fab color="accent" >
+                <mat-icon>remove</mat-icon>
+              </button>
+             <h4 class="num" >{{data.qty}}</h4>
+              <button (click)="countProd('add',data)" mat-mini-fab color="accent" >
+                <mat-icon>add</mat-icon>
+              </button>
+          </div>
+        </div>
+
+      </mat-card>
+
+      </div>
+      <div style="margin-top: 10px;" class="borderLine"></div>
+      <div fxLayout="column">
+      <h6 class="title">Pay With</h6>
+
+      <button (click)="purchaseProd(total)"> Purchase</button>
+
+    </div>
+
+
+    </div>
+    <div fxFlex="40%" fxLayout="column" fxLayoutAlign="center center">
+      <div fxFLex="70%" class="border">
+        <h4 fxLayoutAlign="flex-start" class="title3"> Order Summary</h4>
+        <div class="borderLine"></div>
+        <div class="title4"><mat-icon> local_shipping</mat-icon>
+          {{count}} Product</div>
+          <div style="margin-top: 10px;" class="borderLine"></div>
+          <div class="title4">Shipping Fee RM:10.00 </div>
+          <div style="margin-top: 10px;" class="borderLine"></div>
+          <h4 class="title4">Grand Total:{{total}} </h4>
+
+
+
+
+      </div>
+
+    </div>
+  </div>
+
+
+  
+</div>

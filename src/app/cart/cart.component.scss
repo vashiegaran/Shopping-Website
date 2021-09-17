@@ -49,3 +49,33 @@
   .example-sidenav {
     padding: 20px;
   }
+
+  .p3{
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 15px;
+  color: #3b3b3b;
+  }
+
+  .p4{
+
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 18px;
+  color: #3b3b3b;
+  }
+
+  .line {
+    display:flex;
+    flex-flow: row;
+    border-bottom: double;
+    margin-bottom: 5px;
+    width: 300px;
+  }
+
+  .borderLine{
+    border-bottom: 1px solid rgb(189, 188, 188);
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    margin-top: 10px;
+  
+  }

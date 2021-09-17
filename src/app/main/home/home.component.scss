@@ -27,9 +27,17 @@
     font-family: FontAwesome;
   }
 
-  .p3 {
-    font-family: "Lucida Console", "Courier New", monospace;
-  }
+.p3 {
+  font-family: "Lucida Console", "Courier New", monospace;
+  color: #525252;  
+  font-size: 18px;
+}
+
+.p4 {
+  font-family: "Lucida Console", "Courier New", monospace;
+  color: #292929;
+  font-size: 18px;
+}
 
   .size {
     font-size: 15px;
@@ -83,13 +91,64 @@
 
 }
 
-  
-.card{
+.star{
+
+  font-size: 2.0rem;
+}
+
+.star2{
+
+  font-size: 2.5rem;
+}
+.write{
   font-family: "Lucida Console", "Courier New", monospace;
   margin-top:10px;
   font-size: 16px;
   color: #141414;
 
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+
+
+}
+
+ng-sidebar-container{
+  height:100vh;
+}
+
+::ng-deep .ng-sidebar{
+  background-color: #1a1b1b;
+  width: 300px;
+  padding: 2em 3em;
+  box-shadow: 0 0 2.5em rgba(85,85,85,0.5)
+
+}
+
+.borderLine{
+  border-bottom: 1px solid rgb(189, 188, 188);
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 20px;
+
+}
+
+
+.border{
+  background-color: rgb(255, 255, 255);
+  width: 500px;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 20px;
+  margin: 1px;
+}
+
+
+ngb-rating {
+  font-size: 10px;
+  color:rgb(229, 255, 0);
 }
 
 

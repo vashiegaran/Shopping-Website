@@ -1,4 +1,31 @@
 
+
+  <div  style=" width: 350px; height: 2000px;background-color: rgb(250, 255, 255);">
+  
+  <mat-card fxLayoutGap="100px"  style=" height:600px;" >
+    <h2> Your Cart</h2>
+    <br>
+    <br>
+    <div class="line"></div>
+
+    <div fxLayout="row" *ngFor="let data of carts"  >
+
+      <img fxFlex="40%" style="width:80px;height:60px; margin-top: 10px;" [src]=data.imageUrl>
+      <div fxLayoutAlign="center center" fxFlex="40%" fxLayout="column">
+        <h2 class="p4">{{data.name}}</h2>
+        <h3 class="p3">RM:{{data.price}}</h3>
+      </div>
+      <div fxLayoutAlign="flex-end" fxFlex="20%" fxLayout="row">
+        <button  mat-icon-button (click)="deleteCart(data._id)"  ><mat-icon>delete</mat-icon> </button>
+      </div>
+
+    </div>
+    <button  [disabled]="counter < 1" (click)="checkOut('checkout')" mat-raised-button color ="primary">Check Out</button>      
+  </mat-card>
+  
+  </div>
+
+<!---
 <div fxFlex="100%" fxLayout="column">
   <app-header pageTitle="Your Cart"></app-header>
   <mat-divider></mat-divider>
@@ -65,7 +92,7 @@
     </ng-template>
  
 </div>
-
+-->
 
 <!--
 <div style="width: 100px;"   fxFlex="100%" fxLayout="column" >

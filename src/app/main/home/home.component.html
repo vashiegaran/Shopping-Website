@@ -1,5 +1,5 @@
 
-<div fxLayout="row wrap" >
+<div  fxLayout="row wrap" >
   <app-header fxFlex="100%" pageTitle="Home"></app-header>
   <mat-divider></mat-divider>
 
@@ -12,6 +12,7 @@
              autocomplete="off" >
     </mat-form-field>
   </div>
+
   <div style="height:700px;width: 20px;" fxFlex="20%" fxLayout="row wrap" fxLayoutAlign = "center">
     <section class="example-section" [formGroup]="toppings">
       <h4>Category:</h4>
@@ -20,26 +21,34 @@
       <p><mat-checkbox formControlName="Food">Food</mat-checkbox></p>
     </section>
   </div>
+  
 
-  <div fxLayoutAlign="flex-start" fxLayout="row wrap" *ngIf="toggle ; else showProductDetails"  fxFlex="80%" >
+  <div  fxLayoutAlign="flex-start" fxLayoutGap="12px" fxLayout="row wrap" *ngIf="toggle ; else showProductDetails"  fxFlex="60%" >
 
-           <mat-card style = "height:300px"fxLayoutAlign="flex-center" fxLayout="column " fxFlex="20%" *ngFor="let data of members | search:searchText"(click)="showDetails(data);toggle=!toggle" >
+           <button class="border" style = "cursor: pointer; height:300px"fxLayoutAlign="flex-center" fxLayout="column " fxFlex="20%" *ngFor="let data of members | search:searchText"(click)="showDetails(data);toggle=!toggle;getReviewDetails(data)" >
               
-              <div fxLayoutAlign="center center" fxFlex=40%>
-                <img style="width:180px;height:130px;" [src]=data.imageUrl>
+              <div fxLayoutAlign="center center" fxFlex=50%>
+                <img style="width:130px;height:130px;" [src]=data.imageUrl>
              </div>
-             <div fxLayoutGap ="1px" fxFlex=40%>
-                <h5 class="p3">Product:{{data.name}}</h5>
-                <h4 class="p3">RM:{{data.price}}</h4>
-                <h5 class="p3">Category:{{data.category}}</h5>
+             <div fxLayoutAlign="center center" fxLayout="column"fxLayoutGap ="1px" fxFlex=50%>
+                <div class="p4">{{data.name}}</div>
+                <div class="p3">RM:{{data.price}}</div>
+                <ngb-rating class="star"  [max]="5" [(rate)]="rating" [readonly]="true"></ngb-rating>
+
+              <!-- <ngb-rating [(rate)]="currentRate"></ngb-rating>--> 
+
             </div>
-          </mat-card>
+          </button>
       </div>
+    <div *ngIf="cartOpen" fxLayoutAlign="end center" >
+      <app-cart #cart></app-cart>
+    </div>
 
 </div>
 
 
       <ng-template #showProductDetails>
+
         <div fxFlex="40%" fxLayout="column wrap" fxLayoutAlign="flex-start">
           <img style="width:700px;height:550px; margin-top: 10px;" [src]=myDocData.imageUrl>
           <div style="margin-left:10px ;">
@@ -54,136 +63,80 @@
             <p class="date">RM:{{myDocData.shipPrice}}.00</p>   
             <mat-divider horizontal></mat-divider>
             <br>
-            <h2 class="title">Product Description</h2>   
-            <p class="des">{{myDocData.descr}}</p>   
+            <h2 class="title">Product Description</h2> 
+            <p class="des">{{myDocData.descr}}</p>  
+            <div style="height:400px;"></div>
+            <div class="borderLine"></div>
+            <h2 class="title" >Delivery Coverage</h2>
+            <p class="des">This product can only deliver to certain area within Malaysia</p>
+            <div  class="borderLine"></div>
+            <h2 class="title" >Delivery Term</h2>
+            <p class="des">I will send out your product once order is confirmed.</p>
+            <p class="des"> The product is expected to reach you in 4-7 working days.</p> 
+            <div  class="borderLine"></div>
+            <h2 class="tittle">Ratings & Reviews </h2>
+
+            <ngb-rating class="star2"  [max]="5" [(rate)]="rating" [readonly]="true"></ngb-rating>
+            <div  class="borderLine"></div>
+            <p class="des">{{review.review}}</p> 
 
           </div>
-          <mat-divider horizontal></mat-divider>
 
         </div>
-
 
       <mat-card style="margin-top: 10px; width: 30%; height: 400px;"  fxFlex="20%">
         <div fxFlex="100%" FxLayoutAlign="column wrap">
-        <div  class="card">RM:{{myDocData.price}}.00</div>
-        <mat-divier horizontal></mat-divier>
+        <div fxFLex="50%" class="write">RM:{{myDocData.price}}.00</div>
 
         <div style="margin-top:40px;" fxLayoutAlign="row">
-          <div  fxFlex="20%" class="card">Quantity</div>
+          <div  fxFlex="40%" class="write">Quantity</div>
             <div fxFlex="60%"></div>
-              <mat-icon style= "margin-top: 10px;" (click)="countProd('remove')" color="primary">remove</mat-icon>
-             <h4 style= "margin-top: 10px;">{{ counter }}</h4> 
-              <mat-icon style= "margin-top: 10px;" (click)="countProd('add')" color="primary">add</mat-icon>
+            <div  fxLayoutAlign="space-around center"   class="button-container">
+              <button (click)="countProd('remove')" mat-mini-fab color="accent" >
+                <mat-icon>remove</mat-icon>
+              </button>
+              {{counter}}
+              <button (click)="countProd('add')" mat-mini-fab color="accent" >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            
         </div>
-        <div style="margin-top:40px;" fxLayoutAlign="column">
-          <div  fxFlex="40%" class="card">Service Charge</div>
-            <div fxFlex="50%"></div>
-             <div class="card" style="margin-top:10px;" >RM:00.00</div> 
+        <div style="margin-top:40px;" fxLayout="row">
+          <div fxLayout="column" fxFlex="60%" class="write">Service Charge</div>
+            <div  fxFlex="10%"></div>
+             <div  fxFlex="30%" class="write" style="margin-top:10px;" >RM:00.00</div> 
         </div>
         <div style="margin-top:20px;"  >
-          <div  fxFlex="40%" class="card">Total</div>
-          <div fxFlex="50%"></div>
-          <h3 style="margin-top:10px;" >RM:{{myDocData.price}}.00</h3> 
+          <div  fxFlex="60%" class="write">Total</div>
+          <div fxFlex="10%"></div>
+          <h3 fxFLex="30%" style="margin-top:10px;" >RM:{{myDocData.price*counter}}.00</h3> 
 
         </div>
-        <button  style="margin-top:50px;" [disabled]="counter < 1" mat-raised-button color="primary" (click)="addToCart(myDocData, counter)">Add to Cart</button>
-
-
-
+<!--addToCart(myDocData, counter);-->
+        <div fxLayoutAlign="center center" >
+          <button ng-sidebar-content style="margin-top:50px; width: 200px;" [disabled]="counter < 1" mat-flat-button color="primary"(click)="addToCart(myDocData, counter); toggleSidebar(); cart.getCartDetails(); ">Add to Cart</button>
+          <mat-error *ngIf="savedChanges">
+            <br/>
+            <br/> Shopping cart is updated.
+            <mat-icon (click)="savedChanges=!savedChanges" color="lime">close</mat-icon>
+            <span class="med-spacer"></span>
+            <br/>
+        </mat-error>
+        </div>
+        
 
       </div>           
       </mat-card >
-      <!---  <div style="height:700px;width: 20px;" fxFlex="70%" fxLayout="row wrap" fxLayoutAlign = "center">
-
-      <section class="products">    
-        <div class="product-card">
-          <div class="product-image">
-          </div>
-          
-            <div style="margin-top: 10px; height: 600px; width: 500px;"  class="product-info">
-              <mat-card>
-              <img src="assets/img/coat-01.jpeg">
-              <h4>{{myDocData.name}}</h4>
-              <h5>RM:{{myDocData.price}}</h5>
-              <h5>Color:{{myDocData.color}}</h5>
-              <h5>Size:{{myDocData.size}}</h5>
-              <h5>Shpping:{{myDocData.shipping}}</h5>
-              <h5>Discount:{{myDocData.discount}}</h5>
-              <h5>Details:{{myDocData.descr}}</h5>
 
 
-              <mat-error *ngIf="savedChanges">
-                <br/>
-                <br/> Shopping cart is updated.
-                <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
-                <span class="med-spacer"></span>
-                <br/>
-            </mat-error>
-            <br/>
-            <mat-icon (click)="countProd('remove')" color="primary">remove</mat-icon>
-            {{ counter }}
-            <mat-icon (click)="countProd('add')" color="primary">add</mat-icon>
-            <span class="med-spacer"></span>
-            <button [disabled]="counter < 1" mat-raised-button color="primary" (click)="addToCart(myDocData, counter)">Add to Cart</button>
-            <br/>
-            </mat-card>
-            <button mat-raised-button color="primary" (click)="toggle=!toggle">Back</button>
-
-            </div>
-        </div>
-      </section>
-    </div>
--->
-
-
+    
     </ng-template>
 
  
-   
-  
   
 
 
 
 
 
-<!---
-
-<mat-form-field fxLayoutAlign="center center" appearance="standard" >
-  <mat-label>Search</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-</mat-form-field >
-<div   fxLayout="column wrap" fxLayoutAlign="center center" >
-
-<div  class="example-container mat-elevation-z8">
-  <mat-table [dataSource]="dataSource" matSort>
-
-    <ng-container matColumnDef="_id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>id</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row._id}} </mat-cell>
-  </ng-container>
-
-      <ng-container matColumnDef="category">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
-          <mat-cell *matCellDef="let row" > {{row.category}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="price">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
-          </ng-container>
-     
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-</div>
-
-</div>
-
--->

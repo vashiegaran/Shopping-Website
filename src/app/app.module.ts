@@ -44,7 +44,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import { PurchaseComponent } from './purchase/purchase.component';
-import {AngularFireStorageModule} from '@angular/fire/storage'
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import { SidebarModule } from 'ng-sidebar';
+import { CheckoutComponent } from './checkout/checkout.component';
+
 
 AngularFireModule.initializeApp({
   apiKey: "",
@@ -66,6 +69,8 @@ firebase.initializeApp(environment.firebaseConfig)
     SearchPipe,
     CartComponent,
     PurchaseComponent,
+    CheckoutComponent
+    
     
     
     
@@ -105,8 +110,8 @@ firebase.initializeApp(environment.firebaseConfig)
     MatDialogModule,
     MatSidenavModule,
     MatSelectModule,
-    AngularFireStorageModule
-
+    AngularFireStorageModule,
+    
 
     
 

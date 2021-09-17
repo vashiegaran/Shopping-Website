@@ -11,19 +11,21 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { TouchSequence } from 'selenium-webdriver';
 import{BackendService} from 'src/app/services/backend.service'
+import { CartComponent } from 'src/app/cart/cart.component';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+
 })
 
 export class HomeComponent  implements OnInit{
 
   date: Date;
   date2:Date;
-
+  currentRate=0;
   savedChanges = false;
   error: boolean = false;
   errorMessage :String = "";
@@ -39,15 +41,22 @@ export class HomeComponent  implements OnInit{
  profileUrl: String;
   //public form: FormGroup ;
   searchModel: string;
-
+  rating = 2;
+  review;
  // public userList : IUser[]=[];
  toggle: boolean =true;
+ cartOpen :boolean =false;
+  
  //public userDetails:IUser;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(CartComponent) cart: CartComponent
+  reviewItem: any;
+
 
   constructor(private fb:FormBuilder,private router:Router,
-    private _backendService:BackendService,){
+    private _backendService:BackendService){
+      
       
       this.toppings = fb.group({
       Fashion: false,
@@ -55,7 +64,6 @@ export class HomeComponent  implements OnInit{
       Food: false
     });
     }
- 
     displayedColumns = [ 'category', 'name', 'price','_id'];
 
 
@@ -64,20 +72,32 @@ export class HomeComponent  implements OnInit{
     //this.dataSource = new MatTableDataSource(this.members);
   //  this.dataSource.paginator = this.paginator;
    // this.dataSource.sort = this.sort;
+
     this.getData();
     this.date2 = new Date();
     this.date2.setDate( this.date2.getDate() + 10 );
     this.date = new Date();
     this.date.setDate( this.date.getDate() + 7 );
    // this.getCartDetails();
+   
   }
+
+  public toggleSidebar() {
+    this.cartOpen = !this.cartOpen;
+  }  
+
+  public closeSidebar(){
+    this.cartOpen=false;
+  }
+  
+
   getPic(picId){
     this.profileUrl="";
   }
 
 
   getData(){
-
+  
     this.dataLoading = true;
     this.querySubcription =this._backendService.getDocs('product')
         .subscribe(members =>{
@@ -91,7 +111,26 @@ export class HomeComponent  implements OnInit{
           this.dataLoading=false;
         },
         ()=>{this.error=false; this.dataLoading=false});
+
         
+        
+  }
+
+  getReviewDetails(data){
+    this.querySubcription =this._backendService.getReview('review',data)
+    .subscribe(review =>{
+      
+      this.review = review;
+      console.log(this.review);
+    },
+
+    (error)=>{
+      this.error=true;
+      this.errorMessage=error.message;
+      this.dataLoading=false;
+    },
+    ()=>{this.error=false; this.dataLoading=false});
+
   }
 
   getCartDetails(){

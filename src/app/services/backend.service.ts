@@ -27,6 +27,7 @@ export class BackendService {
   authState: any = null;
   iD:string;
   storageRef: firebase.storage.Reference;
+  list: any[] = [];
 
   constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore,private afStorage: AngularFireStorage) {
 
@@ -132,7 +133,7 @@ export class BackendService {
   getYourItem(coll) {
     console.log(this.afAuth.auth.currentUser.uid)
     this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
-    ref.where('author','==',this.afAuth.auth.currentUser.uid)
+    ref.where('customerId','==',this.afAuth.auth.currentUser.uid)
     )
     return this.cartColletion.valueChanges();
   
@@ -147,6 +148,25 @@ export class BackendService {
     //console.log(this.cartColletion);
     return this.cartColletion.valueChanges();
     */
+}
+
+getReview(coll,data) {
+  this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
+  ref.where('itemId','==',data._id)
+  )
+  return this.cartColletion.valueChanges();
+
+  /*
+  console.log(this.afAuth.auth.currentUser.uid);
+  this.cartColletion =this.afs.collection(this.getCollectionURL(coll), ref =>
+      ref.where('delete_flag', '==', 'N')
+          .where('authid', '==', this.afAuth.auth.currentUser.uid)
+          .orderBy('name', 'desc')
+          
+  )
+  //console.log(this.cartColletion);
+  return this.cartColletion.valueChanges();
+  */
 }
 
 getImage(){
@@ -166,58 +186,8 @@ return this.storageRef.getDownloadURL().then(url => ref=>{
 
   }
 
-  getProducts(_collType){
-    let fake=[ {
-      
-      'category':"test",
-      'name':"test",
-      'price':"300",
-      '_id':"123",
 
 
-    }];
-    return Observable.create(
-      observe=>{
-        setTimeout(()=>{
-
-
-          observe.next(fake);
-      },2000)
-
-
-      }
-
-
-
-    )
-  }
-
-  getFilterProducts(_collType,filter){
-    let fake=[ {
-      
-      'category':"test",
-      'name':"test",
-      'price':"300",
-      '_id':"123",
-
-
-    }];
-    return Observable.create(
-      observe=>{
-        setTimeout(()=>{
-
-
-          observe.next(fake);
-      },2000)
-
-
-      }
-
-
-
-    )
-
-  }
 
   get timestamp(){
     var d =new Date();
@@ -229,6 +199,31 @@ return this.storageRef.getDownloadURL().then(url => ref=>{
     return "/OnlineStore/Store/" +filter;
   }
 
+  addReviewDoc(coll:string,formData:any[],data:any){
+
+  
+  
+    const timestamp = this.timestamp
+    console.log(this.getCollectionURL(coll))
+    return this.afs.collection(this.getCollectionURL(coll)).add({
+
+      ...formData,
+      //author: this.afAuth.currentUser.uid,
+      itemId: data._id,
+      CustomerId:this.afAuth.auth.currentUser.uid,
+      Customer: this.authState.displayName,
+      CustomerEmail: this.authState.email,
+      CustomerPhoto: this.authState.photoURL,
+      CustomerPhone: this.authState.phoneNumber,
+      createdAt: timestamp,
+      delete_flag: "N",
+      
+    })
+   
+  }
+
+
+  
   async setNewDoc(coll: string, data: any,filePath) {
     const id = this.afs.createId();
     const item = { id, name };
@@ -348,22 +343,47 @@ return this.storageRef.getDownloadURL().then(url => ref=>{
     return docRef.set({
         ...data,
         //author: this.afAuth.currentUser.uid,
-        author: this.authState.uid,
+        customerId: this.authState.uid,
         // authorName: this.afAuth.currentUser.displayName,
         // authorEmail: this.afAuth.currentUser.email,
         // authorPhoto: this.afAuth.currentUser.photoURL,
         // authorPhone: this.afAuth.currentUser.phoneNumber,
-        authorName: this.authState.displayName,
-        authorEmail: this.authState.email,
-        authorPhoto: this.authState.photoURL,
-        authorPhone: this.authState.phoneNumber,
+        customerName: this.authState.displayName,
+        customerEmail: this.authState.email,
+        customerPhoto: this.authState.photoURL,
+        customerPhone: this.authState.phoneNumber,
         updatedAt: timestamp,
         createdAt: timestamp,
         delete_flag: "N",
     });
 }
 
-updatePurchase(coll: string, data){
+updatePurchase(coll: string, data,total){
+
+  const timestamp = this.timestamp
+
+
+    
+    const id = this.afs.createId();
+  const item = { id, name };
+    this.afs.collection(this.getCollectionURL(coll)).doc(item.id).set({
+      ...data,
+      //author: this.afAuth.currentUser.uid,
+      cusmterId: this.authState.uid,
+      // authorName: this.afAuth.currentUser.displayName,
+      // authorEmail: this.afAuth.currentUser.email,
+      // authorPhoto: this.afAuth.currentUser.photoURL,
+      // authorPhone: this.afAuth.currentUser.phoneNumber,
+      Customer: this.authState.displayName,
+      CustomerEmail: this.authState.email,
+      CustomerPhoto: this.authState.photoURL,
+      CustomerPhone: this.authState.phoneNumber,
+      purhcasedAt: timestamp,
+      createdAt: timestamp,
+      delete_flag: "N",
+    })
+
+  /*
   const id = this.afs.createId();
   const item = { id, name };
   const timestamp = this.timestamp
@@ -376,14 +396,15 @@ updatePurchase(coll: string, data){
       // authorEmail: this.afAuth.currentUser.email,
       // authorPhoto: this.afAuth.currentUser.photoURL,
       // authorPhone: this.afAuth.currentUser.phoneNumber,
-      authorName: this.authState.displayName,
+      Customer: this.authState.displayName,
       authorEmail: this.authState.email,
       authorPhoto: this.authState.photoURL,
       authorPhone: this.authState.phoneNumber,
       purhcasedAt: timestamp,
       createdAt: timestamp,
       delete_flag: "N",
-  });
+  })
+  */
 }
 
   updateDocs(coll:string,data:any,docId:any)
@@ -433,7 +454,39 @@ updatePurchase(coll: string, data){
      
   }
 
- 
+ addProduct(data,filter){
+
+  if(filter =="add"){
+    
+    data.qty=data.qty+1
+    }else{
+        if(data.qty>0){
+          data.qty =data.qty-1;
+        }
+    }
+
+
+
+    /*
+    var docRef= this.afs.collection(this.getCollectionURL('cart'),ref=>ref.where('_id', '==', data._id)
+    .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
+     map(actions => actions.map(a => {
+         const id = a.payload.doc.id;
+         return  id ;
+     })))
+     .subscribe(docID=>{
+       docID.map(a=>{
+         console.log(a)
+         return this.afs.collection(this.getCollectionURL('cart')).doc(a).update({
+          qty :data.qty,   
+
+  
+        })
+  
+       })
+     })
+   */
+ }
 
 
 

@@ -25,17 +25,28 @@
                 <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Order Delivered</span> </div>
             </div>
             <mat-divider></mat-divider>
-
-            <mat-card *ngFor="let data of items" fxLayout="row wrap" fxLayoutAlign="flex-start" fxLayoutGap="10px">
-                <mat-card fxLayout="row wrap" style="margin-top:10%; height: 200px; width: 20%;">
-                  <div fxFlex="60%" class="aside"><img src="https://i.imgur.com/iDwDQ4o.png" class="img-sm border"></div>
+            <mat-card *ngFor="let data of items" fxLayout="column wrap" fxLayoutAlign="flex-start" fxLayoutGap="10px">
+                <mat-card fxFlex="50%" fxLayout="row wrap" style="margin-top:10%; height: 200px; width: 80%;">
                 
-                  <div style="margin-top: 30px;"fxFlex="40%" class="aside"><h3>{{data.name}} {{data.price}}</h3></div>
+                    <div fxLayoutAlign="center center" fxLayout="column"fxLayoutGap ="1px" fxFlex=80%>
+                        <img style="width:80px;height:60px; margin-top: 10px;" [src]=data.imageUrl>
+                        <div class="p4">{{data.name}}</div>
+                        <div class="p3">RM:{{data.price}}</div>
+                        
+                        <ngb-rating class="star"  [max]="5" [(rate)]="data.rating" [readonly]="false"></ngb-rating>
+                    <form #addReview="ngForm" (ngSubmit)="setData(addReview.value,data);" novalidate>                   
+                             <mat-form-field  style="width: 900px;" appearance="outline">
+                            <mat-label>Write your review here</mat-label>
+                            <input matInput placeholder="Product Review" name="review" id="review" ngModel required >
+                        </mat-form-field>
+                        <button type="submit" mat-raised-button [disabled]="!addReview.form.valid"color="primary">Submit</button>
 
+                    </form>    
+                    </div>
 
                 </mat-card >
+                
     
-
 
                 
             </mat-card>
