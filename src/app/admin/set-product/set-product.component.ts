@@ -63,7 +63,7 @@ export class SetProductComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.toggleField = "searchMode";
+    this.toggleField = "main";
 
 
   }
@@ -123,13 +123,11 @@ export class SetProductComponent implements OnInit {
   
 
       //console.log(this._backendService.getCart('cart'))
-      console.log(this.userProd)
       
       this.querySubcription =this._backendService.getYourItem('product')
       .subscribe(userProd =>{
         this.userProd = userProd;
-        this.image = this._backendService.getImage();
-        console.log("User prod is working")
+        console.log("this is working"+this.userProd)
           },
   
           (error)=>{

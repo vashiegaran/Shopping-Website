@@ -133,7 +133,7 @@ export class BackendService {
   getYourItem(coll) {
     console.log(this.afAuth.auth.currentUser.uid)
     this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
-    ref.where('customerId','==',this.afAuth.auth.currentUser.uid)
+    ref.where('author','==',this.afAuth.auth.currentUser.uid)
     )
     return this.cartColletion.valueChanges();
   

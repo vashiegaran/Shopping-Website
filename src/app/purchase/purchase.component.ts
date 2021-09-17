@@ -44,12 +44,6 @@ export class PurchaseComponent implements OnInit {
 
 
     //console.log(this._backendService.getCart('cart'))
-
-
- 
-  
-
-
     this.querySubcription =this._backendService.getYourItem('purchase')
     .subscribe(items =>{
       this.items = items;
