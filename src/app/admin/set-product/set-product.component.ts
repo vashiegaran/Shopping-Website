@@ -59,11 +59,12 @@ export class SetProductComponent implements OnInit {
   }
   
   Back(){
-    this.toggle('searchMode')
+    this.toggle('main')
   }
   
   ngOnInit() {
     this.toggleField = "main";
+    console.log(this.toggleField)
 
 
   }
@@ -90,7 +91,7 @@ export class SetProductComponent implements OnInit {
 
   toggle(filter?) {
     this.dataLoading = false;
-    if (!filter) { filter = "searchMode" }
+    if (!filter) { filter = "main" }
     else { filter = filter; }
     this.toggleField = filter;
 }
