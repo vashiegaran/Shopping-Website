@@ -12,12 +12,17 @@ export class PurchaseComponent implements OnInit {
   errorMessage :String = "";
   dataLoading : boolean= false;
   savedChanges: boolean;
+  myDocData;
   constructor(private _backendService:BackendService) { }
   listItem :any[];
   review:any[]
   rating;
+  toggleField: string;
+
   ngOnInit() {
     this.getItemDetails();
+    this.toggleField = "main";
+
   }
 
   setData(formData,data){
@@ -60,6 +65,25 @@ export class PurchaseComponent implements OnInit {
         ()=>{this.error=false; this.dataLoading=false});
         
   }
+
+  toggle(filter?) {
+    this.dataLoading = false;
+    if (!filter) { filter = "main" }
+    else { filter = filter; }
+    this.toggleField = filter;
+}
+
+showDetails(item) {
+  this.myDocData = item;
+  var date= new Date();
+  // capture user interest event, user has looked into product details
+  this.dataLoading = true;
+  let data = item;
+  return this._backendService.updateShoppingInterest('interests',data).then((success)=> {
+      this.dataLoading = false;
+  });
+  
+}
 
 
 }

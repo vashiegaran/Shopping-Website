@@ -1,0 +1,47 @@
+
+
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100%"   >
+  <mat-card style="margin-top: 10px;" fxLayoutAlign="flex-center" fxLayout="row "  fxFlex="100%%" *ngFor="let data of members;" >
+      <div fxLayoutAlign="center center" fxFlex=40%>
+          <img style="width:180px;height:130px;" [src]=data.imageUrl>
+       </div>
+       <div fxLayoutGap ="1px" fxFlex=40%>
+          <h4 class="p5">Product:{{data.name}}</h4>
+          <h4 class="p5">RM:{{data.price}}</h4>
+          <h4 class="p5">Category:{{data.category}}</h4>
+ 
+
+
+      </div>
+      <div *ngIf ="data.status=='P'" fxLayoutAlign="center center " fxFlex=20%>
+
+          <button mat-raised-button (click)="Approval(data,'Approve'); alertUser(Approve)" >Approve</button>
+          <button mat-raised-button color ="primary" (click)="Approval(data,'Reject'); alertUser(Reject);" >Reject</button>
+      </div>
+
+  
+</mat-card>
+<button mat-raised-button (click)=" alertUser(Approve)" >Approve</button>
+
+</div>
+
+<ng-template #Approve>
+  <h2 matDialogTitle>Message!</h2>
+  <mat-dialog-content>
+      Product has been Approved!
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose color="primary">Dismiss</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #Reject>
+  <h2 matDialogTitle>Dialog!</h2>
+  <mat-dialog-content>
+    Product has been Rejected!
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose color="primary">Dismiss</button>
+  </mat-dialog-actions>
+</ng-template>

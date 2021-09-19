@@ -48,6 +48,12 @@ export class BackendService {
     return this.itemCollection.valueChanges();
   }
 
+  getPendingProd(coll:string,filters?:any){
+    this.itemCollection = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
+    ref.where('status','==','P'))
+    return this.itemCollection.valueChanges();
+  }
+
 
   isUserLoggedIn(){
     return Observable.from(this.afAuth.authState)
@@ -100,6 +106,18 @@ export class BackendService {
 
   }
 
+  approveStatus(coll:string,data,app:string){
+
+    var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(data._id);
+    return docRef.update({
+      
+      status:app,
+
+
+    })
+
+  }
+
   
   login(loginType,formData?){
     // this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
@@ -119,11 +137,13 @@ export class BackendService {
   redirectLogin(){
 
       return this.afAuth.auth.onAuthStateChanged(function(user){
-       console.log(user.displayName)
-        if (user)
+        if (user!=null)
         {
+
           return true;
         }else{
+          console.log(user.displayName)
+
           return false;
         }
 
@@ -151,11 +171,11 @@ export class BackendService {
 }
 
 getReview(coll,data) {
-  this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
-  ref.where('itemId','==',data._id)
-  )
-  return this.cartColletion.valueChanges();
 
+      console.log(data._id)
+      return this.afs.collection(this.getCollectionURL(coll),ref=>
+      ref.where('itemId','==',data._id)  
+      ).valueChanges();
   /*
   console.log(this.afAuth.auth.currentUser.uid);
   this.cartColletion =this.afs.collection(this.getCollectionURL(coll), ref =>
@@ -374,6 +394,7 @@ updatePurchase(coll: string, data,total){
       // authorEmail: this.afAuth.currentUser.email,
       // authorPhoto: this.afAuth.currentUser.photoURL,
       // authorPhone: this.afAuth.currentUser.phoneNumber,
+      Total:total,
       Customer: this.authState.displayName,
       CustomerEmail: this.authState.email,
       CustomerPhoto: this.authState.photoURL,

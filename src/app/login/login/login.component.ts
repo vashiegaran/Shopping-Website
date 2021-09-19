@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from 'src/app/services/backend.service';
+import { Injectable } from '@angular/core';
+import { CanActivate,Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
+import { first } from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,26 +18,56 @@ export class LoginComponent implements OnInit {
   error:boolean = false;
   errorMessage:String ="";
   dataLoading :boolean = false;
+  
 
 
-  constructor(private _backendService:BackendService) { }
+  constructor(private _backendService:BackendService,private router:Router) { }
 
    ngOnInit() {
   //  this.userLoggedin=false;
-    this.getAuthStatus();
+  this.doSomething();
+      console.log(this.userLoggedin)
   }
+
+  checkOut(page:string):void{
+    let Link = new AppComponent(this.router);
+    Link.goToPage(page);
+  }
+
+  isLoggedIn() {
+    return this._backendService.afAuth.authState.pipe(first()).toPromise();
+ }
+ 
+ async doSomething() {
+    const user = await this.isLoggedIn()
+    if (user) {
+        this.router.navigate(['/home'])
+      console.log(user.displayName)
+    } else {
+      console.log("not logged in")
+   }
+ }
+
   getAuthStatus() {
 
-    this.dataLoading=true;
-    if(this._backendService.redirectLogin())
-    {
-      this.userLoggedin=true;
-      console.log("logged in")
+    
+    return this._backendService.afAuth.auth.onAuthStateChanged(function(user){
+      if (user)
+      {
 
-    }else{
-      this.userLoggedin=false;
+        this.userLoggedin=true;
+        this.dataLoading=false;
+        console.log(user.displayName)
 
-    }
+      }else{
+        console.log(user.displayName)
+        console.log(user)
+        this.userLoggedin=false;
+        this.dataLoading=false;
+
+      }
+
+    });
     
   /*
      this._backendService.redirectLogin().then((result)=>{

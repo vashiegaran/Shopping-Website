@@ -1,3 +1,68 @@
-<p>
-  adminorders works!
-</p>
+
+
+
+  <div  fxLayoutAlign="center center">
+      <div fxFlex="5%"></div>
+      <div fxFlex="60%" fxLayout="column">
+      <div *ngIf="(toggleField!='editMode') && (toggleField!='addMode')" fxLayout="row" fxLayoutAlign="flex-start"   class="border">
+          <div fxLayout="column" fxFlex="20%"class="example-button-container">
+              <button (click)="toggle('main')"  mat-fab color="" aria-label="Example icon button with a home icon">
+                <mat-icon style="size: 2px;"  class="icon" >build</mat-icon>
+              </button>
+             <h4 class="titleProd"> Steps</h4> 
+            </div>
+
+            <div fxLayout="column" fxFlex="20%"class="example-button-container">
+              <button (click)="toggle('dashboard')" mat-fab color="" aria-label="Example icon button with a home icon">
+                <mat-icon style="size: 2px;"  class="icon" >dashboard</mat-icon>
+              </button>
+             <h4 class="titleProd"> Dashboard</h4> 
+            </div>
+
+            <div fxLayout="column" fxFlex="20%"class="example-button-container">
+              <button  mat-fab color="" aria-label="Example icon button with a home icon">
+                <mat-icon style="size: 2px;"  class="icon" >shopping_basket</mat-icon>
+              </button>
+             <h4 class="titleProd"> Orders</h4> 
+            </div>
+
+            <div fxLayout="column" fxFlex="20%"class="example-button-container">
+              <button (click)="toggle('product');getUserProd()" mat-fab color="" aria-label="Example icon button with a home icon">
+                <mat-icon style="size: 2px;"  class="icon" >laptop</mat-icon>
+              </button>
+             <h4 class="titleProd"> Products</h4> 
+            </div>
+            <div fxLayout="column" fxFlex="20%"class="example-button-container">
+              <button  mat-fab color="" aria-label="Example icon button with a home icon">
+                <mat-icon style="size: 2px;"  class="icon" >help</mat-icon>
+              </button>
+             <h4 class="titleProd">Help</h4> 
+            </div>
+            
+
+       </div>
+
+       <div *ngIf="(toggleField=='main') else (toggleField=='addMode')? showAddMode : ((toggleField=='editMode')? showEditMode : showResMode)" >
+          <div fxFlexAlign="flex-start">
+           <h2 style="margin-top: 50px; " class="titleProd">Continue setting up your store</h2>
+      </div>
+
+          <div (click)="toggle('addMode')"   style = "cursor: pointer;" fxLayoutAlign="start center"  class="borderChild">
+              <h2 class="titleProd2"> Upload Product </h2>
+          </div>
+
+
+          <div  fxLayoutAlign="start center" style = "cursor: pointer;" class="borderChild2">
+              <h2 class="titleProd2"> Create Coupon </h2>
+          </div>
+
+
+          <div  fxLayoutAlign="start center" style = "cursor: pointer;" class="borderChild2">
+              <h2 class="titleProd2"> Set up delivery schedule </h2>
+          </div>
+
+
+          <div  fxLayoutAlign="start center" style = "cursor: pointer;" class="borderChild2">
+              <h2 class="titleProd2"> Share your store link </h2>
+          </div>
+      </div  >

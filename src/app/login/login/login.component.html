@@ -5,7 +5,7 @@
   <mat-card-header>
     <mat-card-subtitle>eCommerce App</mat-card-subtitle>
   </mat-card-header>
-  <div *ngIf="userLoggedin; else showShopping;">
+  <div *ngIf="loggedIn | async; else showShopping;">
     <button type="button" routerLink="/home" mat-raised-button color="primary">Continue Shopping</button>
     <button (click)="logout()"> Logout</button>
   </div >
@@ -43,10 +43,10 @@
     </mat-card-content>
     <mat-card-content fxLayout="row wrap" fxLayoutAlign="center center" >
       <mat-chip-list class="mat-chip-list-stacked" style="margin-left: 170px;">
-        <mat-chip color="primary" selected="true" (click)="login('FB')">
+        <mat-chip style="cursor: pointer;"color="primary" selected="true" (click)="login('FB')">
           Login With Facebook
         </mat-chip>
-        <mat-chip color="warn" selected="true" (click)="login('GOOGLE')">
+        <mat-chip style="cursor: pointer;" color="warn" selected="true" (click)="login('GOOGLE')">
           Login With Google
         </mat-chip>
       </mat-chip-list>

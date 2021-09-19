@@ -51,7 +51,6 @@ export class HomeComponent  implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(CartComponent) cart: CartComponent
-  reviewItem: any;
 
 
   constructor(private fb:FormBuilder,private router:Router,
@@ -121,7 +120,7 @@ export class HomeComponent  implements OnInit{
     .subscribe(review =>{
       
       this.review = review;
-      console.log(this.review);
+      console.log("this is working"+this.review);
     },
 
     (error)=>{

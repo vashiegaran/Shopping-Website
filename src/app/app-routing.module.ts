@@ -22,7 +22,7 @@ const routes:Routes=[
   {path:'merchant', component: SetProductComponent,canActivate:[AuthGuardService]},
   {path:'cart', component: CartComponent,canActivate:[AuthGuardService]},
   {path:'login', component: LoginComponent},
-  {path:'admin', component: AdmintabComponent ,canActivate:[AuthGuardAdminService] } ,
+  {path:'admin', component: AdmintabComponent , } ,
   {path:'purchase', component: PurchaseComponent ,canActivate:[AuthGuardService] } ,
   {path:'checkout', component: CheckoutComponent ,canActivate:[AuthGuardService] } ,
 

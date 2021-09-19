@@ -78,7 +78,10 @@
 
             <ngb-rating class="star2"  [max]="5" [(rate)]="rating" [readonly]="true"></ngb-rating>
             <div  class="borderLine"></div>
-            <p class="des">{{review.review}}</p> 
+            <div *ngFor="let reviews of review">
+            <p class="des">
+              {{reviews.Customer}}:{{reviews.review}}</p> 
+          </div>
 
           </div>
 

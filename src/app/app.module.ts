@@ -47,6 +47,7 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import { SidebarModule } from 'ng-sidebar';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ProdVerificationComponent } from './admin/prod-verification/prod-verification.component';
 
 
 AngularFireModule.initializeApp({
@@ -69,7 +70,8 @@ firebase.initializeApp(environment.firebaseConfig)
     SearchPipe,
     CartComponent,
     PurchaseComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ProdVerificationComponent
     
     
     

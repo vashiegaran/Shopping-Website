@@ -1,8 +1,14 @@
-<mat-tab-group>
 
-  <mat-tab label="users"><app-adminusers></app-adminusers></mat-tab>
-  <mat-tab label="products"><app-set-product></app-set-product></mat-tab>
-  <mat-tab label="carts"><app-admincarts></app-admincarts></mat-tab>
-  <mat-tab label="orders"><app-adminorders></app-adminorders></mat-tab>
+
+  <app-header pageTitle="Welcome to merchant page"></app-header>
+
+<mat-tab-group *ngIf="isAdmin" >
+
+    <mat-tab label="User Information"><app-adminusers></app-adminusers></mat-tab>
+  <mat-tab label="Product Verification"><app-prod-verification></app-prod-verification></mat-tab>
+  <mat-tab label="Products"><app-admincarts></app-admincarts></mat-tab>
+  <mat-tab label="Statistics"><app-adminorders></app-adminorders></mat-tab>
 
 </mat-tab-group>
+
+<div *ngIf="!isAdmin" >Please log in as admin</div>

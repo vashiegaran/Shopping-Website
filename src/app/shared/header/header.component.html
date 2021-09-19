@@ -31,7 +31,6 @@
   <button mat-menu-item (click)="link('merchant')"> Merchant</button>
   <button mat-menu-item (click)="link('purchase')">Your Purchase</button>
   <button mat-menu-item>Contact</button>
-  <button mat-menu-item (click)="Logout()">Log Out</button>
 </mat-menu>
 
 
@@ -39,4 +38,6 @@
 
 <mat-menu fxLayout="row" #Account="matMenu">
   <button mat-menu-item (click)="link('login')">log In</button>
+  <button mat-menu-item (click)="Logout()">Log Out</button>
+
 </mat-menu>

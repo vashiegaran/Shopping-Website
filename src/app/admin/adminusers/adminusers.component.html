@@ -1,3 +1,17 @@
-<p>
-  adminusers works!
-</p>
+
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100%"   >
+  <div class="border" style="margin-top: 10px;" fxLayoutAlign="flex-center" fxLayout="row "  fxFlex="100%%" *ngFor="let data of members;" >
+     
+       <div fxLayoutGap ="1px" fxFlex=40%>
+          <h4 class="p5">Product:{{data.name}}</h4>
+          <h4 class="p5">RM:{{data.price}}</h4>
+          <h4 class="p5">Category:{{data.category}}</h4>
+ 
+
+
+      </div>
+   
+    </div>
+
+</div>

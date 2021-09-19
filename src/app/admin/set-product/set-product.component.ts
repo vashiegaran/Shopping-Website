@@ -49,7 +49,6 @@ export class SetProductComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
  // public userList : IUser[]=[];
-  toolgeField: string;
   displayedColumns = [ 'category', 'name', 'price','_id'];
 
   constructor(private _backendService:BackendService,private _location: Location) { }
