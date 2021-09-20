@@ -26,8 +26,7 @@
 
 <mat-menu fxLayout="row" #navMenu="matMenu">
   <button mat-menu-item (click)="link('home')">Home</button>
-  <button mat-menu-item>Profile</button>
-  <button mat-menu-item (click)="link('aboutus')"> About us</button>
+  <button mat-menu-item (click)="link('profile')" >Profile</button>
   <button mat-menu-item (click)="link('merchant')"> Merchant</button>
   <button mat-menu-item (click)="link('purchase')">Your Purchase</button>
   <button mat-menu-item>Contact</button>
@@ -37,7 +36,22 @@
 
 
 <mat-menu fxLayout="row" #Account="matMenu">
-  <button mat-menu-item (click)="link('login')">log In</button>
-  <button mat-menu-item (click)="Logout()">Log Out</button>
+  <button *ngIf="!Login" mat-menu-item (click)="link('login')">log In</button>
+  <div  *ngIf="Login" fxLayout="column">
+    <button mat-menu-item (click)="link('profile');">Account</button>
+    <button mat-menu-item (click)="link('Purchase');">Your Purchase</button>
+    <button mat-menu-item (click)="Logout();alertUser(logout);">Log Out</button>
+  </div>
+
+  <ng-template #logout>
+    <h2 matDialogTitle>Message!</h2>
+    <mat-dialog-content>
+      You Are Logged Out!
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button matDialogClose color="primary">Dismiss</button>
+    </mat-dialog-actions>
+  </ng-template>
 
 </mat-menu>

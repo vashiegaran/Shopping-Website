@@ -43,6 +43,12 @@
     </mat-card-content>
     <mat-card-content fxLayout="row wrap" fxLayoutAlign="center center" >
       <mat-chip-list class="mat-chip-list-stacked" style="margin-left: 170px;">
+        <mat-chip style="cursor: pointer;"color="primary" selected="true" (click)="login('GITHUB')">
+          Login With Github
+        </mat-chip>
+        <mat-chip style="cursor: pointer;"color="primary" selected="true" (click)="alertUser(Mobile)">
+          Login With  Phone Number
+        </mat-chip>
         <mat-chip style="cursor: pointer;"color="primary" selected="true" (click)="login('FB')">
           Login With Facebook
         </mat-chip>
@@ -60,3 +66,40 @@
     </mat-card-actions>
   </ng-template>
 </mat-card>
+
+<ng-template #Mobile>
+
+  <div [hidden]="user" class="mt-5">
+    <h1>Sign In with Your Phone Number</h1>
+  
+    <label for="phone">Phone Number</label><br>
+    <input type="text" [(ngModel)]="phoneNumber.num"  class="input" placeholder="1"    maxlength="12">
+
+  
+    <div id="recaptcha-container"></div>
+  
+    <button (click)="sendLoginCode()" class="mt-2 btn btn-primary">Send SMS Login Code</button>
+  
+    <div *ngIf="windowRef.confirmationResult">
+      <hr>
+      <label for="code">Enter your Verification Code Here</label><br>
+      <input type="text" name="code" [(ngModel)]="verificationCode">
+  
+      <button (click)="verifyLoginCode()" class="btn btn-sm btn-primary">Verify</button>
+    </div>
+  
+  </div>
+  
+  <div *ngIf="user">
+
+    <mat-chip style="cursor: pointer;" color="warn" selected="true" (click)="mergeAndUnmergeWithGoogle()">
+      Merge With Google Account
+    </mat-chip>
+
+    <mat-chip style="cursor: pointer;" color="warn" selected="true" (click)="goTo('Profile')">
+      Merge With Google Account
+    </mat-chip>
+ 
+  
+  </div>
+</ng-template>

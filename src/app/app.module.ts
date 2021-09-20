@@ -48,7 +48,10 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import { SidebarModule } from 'ng-sidebar';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProdVerificationComponent } from './admin/prod-verification/prod-verification.component';
-
+import { AdmincartsComponent } from './admin/admincarts/admincarts.component';
+import { WindowService } from './window.service';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { ProfileComponent } from './profile/profile.component';
 
 AngularFireModule.initializeApp({
   apiKey: "",
@@ -71,7 +74,9 @@ firebase.initializeApp(environment.firebaseConfig)
     CartComponent,
     PurchaseComponent,
     CheckoutComponent,
-    ProdVerificationComponent
+    ProdVerificationComponent,
+    AdmincartsComponent,
+    ProfileComponent
     
     
     
@@ -113,6 +118,8 @@ firebase.initializeApp(environment.firebaseConfig)
     MatSidenavModule,
     MatSelectModule,
     AngularFireStorageModule,
+    RecaptchaModule
+    
     
 
     
@@ -123,7 +130,7 @@ firebase.initializeApp(environment.firebaseConfig)
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA
   ],
-  providers: [AngularFirestore,AngularFireAuth],
+  providers: [AngularFirestore,AngularFireAuth,WindowService],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

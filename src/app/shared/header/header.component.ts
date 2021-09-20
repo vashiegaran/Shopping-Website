@@ -1,8 +1,11 @@
-import { Component, OnInit ,Input } from '@angular/core';
+import { Component, OnInit ,Input, TemplateRef } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend.service';
 import { first } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,9 +15,12 @@ export class HeaderComponent implements OnInit {
 
  @Input() pageTitle:string;
 
-  constructor(private router:Router,private _backendService:BackendService) { }
+  constructor(private router:Router,private _backendService:BackendService,private dialog: MatDialog) { }
   userName;
+  logOut:boolean;
+  Login:boolean;
   ngOnInit() {
+    this.doSomething();
   }
 
   link(page:string):void{
@@ -24,7 +30,10 @@ export class HeaderComponent implements OnInit {
 
   Logout(){
   //  this.Log.
-    return this._backendService.logout();
+  this.Login=false;
+  console.log(this.Login)
+  return this._backendService.logout();
+    
   }
 
   isLoggedIn() {
@@ -34,12 +43,18 @@ export class HeaderComponent implements OnInit {
  async doSomething() {
     const user = await this.isLoggedIn()
     if (user) {
-      this.userName = user;
+      this.Login=true
+      console.log(this.Login)
+      this.userName = user.displayName;
 
       console.log(user.displayName)
     } else {
       console.log("not logged in")
    }
  }
+
+ alertUser(templateRef: TemplateRef<any>) {
+  this.dialog.open(templateRef);
+}
 
 }

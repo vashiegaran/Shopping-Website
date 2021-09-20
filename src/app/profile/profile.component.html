@@ -1,0 +1,77 @@
+
+
+<div style="background-color: rgba(252, 247, 247, 0.829); height: 100%;" fxLayout="column">
+
+  <app-header pageTitle="User Profile"></app-header>
+  <div fxLayout="row">
+    <div fxFlex="15%"></div>
+    <div fxFlex="10%" fxLayout="column">
+      <div style="height: 200px;"></div>
+      <div fxLayout="row">
+        <mat-icon>account_circle</mat-icon>
+        <h2 class="font" >Account</h2>
+      </div>
+      <div fxLayout="column">
+        <h2 class="font2" >Profile</h2>
+        <h2 class="font2" >Bank & Cards</h2>
+        <h2 class="font2" >Address</h2>
+        <h2 class="font2" >Change Password</h2>
+
+      </div>
+      <div style="margin-top: 10px;" fxLayout="row">
+        <mat-icon> money</mat-icon>        
+        <h2 class="font" >Purchase</h2>
+      </div>
+   
+
+    </div>
+    <div class="border" fxFlex="50%" fxLayout="column wrap">
+
+      <h2 class="font" >My Profile</h2>
+      <h2 class="font3" >Manage and protect your account</h2>
+      <div class="borderLine"></div>
+      <div style="margin-top: 50px;" fxLayout="row">
+        <div fxFlex="10%"></div>
+        <div fxLayoutGap="58px" fxFlex="15%" fxLayout="column">
+          <h2 class="font3" >Username: </h2>
+          <h2 class="font3" >Useremail: </h2>
+          <h2 class="font3" >Phone Number: </h2>
+          <h2 class="font3" >Address: </h2>
+
+        </div>
+        <form #editDataForm="ngForm"  (ngSubmit)="updateData(editDataForm.value);" fxLayoutGap="10px" style="margin-top: -25px;" fxFlex="50%" fxLayout="column" novalidate>
+          <mat-form-field >
+            <input  matInput  name="username" id="Username" class="font4" [ngModel]="myDocData.Username" >
+          </mat-form-field>
+          <mat-form-field >
+            <input  matInput  name="Useremail" id="Useremail" class="font4" [ngModel]="myDocData.Useremail" >
+          </mat-form-field>
+          <mat-form-field >
+            <input  matInput  name="PhoneNumber" id="PhoneNumber" class="font4" [ngModel]="myDocData.PhoneNumber" >
+          </mat-form-field>
+          <mat-form-field >
+            <input  matInput  name="Address" id="Address" class="font4" [ngModel]="myDocData.Address" >
+          </mat-form-field>
+
+          <button (click)="alertUser(alert)" fxLayoutAlign="flex-center" style="width: 20%;"type="submit" mat-raised-button [disabled]="!this.editDataForm.valid || this.editDataForm.pristine" color="primary">Update</button>
+          <ng-template #alert>
+            <mat-dialog-content>
+              Your Profile is updated!
+        
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+              <button mat-button matDialogClose color="primary">Close</button>
+            </mat-dialog-actions>
+          </ng-template>
+        </form>
+
+        
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</div>

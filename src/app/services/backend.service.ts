@@ -73,38 +73,21 @@ export class BackendService {
     return this.getDoc(collUrl);
   }
 
+  saveUserData(coll,user){
+    console.log("user info")
+    var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(user.uid).set({
 
-  getConfig(){
-   // return environment.social;
-  }
+      Username: user.displayName,
+      Useremail: user.email,
+      PhoneNumber: user.phoneNumber,
+      UID:user.uid,
+      Address: null,
 
-  getCartTotal(){
-    let fake="10";
-    return Observable.create(
+    })
 
-      observe=>{
-        setTimeout(()=>{
-          observe.next(fake)
-        },2000
-        )
-      }
-    )
-  }
-
-  getUserStatus(){
-
-    let fake="10";
-    return Observable.create(
-
-      observe=>{
-        setTimeout(()=>{
-          observe.next(fake)
-        },2000
-        )
-      }
-    )
 
   }
+ 
 
   approveStatus(coll:string,data,app:string){
 
@@ -128,7 +111,13 @@ export class BackendService {
     }else{
       let loginMethod;
         if(loginType == "GOOGLE" ){loginMethod = new firebase.auth.GoogleAuthProvider() }
+        else if(loginType == "FB" ){console.log("facebook");loginMethod = new firebase.auth.FacebookAuthProvider() }
+        else if(loginType == "GITHUB" ){loginMethod = new firebase.auth.GithubAuthProvider() }
+        else if(loginType == "NUMBER" ){console.log("Number is triggered");loginMethod = new firebase.auth.PhoneAuthProvider() }
+
+
       return this.afAuth.auth.signInWithRedirect(loginMethod);
+      
     }
   
   
@@ -189,13 +178,6 @@ getReview(coll,data) {
   */
 }
 
-getImage(){
-  console.log("working")
-  this.storageRef = firebase.storage().ref().child('/images'+this.afAuth.auth.currentUser.uid+'yZeKFj8NczV5MYl0UK7r');
-return this.storageRef.getDownloadURL().then(url => ref=>{
-  console.log(ref);
-  return ref;} );
-}
 
   logout(){
     return this.afAuth.auth.signOut();
@@ -301,21 +283,6 @@ return this.storageRef.getDownloadURL().then(url => ref=>{
     
   }
 
-
-  setProducts(_collType,filter){
-
-    let fake="10";
-    return Observable.create(
-
-      observe=>{
-        setTimeout(()=>{
-          observe.next(fake)
-        },2000
-        )
-      }
-    )
-
-  }
 
 
   updateProduct(coll,formData:any){
@@ -448,6 +415,20 @@ updatePurchase(coll: string, data,total){
 
       })
   }
+
+  updateUser(coll:string,data:any,docId:any)
+  { 
+     
+      var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(docId);
+      return docRef.update({
+        
+        ...data,
+     
+
+
+      })
+  }
+
 
 
 
