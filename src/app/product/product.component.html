@@ -1,0 +1,88 @@
+
+<div  fxLayout="row wrap" >
+  <app-header fxFlex="100%"></app-header>
+  <div fxFlex="30"> </div>
+<div fxFlex="40%" fxLayout="column wrap" fxLayoutAlign="flex-start">
+  <img style="width:700px;height:550px; margin-top: 10px;" [src]=myDocData.imageUrl>
+  <div style="margin-left:10px ;">
+    <h3 class="size">{{myDocData.category}}</h3>
+    <h2 class ="font1">{{myDocData.name}}</h2>
+    <mat-icon> location_on </mat-icon><span class="aligned-with-icon">Delivery to entire Malaysia</span>
+    <br>
+    <br>
+    <mat-icon> local_shipping</mat-icon><span class="aligned-with-icon">Estimated Delivery Date</span>
+    <p class="date">{{date | date: 'dd-MMM'}} - {{date2 | date: 'dd-MMM-yyyy'}}</p>
+    <mat-icon> local_shipping</mat-icon><span class="aligned-with-icon">Shipping Fee</span>
+    <p class="date">RM:{{myDocData.shipPrice}}.00</p>   
+    <mat-divider horizontal></mat-divider>
+    <br>
+    <h2 class="title">Product Description</h2> 
+    <p class="des">{{myDocData.descr}}</p>  
+    <div style="height:400px;"></div>
+    <div class="borderLine"></div>
+    <h2 class="title" >Delivery Coverage</h2>
+    <p class="des">This product can only deliver to certain area within Malaysia</p>
+    <div  class="borderLine"></div>
+    <h2 class="title" >Delivery Term</h2>
+    <p class="des">I will send out your product once order is confirmed.</p>
+    <p class="des"> The product is expected to reach you in 4-7 working days.</p> 
+    <div  class="borderLine"></div>
+    <h2 class="tittle">Ratings & Reviews </h2>
+
+    <ngb-rating class="star2"  [max]="5" [(rate)]="rating" [readonly]="true"></ngb-rating>
+    <div  class="borderLine"></div>
+    <div *ngFor="let reviews of review">
+    <p class="des">
+      {{reviews.Customer}}:{{reviews.review}}</p> 
+  </div>
+
+  </div>
+
+</div>
+
+<mat-card style="margin-top: 10px; width: 30%; height: 400px;"  fxFlex="20%">
+<div fxFlex="100%" FxLayoutAlign="column wrap">
+<div fxFLex="50%" class="write">RM:{{myDocData.price}}.00</div>
+
+<div style="margin-top:40px;" fxLayoutAlign="row">
+  <div  fxFlex="40%" class="write">Quantity</div>
+    <div fxFlex="60%"></div>
+    <div  fxLayoutAlign="space-around center"   class="button-container">
+      <button (click)="countProd('remove')" mat-mini-fab color="accent" >
+        <mat-icon>remove</mat-icon>
+      </button>
+      {{counter}}
+      <button (click)="countProd('add')" mat-mini-fab color="accent" >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    
+</div>
+<div style="margin-top:40px;" fxLayout="row">
+  <div fxLayout="column" fxFlex="60%" class="write">Service Charge</div>
+    <div  fxFlex="10%"></div>
+     <div  fxFlex="30%" class="write" style="margin-top:10px;" >RM:00.00</div> 
+</div>
+<div style="margin-top:20px;"  >
+  <div  fxFlex="60%" class="write">Total</div>
+  <div fxFlex="10%"></div>
+  <h3 fxFLex="30%" style="margin-top:10px;" >RM:{{myDocData.price*counter}}.00</h3> 
+
+</div>
+<!--addToCart(myDocData, counter);-->
+<div fxLayoutAlign="center center" >
+  <button ng-sidebar-content style="margin-top:50px; width: 200px;" [disabled]="counter < 1" mat-flat-button color="primary"(click)="addToCart(myDocData, counter); toggleSidebar(); cart.getCartDetails(); ">Add to Cart</button>
+  <mat-error *ngIf="savedChanges">
+    <br/>
+    <br/> Shopping cart is updated.
+    <mat-icon (click)="savedChanges=!savedChanges" color="lime">close</mat-icon>
+    <span class="med-spacer"></span>
+    <br/>
+</mat-error>
+</div>
+
+
+</div>           
+</mat-card >
+
+</div>

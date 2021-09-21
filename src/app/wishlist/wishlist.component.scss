@@ -47,4 +47,33 @@
     margin-top: 20px;
     border-radius: 20px;
   }
+
+   
+  .border2{
+    background-color: rgb(255, 255, 255);
+    width: 80%;
+    height: 800px;
+    border: 1px solid rgb(160, 160, 160);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+  }
+
+  .p3 {
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: #525252;  
+    font-size: 18px;
+  }
+  
+  .p4 {
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: #292929;
+    font-size: 18px;
+  }
+
+  .dis{
+
+    display: flex;
+    flex-direction: column;
+  }
   

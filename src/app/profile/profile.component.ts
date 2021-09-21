@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BackendService } from '../services/backend.service';
 import { MatDialog } from '@angular/material';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,12 +12,24 @@ export class ProfileComponent implements OnInit {
   errorMessage: any;
   myDocData;
   querySubcription: any;
+  toggleField: string;
+  samePass:boolean;
+  public pass1: string;
+  public pass2: string;
 
-  constructor(private _backendService:BackendService,private dialog: MatDialog) { }
+
+  constructor(private _backendService:BackendService,private dialog: MatDialog , private router:Router) { }
   
 
   ngOnInit() {
     this.getDoc(this._backendService.afAuth.auth.currentUser.uid);
+    this.toggleField = "profile";
+
+  }
+  
+
+  goTo(page:string){
+    this.router.navigate([page])
   }
 
   getDoc(docId){
@@ -57,4 +69,24 @@ export class ProfileComponent implements OnInit {
   alertUser(templateRef: TemplateRef<any>) {
     this.dialog.open(templateRef);
   }
+
+  toggle(filter?) {
+    if (!filter) { filter = "profile" }
+    else { filter = filter; }
+    this.toggleField = filter;
+}
+
+checkSame(pass: string , pass2:string) {
+
+  if (pass === pass2) {
+    return this.samePass =true;
+    console.log(pass +"==",pass2)
+    console.log(this.samePass)
+  } else {
+    return this.samePass =false
+    console.log(pass +"==",pass2)
+    console.log(this.samePass)
+
+  }
+}
 }

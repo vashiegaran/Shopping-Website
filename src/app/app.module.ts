@@ -52,6 +52,8 @@ import { AdmincartsComponent } from './admin/admincarts/admincarts.component';
 import { WindowService } from './window.service';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ProfileComponent } from './profile/profile.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { ProductComponent } from './product/product.component';
 
 AngularFireModule.initializeApp({
   apiKey: "",
@@ -76,7 +78,9 @@ firebase.initializeApp(environment.firebaseConfig)
     CheckoutComponent,
     ProdVerificationComponent,
     AdmincartsComponent,
-    ProfileComponent
+    ProfileComponent,
+    WishlistComponent,
+    ProductComponent
     
     
     

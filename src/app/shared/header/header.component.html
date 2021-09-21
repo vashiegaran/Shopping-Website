@@ -11,7 +11,9 @@
 </h3>
 </span>
 <mat-icon [color]="userStatusColor" routerLink="/product">shop</mat-icon>
-<span fxFlex="90%"class ="example-spacer"  class ="example-icon" fxLayout="row" fxLayoutAlign= "end center">
+<span fxLayoutGap="20px" fxFlex="90%"class ="example-spacer"  class ="example-icon" fxLayout="row" fxLayoutAlign= "end center">
+
+ 
 
 <button   fxLayoutAlign="center center" mat-mini-fab color="blue" [matMenuTriggerFor]="Account" yPosition="below"   >
   <mat-icon  >account_box</mat-icon>
@@ -41,6 +43,8 @@
     <button mat-menu-item (click)="link('profile');">Account</button>
     <button mat-menu-item (click)="link('Purchase');">Your Purchase</button>
     <button mat-menu-item (click)="Logout();alertUser(logout);">Log Out</button>
+    <button mat-menu-item (click)="wishList(wishlist);">Wish List</button>
+
   </div>
 
   <ng-template #logout>
@@ -55,3 +59,11 @@
   </ng-template>
 
 </mat-menu>
+
+
+<ng-template #wishlist>
+  <mat-dialog-content>
+  <app-wishlist></app-wishlist>
+</mat-dialog-content>
+</ng-template>
+

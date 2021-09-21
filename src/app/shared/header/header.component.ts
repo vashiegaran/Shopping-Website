@@ -20,11 +20,12 @@ export class HeaderComponent implements OnInit {
   logOut:boolean;
   Login:boolean;
   ngOnInit() {
+    
     this.doSomething();
   }
 
   link(page:string):void{
-    let Link = new AppComponent(this.router);
+    let Link = new AppComponent(this.router,this._backendService);
     Link.goToPage(page);
   }
 
@@ -54,6 +55,10 @@ export class HeaderComponent implements OnInit {
  }
 
  alertUser(templateRef: TemplateRef<any>) {
+  this.dialog.open(templateRef);
+}
+
+wishList(templateRef: TemplateRef<any>) {
   this.dialog.open(templateRef);
 }
 

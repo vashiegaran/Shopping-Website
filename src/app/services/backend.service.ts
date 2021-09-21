@@ -10,6 +10,8 @@ import { TouchSequence } from 'selenium-webdriver';
 import { map } from 'rxjs/internal/operators/map';
 import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage'
 import ref = require('firebase');
+import { EventEmitter } from '@angular/core';
+
 
 
 @Injectable({
@@ -28,6 +30,7 @@ export class BackendService {
   iD:string;
   storageRef: firebase.storage.Reference;
   list: any[] = [];
+  emmiter : EventEmitter<any> = new EventEmitter();
 
   constructor(public afAuth:AngularFireAuth ,private afs :AngularFirestore,private afStorage: AngularFireStorage) {
 
@@ -75,15 +78,28 @@ export class BackendService {
 
   saveUserData(coll,user){
     console.log("user info")
-    var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(user.uid).set({
 
-      Username: user.displayName,
-      Useremail: user.email,
-      PhoneNumber: user.phoneNumber,
-      UID:user.uid,
-      Address: null,
+    this.afs.collection(this.getCollectionURL(coll),ref=>
+    ref.where('UID','==',user.uid)).snapshotChanges().subscribe(res => {
+      if (res.length > 0)
+      {
+      console.log("Data exist.");
+      }
+      else
+      {
+        var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(user.uid).set({
 
-    })
+          Username: user.displayName,
+          Useremail: user.email,
+          PhoneNumber: user.phoneNumber,
+          UID:user.uid,
+          Address: null,
+    
+        })
+      }
+  });
+
+  
 
 
   }

@@ -12,36 +12,35 @@
         <h2 class="font" >Account</h2>
       </div>
       <div fxLayout="column">
-        <h2 class="font2" >Profile</h2>
-        <h2 class="font2" >Bank & Cards</h2>
-        <h2 class="font2" >Address</h2>
-        <h2 class="font2" >Change Password</h2>
+        <h2 style="cursor: pointer;" (click)="toggle('profile')" class="font2" >Profile</h2>
+        <h2 style="cursor: pointer;" (click)="toggle('bank')" class="font2" >Bank & Cards</h2>
+        <h2  style="cursor: pointer;" (click)="toggle('password')" class="font2" >Change Password</h2>
 
       </div>
       <div style="margin-top: 10px;" fxLayout="row">
         <mat-icon> money</mat-icon>        
-        <h2 class="font" >Purchase</h2>
+        <h2  style="cursor: pointer;" (click)="toggle('purchase')"  class="font" >Purchase</h2>
       </div>
    
 
     </div>
-    <div class="border" fxFlex="50%" fxLayout="column wrap">
+    <div *ngIf="toggleField=='profile'" class="border" fxFlex="50%" fxLayout="column wrap" #profile>
 
       <h2 class="font" >My Profile</h2>
       <h2 class="font3" >Manage and protect your account</h2>
       <div class="borderLine"></div>
-      <div style="margin-top: 50px;" fxLayout="row">
+      <div style="margin-top: 50px;" fxLayoutGap="10px" fxLayout="row">
         <div fxFlex="10%"></div>
-        <div fxLayoutGap="58px" fxFlex="15%" fxLayout="column">
+        <div fxLayoutGap="58px" fxFlex="20%" fxLayout="column">
           <h2 class="font3" >Username: </h2>
           <h2 class="font3" >Useremail: </h2>
           <h2 class="font3" >Phone Number: </h2>
           <h2 class="font3" >Address: </h2>
 
         </div>
-        <form #editDataForm="ngForm"  (ngSubmit)="updateData(editDataForm.value);" fxLayoutGap="10px" style="margin-top: -25px;" fxFlex="50%" fxLayout="column" novalidate>
+        <form #editDataForm="ngForm"  (ngSubmit)="updateData(editDataForm.value);" fxLayoutGap="27px" style="margin-top: -25px;" fxFlex="50%" fxLayout="column" novalidate>
           <mat-form-field >
-            <input  matInput  name="username" id="Username" class="font4" [ngModel]="myDocData.Username" >
+            <input  matInput  name="username" id="Username" class="font4" [ngModel]="myDocData.Username " >
           </mat-form-field>
           <mat-form-field >
             <input  matInput  name="Useremail" id="Useremail" class="font4" [ngModel]="myDocData.Useremail" >
@@ -66,12 +65,104 @@
         </form>
 
         
+
+        
       </div>
 
 
 
 
     </div>
+
+       <div *ngIf="toggleField=='bank'" class="border" fxFlex="60%" fxLayout="column wrap" >
+
+        <div fxLayout="row">
+          <h2 fxFlex="80%" class="font" >Credit Card Installment</h2>  
+          <button fxFlex="20%" mat-raised-button color="warn">Add Credit Card</button>
+        </div>
+      <div style="height: 200px;"></div>
+      <div class="borderLine"></div>
+
+      <div fxLayout="row">
+        <h2 fxFlex="80%" class="font" >Credit/Debit Card</h2>  
+        <button fxFlex="20%" mat-raised-button color="warn">Add New Card</button>
+      </div>
+    <div style="height: 200px;"></div>
+    <div class="borderLine"></div>
+
+
+
+
+    </div>
+
+
+    <div *ngIf="toggleField=='password'" class="border" fxFlex="50%" fxLayout="column wrap" >
+
+      <h2 class="font" >My Profile</h2>
+      <h2 class="font3" >Manage and protect your account</h2>
+      <div class="borderLine"></div>
+      <div style="margin-top: 50px;" fxLayoutGap="10px" fxLayout="row">
+        <div fxFlex="10%"></div>
+        <div fxLayoutGap="58px" fxFlex="20%" fxLayout="column">
+          <h2 class="font3" >Old Password: </h2>
+          <h2 class="font3" >New Password: </h2>
+          <h2 class="font3" >New Password: </h2>
+
+        
+
+        </div>
+        <form #editDataForm="ngForm"  (ngSubmit)="updateData(editDataForm.value);" fxLayoutGap="27px" style="margin-top: -25px;" fxFlex="50%" fxLayout="column" novalidate>
+          <mat-form-field >
+            <input  matInput  name="oldPassword" id="oldPassword" class="font4"  [(ngModel)]="Oldpassword" (ngModelChange)="!checkSame(myDocData.Password,Oldpassword)" required >
+          </mat-form-field>
+          <mat-form-field >
+            <input  matInput  name="Password" id="Password" class="font4" [(ngModel)]="Password"  #password="ngModel" required  minlength="6" >
+          </mat-form-field>
+    
+          <mat-form-field >
+            <input   matInput  name="pass2" id="pass2" class="font4" [(ngModel)]="pass2" (ngModelChange)="checkSame(Password,pass2)" required   >
+          </mat-form-field>
+
+            <span >
+              <mat-error *ngIf="password.errors['minlength']">Password can't be less than 5 characters.</mat-error>
+              <mat-error *ngIf="password.errors['maxlength']">Password can't be more than 30 characters.</mat-error>
+              <mat-error *ngIf="!checkSame(Password,pass2)">Password not matched</mat-error>
+
+            </span>
+          
+
+         
+       <button (click)="alertUser(alert)" fxLayoutAlign="flex-center" style="width: 20%;"type="submit" mat-raised-button [disabled]="!this.editDataForm.valid || this.editDataForm.pristine||!samePass" color="primary">Update</button>
+      
+       <ng-template #alert>
+            <mat-dialog-content>
+              Your Profile is updated!
+        
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+              <button mat-button matDialogClose color="primary">Close</button>
+            </mat-dialog-actions>
+          </ng-template>
+        </form>
+
+        
+
+        
+      </div>
+
+
+
+
+      </div>
+
+
+      <div *ngIf="toggleField=='purchase'" class="border" fxFlex="50%" fxLayout="column wrap" >
+
+        <app-purchase></app-purchase>
+  
+  
+  
+        </div>
 
   </div>
 </div>

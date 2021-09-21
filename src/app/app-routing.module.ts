@@ -14,6 +14,7 @@ import { CartComponent } from './cart/cart.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProductComponent } from './product/product.component';
 
 const routes:Routes=[
 
@@ -27,6 +28,8 @@ const routes:Routes=[
   {path:'purchase', component: PurchaseComponent ,canActivate:[AuthGuardService] } ,
   {path:'checkout', component: CheckoutComponent ,canActivate:[AuthGuardService] } ,
   {path:'profile', component: ProfileComponent ,canActivate:[AuthGuardService] } ,
+  {path:'product/:prodId', component: ProductComponent ,canActivate:[AuthGuardService] } ,
+
 
 
 

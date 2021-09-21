@@ -29,12 +29,17 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.getCartDetails();
   }
+
+  test(){
+    console.log("testing")
+  }
+
   Back(){
     this.toggle=true
   }
 
   checkOut(page:string):void{
-    let Link = new AppComponent(this.router);
+    let Link = new AppComponent(this.router,this._backendService);
     Link.goToPage(page);
   }
 

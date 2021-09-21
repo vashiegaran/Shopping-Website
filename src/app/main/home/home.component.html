@@ -23,9 +23,9 @@
   </div>
   
 
-  <div  fxLayoutAlign="flex-start" fxLayoutGap="12px" fxLayout="row wrap" *ngIf="toggle ; else showProductDetails"  fxFlex="60%" >
+  <div  fxLayoutAlign="flex-start" fxLayoutGap="12px" fxLayout="row wrap"   fxFlex="60%" >
 
-           <button class="border" style = "cursor: pointer; height:300px"fxLayoutAlign="flex-center" fxLayout="column " fxFlex="20%" *ngFor="let data of members | search:searchText"(click)="showDetails(data);toggle=!toggle;getReviewDetails(data)" >
+           <button class="border" style = "cursor: pointer; height:300px"fxLayoutAlign="flex-center" fxLayout="column " fxFlex="20%" *ngFor="let data of members | search:searchText"(click)="product('product',data._id)" >
               
               <div fxLayoutAlign="center center" fxFlex=50%>
                 <img style="width:130px;height:130px;" [src]=data.imageUrl>

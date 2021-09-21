@@ -1,0 +1,154 @@
+.example-card {
+    max-width: 400px;
+    margin-bottom: 8px;
+  }
+
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .product-card {
+    padding: 2%;
+    flex-grow: 1;
+    flex-basis: 16%;
+  
+    display: flex; /* so child elements can use flexbox stuff too! */
+  }
+
+  .product-info {
+    margin-top: auto;
+  }
+
+  .form-control {
+    box-shadow: 0 10px 40px 0 #B0C1D9;
+  }
+  .form-control::placeholder  {
+    font-family: FontAwesome;
+  }
+
+.p3 {
+  font-family: "Lucida Console", "Courier New", monospace;
+  color: #525252;  
+  font-size: 18px;
+}
+
+.p4 {
+  font-family: "Lucida Console", "Courier New", monospace;
+  color: #292929;
+  font-size: 18px;
+}
+
+  .size {
+    font-size: 15px;
+    color: #f01010;
+  }
+
+  .font1{
+    font-size: 30px;
+    color: #585757;
+    font-family: "Arial Black"
+
+  }
+
+  .aligned-with-icon{
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px; /* optional */
+    font-family: "Lucida Console", "Courier New", monospace;
+    
+}
+
+.date{
+  margin-top: -5px;
+  margin-left: 30px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 15px;
+  color: #747474;
+
+}
+
+.title{
+  margin-top: -5px;
+  margin-left: 30px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 15px;
+  color: #3b3b3b;
+
+}
+
+.des{
+  margin-top: -5px;
+  margin-left: 30px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 12px;
+  color: #636363;
+  display: flex; 
+   max-width: 80%;
+   flex:1;
+  height: 1.5em;
+  flex: row-wrap;
+
+}
+
+.star{
+
+  font-size: 2.0rem;
+}
+
+.star2{
+
+  font-size: 2.5rem;
+}
+.write{
+  font-family: "Lucida Console", "Courier New", monospace;
+  margin-top:10px;
+  font-size: 16px;
+  color: #141414;
+
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+
+
+}
+
+ng-sidebar-container{
+  height:100vh;
+}
+
+::ng-deep .ng-sidebar{
+  background-color: #1a1b1b;
+  width: 300px;
+  padding: 2em 3em;
+  box-shadow: 0 0 2.5em rgba(85,85,85,0.5)
+
+}
+
+.borderLine{
+  border-bottom: 1px solid rgb(189, 188, 188);
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 20px;
+
+}
+
+
+.border{
+  background-color: rgb(255, 255, 255);
+  width: 500px;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 20px;
+  margin: 1px;
+}
+
+
+ngb-rating {
+  font-size: 10px;
+  color:rgb(229, 255, 0);
+}
+
+

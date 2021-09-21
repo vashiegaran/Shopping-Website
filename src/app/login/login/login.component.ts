@@ -190,7 +190,7 @@ export class PhoneNumber {
 
 
   checkOut(page:string):void{
-    let Link = new AppComponent(this.router);
+    let Link = new AppComponent(this.router,this._backendService);
     Link.goToPage(page);
   }
 

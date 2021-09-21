@@ -12,12 +12,14 @@ import {MatTableDataSource} from '@angular/material/table';
 import { TouchSequence } from 'selenium-webdriver';
 import{BackendService} from 'src/app/services/backend.service'
 import { CartComponent } from 'src/app/cart/cart.component';
+import { ProductComponent } from 'src/app/product/product.component';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+
 
 })
 
@@ -48,10 +50,8 @@ export class HomeComponent  implements OnInit{
  cartOpen :boolean =false;
   
  //public userDetails:IUser;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(CartComponent) cart: CartComponent
 
+  @ViewChild(CartComponent) cart: CartComponent
 
   constructor(private fb:FormBuilder,private router:Router,
     private _backendService:BackendService){
@@ -65,7 +65,7 @@ export class HomeComponent  implements OnInit{
     }
     displayedColumns = [ 'category', 'name', 'price','_id'];
 
-
+    ngAfterViewInit(){}
   ngOnInit(): void {
     //this.getUsers();
     //this.dataSource = new MatTableDataSource(this.members);
@@ -81,6 +81,11 @@ export class HomeComponent  implements OnInit{
    
   }
 
+  product(page:string,id:string):void{
+    let Link = new AppComponent(this.router,this._backendService);
+    Link.goToPage(page,id)
+  }
+
   public toggleSidebar() {
     this.cartOpen = !this.cartOpen;
   }  
@@ -94,6 +99,10 @@ export class HomeComponent  implements OnInit{
     this.profileUrl="";
   }
 
+  goTo(page:string):void{
+    let Link = new AppComponent(this.router,this._backendService);
+    Link.goToPage(page);
+  }
 
   getData(){
   
@@ -162,17 +171,8 @@ export class HomeComponent  implements OnInit{
   }
 
 
-  showDetails(item) {
-    this.counter = 0;
+  showDetails( item: any) {
     this.myDocData = item;
-    var date= new Date();
-    this.getPic(item.path);
-    // capture user interest event, user has looked into product details
-    this.dataLoading = true;
-    let data = item;
-    return this._backendService.updateShoppingInterest('interests',data).then((success)=> {
-        this.dataLoading = false;
-    });
     
 }
 
