@@ -23,15 +23,16 @@ export class ProductComponent implements OnInit {
   members: any[];
   carts :any[];
   counter=0;
+  dataId;
   myDocData;
-
+  review;
   constructor(private _backendService:BackendService, private route:ActivatedRoute) { }
 
 
   ngOnInit() {
     
-    this.route.params.subscribe((params: Params) => this.myDocData=params.prodId);
-    this.myDocData = this._backendService.getOneProductDoc('product',this.myDocData).subscribe(res =>{
+    this.route.params.subscribe((params: Params) => this.dataId=params.prodId);
+    this.myDocData = this._backendService.getOneProductDoc('product',this.dataId).subscribe(res =>{
       //    console.log(res)
           if(res){
          //   console.log(res);
@@ -50,6 +51,9 @@ export class ProductComponent implements OnInit {
           this.errorMessage=error.message;
         },
         ()=>{this.error=false; });
+
+        this.getReviewDetails(this.dataId)
+
     console.log(this.myDocData)
   }
 
@@ -64,6 +68,29 @@ export class ProductComponent implements OnInit {
         }
     }
   
+  }
+
+  addToWishlist(data){
+
+    this._backendService.addWishList('wishlist',data);
+
+  }
+
+  getReviewDetails(id){
+    this.querySubcription =this._backendService.getReview('review',id)
+    .subscribe(review =>{
+      
+      this.review = review;
+      console.log("this is working"+this.review);
+    },
+
+    (error)=>{
+      this.error=true;
+      this.errorMessage=error.message;
+      this.dataLoading=false;
+    },
+    ()=>{this.error=false; this.dataLoading=false});
+
   }
 
 

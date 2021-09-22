@@ -175,11 +175,11 @@ export class BackendService {
     */
 }
 
-getReview(coll,data) {
+getReview(coll,id) {
 
-      console.log(data._id)
+      
       return this.afs.collection(this.getCollectionURL(coll),ref=>
-      ref.where('itemId','==',data._id)  
+      ref.where('itemId','==',id)  
       ).valueChanges();
   /*
   console.log(this.afAuth.auth.currentUser.uid);
@@ -238,6 +238,40 @@ getReview(coll,data) {
       
     })
    
+  }
+
+  addWishList(coll,data){
+    const id = this.afs.createId();
+    const item = { id,name };
+    const timestamp = this.timestamp;
+
+
+   return  this.afs.collection(this.getCollectionURL(coll),ref=>
+    ref.where('author','==',data.author)).snapshotChanges().subscribe(res => {
+      if (res.length > 0)
+      {
+      console.log("Data exist.");
+      }
+      else
+      {
+        return this.afs.collection(this.getCollectionURL(coll)).doc(item.id).set({
+          ...data,
+          updatedAt: timestamp,
+          createdAt: timestamp,
+          delete_flag: "N",
+          CustomerId: this.afAuth.auth.currentUser.uid,
+          Customername: this.afAuth.auth.currentUser.displayName,
+    
+        })
+      }
+  });
+
+
+
+    
+
+
+
   }
 
 

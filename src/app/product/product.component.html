@@ -41,7 +41,7 @@
 </div>
 
 <mat-card style="margin-top: 10px; width: 30%; height: 400px;"  fxFlex="20%">
-<div fxFlex="100%" FxLayoutAlign="column wrap">
+<div fxFlex="100%" >
 <div fxFLex="50%" class="write">RM:{{myDocData.price}}.00</div>
 
 <div style="margin-top:40px;" fxLayoutAlign="row">
@@ -72,6 +72,8 @@
 <!--addToCart(myDocData, counter);-->
 <div fxLayoutAlign="center center" >
   <button ng-sidebar-content style="margin-top:50px; width: 200px;" [disabled]="counter < 1" mat-flat-button color="primary"(click)="addToCart(myDocData, counter); toggleSidebar(); cart.getCartDetails(); ">Add to Cart</button>
+  <button ng-sidebar-content style="margin-top:50px; width: 200px;"  mat-flat-button color="primary"(click)="addToWishlist(myDocData); ">Add to WishList</button>
+
   <mat-error *ngIf="savedChanges">
     <br/>
     <br/> Shopping cart is updated.

@@ -22,7 +22,7 @@ export class WishlistComponent implements OnInit {
 
   getData(){
   
-    this.querySubcription =this._backendService.getDocs('product')
+    this.querySubcription =this._backendService.getDocs('wishlist')
         .subscribe(members =>{
           this.members = members;
            // console.log(this.members);
