@@ -1,3 +1,102 @@
+
+<body *ngIf="toggleField=='main'">
+<div class="container py-5">
+    <div class="row text-center text-white mb-5">
+        <div class="col-lg-7 mx-auto">
+            <h1 class="display-4">Purchase List</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li style="cursor:pointer" class="list-group-item"  *ngFor="let data of items;" (click)="toggle('detail');showDetails(data)" >
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{data.name}}</h5>
+                            <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p>
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h6 class="font-weight-bold my-2">${{data.price}}</h6>
+                                <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul>
+                            </div>
+                        </div><img [src]=data.imageUrl alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li> <!-- End -->
+                
+            </ul> <!-- End -->
+        </div>
+    </div>
+</div>
+</body>
+
+<ng-container *ngIf="(toggleField=='detail')">
+
+    <div fxLayout="column" class="card-body">
+        <h6 style="margin-top: 50px;">Order ID: OD45345345435</h6>
+        <article class="card">
+            <div class="card-body row">
+                <div class="col"> <strong>Estimated Delivery time:</strong> <br> </div>
+                <div class="col"> <strong>Shipping BY:</strong> <br>  </div>
+                <div class="col"> <strong>Status:</strong> <br> </div>
+                <div class="col"> <strong>Tracking #:</strong> <br>  </div>
+            </div>
+        </article>
+        <div class="track">
+            <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+            <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+            <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+            <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Order Delivered</span> </div>
+        </div>
+        <mat-divider></mat-divider>
+
+
+        <div  fxLayout="column" fxLayoutAlign="flex-start">
+            <img style="width:700px;height:550px; margin-top: 10px;" [src]=myDocData.imageUrl>
+            <div style="margin-left:0px ;">
+              <h3 class="size">{{myDocData.category}}</h3>
+              <h2 class ="font1">{{myDocData.name}}</h2>
+              <div class="borderLine"></div>
+
+              <h2 class="title2">Total:RM:{{myDocData.Total}}</h2>
+              <div class="borderLine"></div>
+
+              <h2 class="title">Product Description</h2> 
+              <p class="des">{{myDocData.descr}}</p>  
+              <div style="height:400px;"></div>
+              <div class="borderLine"></div>
+              <h2 class="title" >Delivery Term</h2>
+              <p class="des">I will send out your product once order is confirmed.</p>
+              <p class="des"> The product is expected to reach you in 4-7 working days.</p> 
+              <div  class="borderLine"></div>
+              <h2 class="tittle">Ratings & Reviews </h2>
+     
+              <ngb-rating class="star"  [max]="5" [(rate)]="myDocData.rating" [readonly]="false"></ngb-rating>
+              <form #addReview="ngForm" (ngSubmit)="setData(addReview.value,data);" novalidate>                   
+                       <mat-form-field  style="width: 900px;" appearance="outline">
+                      <mat-label>Write your review here</mat-label>
+                      <input matInput placeholder="Product Review" name="review" id="review" ngModel required >
+                  </mat-form-field>
+                  <button type="submit" mat-raised-button [disabled]="!addReview.form.valid"color="primary">Submit</button>
+
+              </form>    
+  
+            </div>
+  
+          </div>
+
+        </div>
+
+</ng-container>
+
+<!-----
 <div  fxLayout="column">
   <app-header pageTitle="Order Tracking"></app-header>
 
@@ -98,7 +197,7 @@
 
 
     </div>
-
+-->
 <!--
   <div fxLayout="column">
         <h2 > My Orders / Tracking </h2>
@@ -149,6 +248,5 @@
         </div>
   </div>
 -->
-</div>
 
 

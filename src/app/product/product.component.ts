@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router,ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { BackendService } from '../services/backend.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-product',
@@ -22,11 +23,12 @@ export class ProductComponent implements OnInit {
 
   members: any[];
   carts :any[];
-  counter=0;
+  counter=1;
   dataId;
   myDocData;
   review;
-  constructor(private _backendService:BackendService, private route:ActivatedRoute) { }
+  constructor(private _backendService:BackendService, private route:ActivatedRoute,private dialog: MatDialog
+  ) { }
 
 
   ngOnInit() {
@@ -53,7 +55,10 @@ export class ProductComponent implements OnInit {
         ()=>{this.error=false; });
 
         this.getReviewDetails(this.dataId)
-
+        this.date2 = new Date();
+        this.date2.setDate( this.date2.getDate() + 10 );
+        this.date = new Date();
+        this.date.setDate( this.date.getDate() + 7 );
     console.log(this.myDocData)
   }
 
@@ -63,7 +68,7 @@ export class ProductComponent implements OnInit {
       this.counter=this.counter+1;
   
     }else{
-        if(this.counter>0){
+        if(this.counter>1){
           this.counter =this.counter-1;
         }
     }
@@ -91,6 +96,21 @@ export class ProductComponent implements OnInit {
     },
     ()=>{this.error=false; this.dataLoading=false});
 
+  }
+
+  addToCart(item, counter){
+    this.dataLoading = true;
+    let data = item;
+    data.qty = counter;
+    return this._backendService.updateShoppingCart('cart',data).then((success)=> {
+        this.dataLoading = false;
+        this.counter=0;
+        this.savedChanges=true;
+    });
+  }
+
+  alertUser(templateRef: TemplateRef<any>) {
+    this.dialog.open(templateRef);
   }
 
 

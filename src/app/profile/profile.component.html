@@ -106,26 +106,25 @@
         <div fxLayoutGap="58px" fxFlex="20%" fxLayout="column">
           <h2 class="font3" >Old Password: </h2>
           <h2 class="font3" >New Password: </h2>
-          <h2 class="font3" >New Password: </h2>
+          <h2 class="font3" >Verify Password: </h2>
 
         
 
         </div>
         <form #editDataForm="ngForm"  (ngSubmit)="updateData(editDataForm.value);" fxLayoutGap="27px" style="margin-top: -25px;" fxFlex="50%" fxLayout="column" novalidate>
           <mat-form-field >
-            <input  matInput  name="oldPassword" id="oldPassword" class="font4"  [(ngModel)]="Oldpassword" (ngModelChange)="!checkSame(myDocData.Password,Oldpassword)" required >
+            <input  matInput type="password" name="oldPassword" id="oldPassword" class="font4"  [(ngModel)]="Oldpassword" (ngModelChange)="!checkSame(myDocData.Password,Oldpassword)" required >
           </mat-form-field>
           <mat-form-field >
-            <input  matInput  name="Password" id="Password" class="font4" [(ngModel)]="Password"  #password="ngModel" required  minlength="6" >
+            <input  matInput type="password" name="Password" id="Password" class="font4" [(ngModel)]="Password"  #password="ngModel" required  minlength="6" >
           </mat-form-field>
     
           <mat-form-field >
-            <input   matInput  name="pass2" id="pass2" class="font4" [(ngModel)]="pass2" (ngModelChange)="checkSame(Password,pass2)" required   >
+            <input   matInput type="password" name="pass2" id="pass2" class="font4" [(ngModel)]="pass2" (ngModelChange)="checkSame(Password,pass2)" required   >
           </mat-form-field>
 
             <span >
-              <mat-error *ngIf="password.errors['minlength']">Password can't be less than 5 characters.</mat-error>
-              <mat-error *ngIf="password.errors['maxlength']">Password can't be more than 30 characters.</mat-error>
+
               <mat-error *ngIf="!checkSame(Password,pass2)">Password not matched</mat-error>
 
             </span>
@@ -156,7 +155,7 @@
       </div>
 
 
-      <div *ngIf="toggleField=='purchase'" class="border" fxFlex="50%" fxLayout="column wrap" >
+      <div *ngIf="toggleField=='purchase'" class="borderPurchase" fxFlex="100%" fxLayout="column wrap" >
 
         <app-purchase></app-purchase>
   

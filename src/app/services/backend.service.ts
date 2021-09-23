@@ -158,7 +158,7 @@ export class BackendService {
   getYourItem(coll) {
     console.log(this.afAuth.auth.currentUser.uid)
     this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
-    ref.where('author','==',this.afAuth.auth.currentUser.uid)
+    ref.where('customerId','==',this.afAuth.auth.currentUser.uid)
     )
     return this.cartColletion.valueChanges();
   
@@ -291,8 +291,8 @@ getReview(coll,id) {
         delete_flag: "N",
         username: this.authState.displayName,
         useremail: this.authState.email,
-        author:this.afAuth.auth.currentUser.uid,
-        status:"P",
+        customerId:this.afAuth.auth.currentUser.uid,
+        status:"Pending",
         
         
     });
@@ -486,7 +486,7 @@ updatePurchase(coll: string, data,total){
   {
     console.log("_id"+data)
      return (this.afs.collection(this.getCollectionURL(coll),ref => ref.where('_id', '==', data)
-     .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
+     .where('customerId','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
       map(actions => actions.map(a => {
           const id = a.payload.doc.id;
           return  id ;

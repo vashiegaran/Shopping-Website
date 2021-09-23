@@ -28,6 +28,7 @@ const routes:Routes=[
   {path:'purchase', component: PurchaseComponent ,canActivate:[AuthGuardService] } ,
   {path:'checkout', component: CheckoutComponent ,canActivate:[AuthGuardService] } ,
   {path:'profile', component: ProfileComponent ,canActivate:[AuthGuardService] } ,
+  {path:'cart', component: CartComponent ,canActivate:[AuthGuardService] } ,
   {path:'product/:prodId', component: ProductComponent ,canActivate:[AuthGuardService] } ,
 
 

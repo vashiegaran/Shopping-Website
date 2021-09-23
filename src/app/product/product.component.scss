@@ -1,154 +1,242 @@
-.example-card {
-    max-width: 400px;
-    margin-bottom: 8px;
-  }
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
-  .products {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .product-card {
-    padding: 2%;
-    flex-grow: 1;
-    flex-basis: 16%;
-  
-    display: flex; /* so child elements can use flexbox stuff too! */
-  }
-
-  .product-info {
-    margin-top: auto;
-  }
-
-  .form-control {
-    box-shadow: 0 10px 40px 0 #B0C1D9;
-  }
-  .form-control::placeholder  {
-    font-family: FontAwesome;
-  }
-
-.p3 {
-  font-family: "Lucida Console", "Courier New", monospace;
-  color: #525252;  
-  font-size: 18px;
+body {
+    background-color: #eee;
+    font-family: "Poppins", sans-serif;
+    display:"-ms-flexbox";
 }
 
-.p4 {
-  font-family: "Lucida Console", "Courier New", monospace;
-  color: #292929;
-  font-size: 18px;
-}
-
-  .size {
-    font-size: 15px;
-    color: #f01010;
-  }
-
-  .font1{
-    font-size: 30px;
-    color: #585757;
-    font-family: "Arial Black"
-
-  }
-
-  .aligned-with-icon{
-    position: absolute;
-    margin-top: 5px;
-    margin-left: 5px; /* optional */
-    font-family: "Lucida Console", "Courier New", monospace;
+.card {
+    background-color: #fff;
+    padding: 14px;
+    border: none;
     
 }
 
-.date{
-  margin-top: -5px;
-  margin-left: 30px;
-  font-family: "Lucida Console", "Courier New", monospace;
-  font-size: 15px;
-  color: #747474;
-
+.demo {
+    width: 100%
 }
 
-.title{
-  margin-top: -5px;
-  margin-left: 30px;
-  font-family: "Lucida Console", "Courier New", monospace;
-  font-size: 15px;
-  color: #3b3b3b;
-
+ul {
+    list-style: none outside none;
+    padding-left: 0;
+    margin-bottom: 0
 }
 
-.des{
-  margin-top: -5px;
-  margin-left: 30px;
-  font-family: "Lucida Console", "Courier New", monospace;
-  font-size: 12px;
-  color: #636363;
-  display: flex; 
-   max-width: 80%;
-   flex:1;
-  height: 1.5em;
-  flex: row-wrap;
-
+li {
+    display: block;
+    float: left;
+    margin-right: 6px;
+    cursor: pointer
 }
 
-.star{
+img {
+    display: block;
+    height: auto;
+    width: 100%
+}
 
-  font-size: 2.0rem;
+.stars i {
+    color: #f6d151
+}
+
+.stars span {
+    font-size: 13px
+}
+
+hr {
+    color: #d4d4d4
+}
+
+.badge {
+    padding: 5px !important;
+    padding-bottom: 6px !important
+}
+
+.badge i {
+    font-size: 10px
+}
+
+.profile-image {
+    width: 35px
+}
+
+.comment-ratings i {
+    font-size: 13px
+}
+
+.username {
+    font-size: 12px
+}
+
+.comment-profile {
+    line-height: 17px
+}
+
+.date span {
+    font-size: 12px
+}
+
+.p-ratings i {
+    color: #f6d151;
+    font-size: 12px
+}
+
+.btn-long {
+    padding-left: 35px;
+    padding-right: 35px
+}
+
+.buttons {
+    margin-top: 15px
+}
+
+.buttons .btn {
+    height: 46px
+}
+
+.buttons .cart {
+    border-color: #ff7676;
+    color: #ff7676
+}
+
+.buttons .cart:hover {
+    background-color: #e86464 !important;
+    color: #fff
+}
+
+.buttons .buy {
+    color: #fff;
+    background-color: #ff7676;
+    border-color: #ff7676
+}
+
+.buttons .buy:focus,
+.buy:active {
+    color: #fff;
+    background-color: #ff7676;
+    border-color: #ff7676;
+    box-shadow: none
+}
+
+.buttons .buy:hover {
+    color: #fff;
+    background-color: #e86464;
+    border-color: #e86464
+}
+
+.buttons .wishlist {
+    background-color: #fff;
+    border-color: #ff7676
+}
+
+.buttons .wishlist:hover {
+    background-color: #e86464;
+    border-color: #e86464;
+    color: #fff
+}
+
+.buttons .wishlist:hover i {
+    color: #fff
+}
+
+.buttons .wishlist i {
+    color: #ff7676
+}
+
+.comment-ratings i {
+    color: #f6d151
+}
+
+.followers {
+    font-size: 9px;
+    color: #d6d4d4
+}
+
+.store-image {
+    width: 42px
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px
+}
+
+.bullet-text {
+    font-size: 12px
+}
+
+.my-color {
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+label.radio {
+    cursor: pointer
+}
+
+label.radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+label.radio span {
+    border: 2px solid #8f37aa;
+    display: inline-block;
+    color: #8f37aa;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-transform: uppercase;
+    transition: 0.5s all
+}
+
+label.radio .red {
+    background-color: red;
+    border-color: red
+}
+
+label.radio .blue {
+    background-color: blue;
+    border-color: blue
+}
+
+label.radio .green {
+    background-color: green;
+    border-color: green
+}
+
+label.radio .orange {
+    background-color: orange;
+    border-color: orange
+}
+
+label.radio input:checked+span {
+    color: #fff;
+    position: relative
+}
+
+label.radio input:checked+span::before {
+    opacity: 1;
+    content: '\2713';
+    position: absolute;
+    font-size: 13px;
+    font-weight: bold;
+    left: 4px
+}
+
+.card-body {
+    padding: 0.3rem 0.3rem 0.2rem
 }
 
 .star2{
-
+  color: #f6d151;
   font-size: 2.5rem;
 }
-.write{
-  font-family: "Lucida Console", "Courier New", monospace;
-  margin-top:10px;
-  font-size: 16px;
-  color: #141414;
-
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  width: 500px;
-
-
-}
-
-ng-sidebar-container{
-  height:100vh;
-}
-
-::ng-deep .ng-sidebar{
-  background-color: #1a1b1b;
-  width: 300px;
-  padding: 2em 3em;
-  box-shadow: 0 0 2.5em rgba(85,85,85,0.5)
-
-}
-
-.borderLine{
-  border-bottom: 1px solid rgb(189, 188, 188);
-  padding: 0px;
-  margin: 0px;
-  margin-bottom: 20px;
-
-}
-
-
-.border{
-  background-color: rgb(255, 255, 255);
-  width: 500px;
-  border: 1px solid rgb(204, 204, 204);
-  padding: 20px;
-  margin: 1px;
-}
-
-
-ngb-rating {
-  font-size: 10px;
-  color:rgb(229, 255, 0);
-}
-
-

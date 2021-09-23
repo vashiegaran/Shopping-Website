@@ -23,11 +23,13 @@ export class CartComponent implements OnInit {
   counter: number;
   showFiller = false;
   toggle: boolean =true;
+  total=0;
 
   constructor(private _backendService:BackendService ,private router:Router) { }
 
   ngOnInit() {
     this.getCartDetails();
+    console.log("working")
   }
 
   test(){
@@ -40,7 +42,7 @@ export class CartComponent implements OnInit {
 
   checkOut(page:string):void{
     let Link = new AppComponent(this.router,this._backendService);
-    Link.goToPage(page);
+    Link.goTo(page);
   }
 
   getCartDetails(){
@@ -48,12 +50,16 @@ export class CartComponent implements OnInit {
 
 
     //console.log(this._backendService.getCart('cart'))
-    console.log(this.carts)
+    console.log("carts")
 
     this.querySubcription =this._backendService.getYourItem('cart')
     .subscribe(carts =>{
       this.carts = carts;
-      console.log("subscribe is working")
+
+      for (let i = 0; i <   this.carts.length; i++) {
+        this.total = this.total+Number(this.carts[i].price*this.carts[i].qty)
+      }
+      console.log(carts)
         },
 
         (error)=>{
@@ -95,16 +101,24 @@ export class CartComponent implements OnInit {
         
   }
 
-  countProd(filter: string){
+  countProd(filter: string,data:any){
+  
     if(filter =="add"){
+    
+      data.qty=data.qty+1
+      this.total = this.total+Number(data.price)
+      }else{
+          if(data.qty>0){
+            data.qty =data.qty-1;
+            this.total = this.total-Number(data.price)
   
-      this.counter=this.counter+1;
-  
-    }else{
-        if(this.counter>0){
-          this.counter =this.counter-1;
-        }
-    }
+          }
+      }
+      this.total =this.total+10;
+    //  this._backendService.addProduct(data,filter);
+        console.log("this is working")
+      
+    
   
   }
 

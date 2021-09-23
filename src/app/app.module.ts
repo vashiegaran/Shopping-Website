@@ -55,6 +55,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { ProductComponent } from './product/product.component';
 
+
+
 AngularFireModule.initializeApp({
   apiKey: "",
   authDomain: "",
@@ -80,7 +82,8 @@ firebase.initializeApp(environment.firebaseConfig)
     AdmincartsComponent,
     ProfileComponent,
     WishlistComponent,
-    ProductComponent
+    ProductComponent,
+    CartComponent
     
     
     

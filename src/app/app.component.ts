@@ -19,6 +19,11 @@ export class AppComponent  {
       
   }
 
+  goTo(pageName:string, ):void{
+    this.router.navigate([`${pageName}`])
+      
+  }
+
  
 }
 

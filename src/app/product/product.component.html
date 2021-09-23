@@ -1,4 +1,102 @@
 
+
+<link rel='stylesheet' href='https://sachinchoolur.github.io/lightslider/dist/css/lightslider.css'>
+<app-header></app-header>
+
+<div style="height: 100%; background-color: #eee;" class="container-fluid mt-2 mb-3">
+  <div fxFlex="10%"></div>
+
+    <div class="row no-gutters">
+        <div class="col-md-5 pr-2">
+            <div class="card">
+                <div class="demo">
+                    <ul id="lightSlider">
+                        <li > <img [src]=myDocData.imageUrl /> </li>
+           
+                    </ul>
+                </div>
+            </div>
+            <div class="card mt-2">
+               
+              <div class="mt-2"> <span class="font-weight-bold">Review</span>
+                <hr>
+                <ng-container *ngFor="let reviews of review">
+                 <div> <h5>{{reviews.Customer}}:</h5>{{reviews.review}}</div> 
+                 <hr>
+
+                </ng-container>    
+              </div> 
+           
+                          
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <div class="d-flex flex-row align-items-center">
+                    <div class="p-ratings"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div> <span class="ml-1"></span>
+                </div>
+                <div class="about"> <span class="font-weight-bold">{{myDocData.name}}</span>
+                 
+                  
+                </div>
+                <div class="d-flex flex-row align-items-center" fxLayoutGap="20%"> 
+
+                  <h4 class="font-weight-bold">${{myDocData.price*counter}}</h4>
+                  <div  class="d-flex flex-row align-items-center" fxLayoutGap="10%">
+                  <button (click)="countProd('remove')" mat-mini-fab color="accent" >
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  {{counter}}
+                  <button  (click)="countProd('add')" mat-mini-fab color="accent" >
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+                <div fxLayoutGap="5%" class="buttons"> <button class="btn btn-outline-warning btn-long cart" (click)="addToCart(myDocData, counter); alertUser(alert) ">Add to Cart</button> <button class="btn btn-warning btn-long buy">Buy it Now</button> <button class="btn btn-light wishlist"> <i class="fa fa-heart"></i> </button> </div>
+                <hr>
+                <div class="product-description">
+                 <div class="d-flex align-items-center" ><mat-icon> location_on </mat-icon><span class="aligned-with-icon">Delivery to entire Malaysia</span> </div> 
+                 <hr>                   
+                    <div class="d-flex flex-row align-items-center">   <mat-icon> local_shipping</mat-icon><span class="aligned-with-icon">Estimated Delivery Date : {{date | date: 'dd-MMM'}} - {{date2 | date: 'dd-MMM-yyyy'}}</span>
+                    </div>
+                    <hr>
+
+                    <div class="mt-2"> <span class="font-weight-bold">Description</span>
+                        <p>{{myDocData.descr}}</p>
+                    </div> 
+
+                    <hr>
+
+                    <div class="mt-2"> <span class="font-weight-bold">Ratings</span>
+                      <div class="d-flex flex-row align-items-center">   <ngb-rating class="star2"  [max]="5" [(rate)]="myDocData.rating" [readonly]="true"></ngb-rating></div>
+                    </div> 
+                  </div> 
+                    <div class="mt-2"> <span class="font-weight-bold">Store</span> </div>
+                    <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/N2fYgvD.png" class="rounded-circle store-image">
+                        <div class="d-flex flex-column ml-1 comment-profile">
+                            <div class="comment-ratings"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div> <span class="username">Rare Boutique</span> <small class="followers">25K Followers</small>
+                        </div>
+
+        </div>
+    </div>
+    <div fxFlex="10%"></div>
+
+</div>
+
+
+    
+<ng-template #alert>
+  <h2 matDialogTitle>Message!</h2>
+  <mat-dialog-content>
+    Item added to cart!
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose color="primary">Close</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!----
 <div  fxLayout="row wrap" >
   <app-header fxFlex="100%"></app-header>
   <div fxFlex="30"> </div>
@@ -69,9 +167,9 @@
   <h3 fxFLex="30%" style="margin-top:10px;" >RM:{{myDocData.price*counter}}.00</h3> 
 
 </div>
-<!--addToCart(myDocData, counter);-->
+<addToCart(myDocData, counter);
 <div fxLayoutAlign="center center" >
-  <button ng-sidebar-content style="margin-top:50px; width: 200px;" [disabled]="counter < 1" mat-flat-button color="primary"(click)="addToCart(myDocData, counter); toggleSidebar(); cart.getCartDetails(); ">Add to Cart</button>
+  <button ng-sidebar-content style="margin-top:50px; width: 200px;" [disabled]="counter < 1" mat-flat-button color="primary"(click)="addToCart(myDocData, counter);  ">Add to Cart</button>
   <button ng-sidebar-content style="margin-top:50px; width: 200px;"  mat-flat-button color="primary"(click)="addToWishlist(myDocData); ">Add to WishList</button>
 
   <mat-error *ngIf="savedChanges">
@@ -87,4 +185,8 @@
 </div>           
 </mat-card >
 
+
+
 </div>
+
+-->

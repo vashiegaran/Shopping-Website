@@ -94,3 +94,115 @@
   width: 500px;
   height: 850px
 }
+
+body {
+  background-color: purple
+}
+
+.form-inputs {
+  position: relative
+}
+
+.form-inputs .form-control {
+  height: 45px
+}
+
+.form-inputs .form-control:focus {
+  box-shadow: none;
+  border: 1px solid #000
+}
+
+.form-inputs i {
+  position: absolute;
+  right: 10px;
+  top: 15px
+}
+
+.shop-bag {
+  background-color: #000;
+  color: #fff;
+  height: 50px;
+  width: 50px;
+  font-size: 25px;
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center
+}
+
+.qty {
+  font-size: 12px
+}
+
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: #eee
+}
+
+.close:focus {
+  outline: 1px dotted #fff !important
+}
+
+.modal-body {
+  padding: 0rem !important
+}
+
+.modal-title {
+  color: #fff
+}
+
+.modal-header {
+  background: #9C27B0;
+  color: #fff !important
+}
+
+.fa-close {
+  color: #fff
+}
+
+.heading {
+  font-weight: 500 !important
+}
+
+.subheadings {
+  font-size: 12px;
+  color: #9c27b0
+}
+
+.dots {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px
+}
+
+.gallery img {
+  margin-right: 10px
+}
+
+.fs-9 {
+  font-size: 9px
+}
+
+.fade.in {
+  opacity: 1;
+}
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -o-transform: translate(0, );
+  transform: translate(0, 0);
+}
+
+.modal-backdrop .fade .in {
+  opacity: 0.5 !important;
+}
+
+
+.modal-backdrop.fade {
+    opacity: 0.5 !important;
+}
+
+.modal{background: rgba(0,0,0, .5)}

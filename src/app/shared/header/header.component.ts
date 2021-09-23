@@ -5,7 +5,6 @@ import { BackendService } from 'src/app/services/backend.service';
 import { first } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,19 +13,35 @@ import { MatDialog } from '@angular/material';
 export class HeaderComponent implements OnInit {
 
  @Input() pageTitle:string;
+  error: boolean;
+  errorMessage: any;
 
   constructor(private router:Router,private _backendService:BackendService,private dialog: MatDialog) { }
   userName;
   logOut:boolean;
   Login:boolean;
+  showModalBox: boolean = false;
+  display = "none";
+  querySubcription: any;
+  members: any[];
+  items: any[];
+
   ngOnInit() {
-    
+    this.getData()
     this.doSomething();
   }
 
+  openModal() {
+    this.display = "block";
+  }
+  onCloseHandled() {
+    this.display = "none";
+  }
+
+
   link(page:string):void{
     let Link = new AppComponent(this.router,this._backendService);
-    Link.goToPage(page);
+    Link.goTo(page);
   }
 
   Logout(){
@@ -60,6 +75,24 @@ export class HeaderComponent implements OnInit {
 
 wishList(templateRef: TemplateRef<any>) {
   this.dialog.open(templateRef);
+}
+
+getData(){
+  
+  this.querySubcription =this._backendService.getDocs('wishlist')
+      .subscribe(members =>{
+        this.members = members;
+         // console.log(this.members);
+      },
+
+      (error)=>{
+        this.error=true;
+        this.errorMessage=error.message;
+      },
+      ()=>{this.error=false;});
+
+      
+      
 }
 
 }

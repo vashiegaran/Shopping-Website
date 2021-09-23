@@ -1,3 +1,5 @@
+
+<!--
 <mat-toolbar fxLayout="row"  >
   <button   fxLayoutAlign="center center" mat-mini-fab color="blue" [matMenuTriggerFor]="navMenu">
     <mat-icon>dashboard</mat-icon>
@@ -66,4 +68,165 @@
   <app-wishlist></app-wishlist>
 </mat-dialog-content>
 </ng-template>
+
+-->
+
+
+<header class="section-header">
+  
+  <nav class="navbar navbar-dark navbar-expand p-0 bg-dark">
+      <div class="container-fluid">
+          <ul class="navbar-nav d-none d-md-flex mr-auto">
+              <li style="cursor: pointer;" class="nav-item"><a class="nav-link" (click)="link('home')" >Home</a></li>
+              <li style="cursor: pointer;" class="nav-item"><a class="nav-link" (click)="link('merchant')" data-abc="true">Merchant</a></li>
+              <li class="nav-item"><a class="nav-link" href="#" data-abc="true">Contact</a></li>
+          </ul>
+          <ul class="navbar-nav d-flex align-items-center">
+              <li class="nav-item">
+                  <div class="d-flex flex-row">
+                   
+
+                  </div>
+              </li>
+                   </ul> <!-- list-inline // -->
+      </div> <!-- navbar-collapse .// -->
+      <!-- container // -->
+  </nav> <!-- header-top-light.// -->
+  <section class="header-main border-bottom bg-white">
+      <div class="container-fluid">
+          <div class="row p-2 pt-3 pb-3 d-flex align-items-center">
+         
+            <div fxLayoutAlign="flex-center" fxFlex="100%" fxLayout="col-md-8" class="col-mg-8">
+              <div fxFlex="10%" style="margin-top: 10px;" >	<mat-icon>home</mat-icon></div>
+              <div fxFlex ="70%" style="width: 100%;" class="d-flex form-inputs"> <input [(ngModel)]="searchText" class="form-control" type="text" placeholder="Search any product..."> <i class="bx bx-search"></i> </div>
+              <div fxFlex="20%" class="col-md-2 flex-column" ></div>
+              <div fxLayoutGap="20px" class="d-flex d-none d-md-flex flex-row align-items-center"> 
+                <div class="d-flex flex-column ms-2">  </div>
+                <svg style="cursor:pointer" (click)="link('cart')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </svg>
+  
+                <svg  style="cursor:pointer"  (click)="openModal()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                </svg>
+  
+                <button   fxLayoutAlign="center center" mat-mini-fab color="blue" [matMenuTriggerFor]="Account" yPosition="below"   >
+                  <mat-icon  >account_box</mat-icon>
+                  <mat-menu fxLayout="row" #Account="matMenu">
+                    <button *ngIf="!Login" mat-menu-item (click)="link('login')">log In</button>
+                    <div  *ngIf="Login" fxLayout="column">
+                      <button mat-menu-item (click)="link('profile');">Account</button>
+                      <button mat-menu-item (click)="link('Purchase');">Your Purchase</button>
+                      <button mat-menu-item (click)="Logout();alertUser(logout);">Log Out</button>
+                      <button mat-menu-item (click)="openModal();">Wish List</button>
+                  
+                    </div>
+                  
+                    <ng-template #logout>
+                      <h2 matDialogTitle>Message!</h2>
+                      <mat-dialog-content>
+                        You Are Logged Out!
+                  
+                      </mat-dialog-content>
+                      <mat-dialog-actions align="end">
+                        <button mat-button matDialogClose color="primary">Dismiss</button>
+                      </mat-dialog-actions>
+                    </ng-template>
+                  
+                  </mat-menu>
+                </button>
+                  <mat-menu fxLayout="row" #Account="matMenu">
+    <button *ngIf="!Login" mat-menu-item (click)="link('login')">log In</button>
+    <div  *ngIf="Login" fxLayout="column">
+      <button mat-menu-item (click)="link('profile');">Account</button>
+      <button mat-menu-item (click)="link('Purchase');">Your Purchase</button>
+      <button mat-menu-item (click)="Logout();alertUser(logout);">Log Out</button>
+      <button mat-menu-item (click)="openModal();">Wish List</button>
+  
+    </div>
+  
+    <ng-template #logout>
+      <h2 matDialogTitle>Message!</h2>
+      <mat-dialog-content>
+        You Are Logged Out!
+  
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-button matDialogClose color="primary">Dismiss</button>
+      </mat-dialog-actions>
+    </ng-template>
+  
+  </mat-menu>
+            </div>
+            
+          </div>
+
+           
+          </div>
+      </div>
+  </section>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid"> <a class="navbar-brand d-md-none d-md-flex" href="#">Categories</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                  <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Electronics</a> </li>
+                  <li class="nav-item"> <a class="nav-link" href="#">Fashion</a> </li>
+                  <li class="nav-item"> <a class="nav-link" href="#">Furnitures</a> </li>
+                  <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Mobiles </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="#">Smart Phones</a></li>
+                          <li><a class="dropdown-item" href="#">Feature Phones</a></li>
+                          <li><a class="dropdown-item" href="#">Mobile Covers</a></li>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+
+
+
+
+<div style="height:100%" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+<div class="modal-dialog modal-lg" role="document" >
+  <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Wish List</h5> <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div  class="col-lg-8 mx-auto">
+              <!-- List group-->
+              <ul class="list-group shadow">
+                  <!-- list group item-->
+                  <li style="cursor:pointer" class="list-group-item"  *ngFor="let data of members;"  >
+                      <!-- Custom content-->
+                      <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                          <div class="media-body order-2 order-lg-1">
+                              <h5 class="mt-0 font-weight-bold mb-2">{{data.name}}</h5>
+                              <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p>
+                              <div class="d-flex align-items-center justify-content-between mt-1">
+                                  <h6 class="font-weight-bold my-2">${{data.price}}</h6>
+                                  <ul class="list-inline small">
+                                      <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                      <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                      <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                      <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                      <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                  </ul>
+                              </div>
+                          </div><img [src]=data.imageUrl alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                      </div> <!-- End -->
+                  </li> <!-- End -->
+                  
+              </ul> <!-- End -->
+          </div>
+      </div>
+      </div>
+  </div>
+</div>
+</div>
+</header>
+
 

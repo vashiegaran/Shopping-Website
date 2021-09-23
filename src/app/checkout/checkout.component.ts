@@ -88,4 +88,12 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  deleteCart(data){ 
+    console.log(data)
+   console.log(" delete1 working")
+   this.dataLoading = true;
+  this._backendService.deleteOneDocs('cart',data)
+  
+    }
+
 }

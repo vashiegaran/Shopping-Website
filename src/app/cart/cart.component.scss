@@ -1,81 +1,105 @@
-.example-card {
-    max-width: 400px;
-    margin-bottom: 8px;
-  }
+.payment-info {
+  background: rgba(0, 0, 0, 0.692);
+  padding: 10px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold
+}
 
-  .products {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .product-card {
-    padding: 2%;
-    flex-grow: 1;
-    flex-basis: 16%;
-  
-    display: flex; /* so child elements can use flexbox stuff too! */
-  }
+.product-details {
+  padding: 10px
+}
 
-  .product-info {
-    margin-top: auto;
-  }
+body {
+  background: #eee
+}
 
-  .form-control {
-    box-shadow: 0 10px 40px 0 #B0C1D9;
-  }
-  .form-control::placeholder  {
-    font-family: FontAwesome;
-  }
+.cart {
+  background: #fff
+}
 
-  #example2 {
-    border: 1px solid;
-    padding: 10px;
-    box-shadow: 5px 10px #888888;
-  }
-  
-  .example-container {
-    width: 500px;
-    height: 300px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-  }
-  
-  .example-sidenav-content {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .example-sidenav {
-    padding: 20px;
-  }
+.p-about {
+  font-size: 12px
+}
 
-  .p3{
-  font-family: "Lucida Console", "Courier New", monospace;
-  font-size: 15px;
-  color: #3b3b3b;
-  }
+.table-shadow {
+  -webkit-box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.42);
+  box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.42)
+}
 
-  .p4{
+.type {
+  font-weight: 400;
+  font-size: 10px
+}
 
-  font-family: "Lucida Console", "Courier New", monospace;
-  font-size: 18px;
-  color: #3b3b3b;
-  }
+label.radio {
+  cursor: pointer
+}
 
-  .line {
-    display:flex;
-    flex-flow: row;
-    border-bottom: double;
-    margin-bottom: 5px;
-    width: 300px;
-  }
+label.radio input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none
+}
 
-  .borderLine{
-    border-bottom: 1px solid rgb(189, 188, 188);
-    padding: 0px;
-    margin: 0px;
-    width: 100%;
-    margin-top: 10px;
-  
-  }
+label.radio span {
+  padding: 1px 12px;
+  border: 2px solid #ada9a9;
+  display: inline-block;
+  color: #8f37aa;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 300
+}
+
+label.radio input:checked+span {
+  border-color: #fff;
+  background-color: blue;
+  color: #fff
+}
+
+.credit-inputs {
+  background: rgb(102, 102, 221);
+  color: #fff !important;
+  border-color: rgb(102, 102, 221)
+}
+
+.credit-inputs::placeholder {
+  color: #fff;
+  font-size: 13px
+}
+
+.credit-card-label {
+  font-size: 9px;
+  font-weight: 300
+}
+
+.form-control.credit-inputs:focus {
+  background: rgb(102, 102, 221);
+  border: rgb(102, 102, 221)
+}
+
+.line {
+  border-bottom: 1px solid rgb(102, 102, 221)
+}
+
+.information span {
+  font-size: 12px;
+  font-weight: 500
+}
+
+.information {
+  margin-bottom: 5px
+}
+
+.items {
+  -webkit-box-shadow: 5px 5px 4px -1px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 5px 4px -1px rgba(0, 0, 0, 0.08)
+}
+
+.spec {
+  font-size: 11px
+}
