@@ -15,7 +15,7 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProductComponent } from './product/product.component';
-
+import { NewComponent } from './product/new/new.component';
 const routes:Routes=[
 
   {path:'',redirectTo: '/home', pathMatch:'full'},  
@@ -30,6 +30,7 @@ const routes:Routes=[
   {path:'profile', component: ProfileComponent ,canActivate:[AuthGuardService] } ,
   {path:'cart', component: CartComponent ,canActivate:[AuthGuardService] } ,
   {path:'product/:prodId', component: ProductComponent ,canActivate:[AuthGuardService] } ,
+  {path:'uploadProduct', component: NewComponent ,canActivate:[AuthGuardService] } ,
 
 
 

@@ -9,7 +9,7 @@
             <div   style=" padding-left: 20%;" fxLayout="row"  fxLayoutGap="100%"  fxLayoutGap.xs="10%" fxLayout.xs="column" >
                 <div fxLayoutGap="80%" fxLayoutGap.xs="10%" fxLayout="row" >
                 
-                <div style="cursor: pointer; " fxLayout="column"  class="d-flex flex-column align-items-center" >
+                <div (click)="toggle('main')" style="cursor: pointer; " fxLayout="column"  class="d-flex flex-column align-items-center" >
                     <img _ngcontent-c14="" height="70" src="https://storage.googleapis.com/kravve-prod.appspot.com/merchantDashboardImage/8icon/thumb@64_8icon - next-selected.png" width="70" class="ng-star-inserted">  
                     <div _ngcontent-c14="" class="font-size-11px sub-header  mt-1 mt-md-2 ng-star-inserted ">Main </div>             
                 </div>
@@ -18,7 +18,7 @@
                     <div _ngcontent-c14="" class="font-size-11px sub-header  mt-1 mt-md-2 ng-star-inserted">Dashboard </div>             
                 </div>
             </div>
-            <div  fxLayoutGap="80%" fxLayoutGap.xs="10%" fxLayout="row">
+            <div (click)="toggle('product'); getUserProd();" fxLayoutGap="80%" fxLayoutGap.xs="10%" fxLayout="row">
                 <div  style="cursor: pointer; "  fxLayout="column" class="d-flex flex-column align-items-center" >
                     <img _ngcontent-c14="" height="70" src="https://storage.googleapis.com/kravve-prod.appspot.com/merchantDashboardImage/8icon/thumb@64_8icon - orders5.png" width="70" class="ng-star-inserted">  
                     <div _ngcontent-c14="" class="font-size-11px sub-header  mt-1 mt-md-2 ng-star-inserted">Product </div>             
@@ -43,8 +43,8 @@
     
         
     </div>
-    <div style="background-color: #eee;" fxLayoutGap="5%" class="container mt-5" fxLayout="column" >
-    <div _ngcontent-c14="" class="p-3 cursor-pointer border-radius-15px" fxlayout="row" fxlayoutalign="start center" fxlayoutgap="30px" routerlink="/internal/merchant/product/new" tabindex="0" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center; cursor: pointer;">
+    <div *ngIf="toggleField=='main'" style="background-color: #eee;" fxLayoutGap="5%" class="container mt-5" fxLayout="column" >
+    <div (click)="UploadProd('uploadProduct')" _ngcontent-c14="" class="p-3 cursor-pointer border-radius-15px" fxlayout="row" fxlayoutalign="start center" fxlayoutgap="30px" routerlink="/internal/merchant/product/new" tabindex="0" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-start; align-items: center; cursor: pointer;">
         <i _ngcontent-c14="" class="point-number" fxflex="30px" fxlayout="column" fxlayoutalign="center center" style="margin-right: 30px; flex-direction: column; box-sizing: border-box; display: flex; max-width: 30px; place-content: center; align-items: center; flex: 1 1 30px; min-width: 30px;">1</i>
         <div _ngcontent-c14="" class="sub-header" fxflex="100%" style="margin-right: 30px; flex: 1 1 100%; box-sizing: border-box; max-width: 100%;"> <h4>Upload Product</h4></div>
         <div _ngcontent-c14="" fxflex="" style="flex: 1 1 0%; box-sizing: border-box;">
@@ -71,6 +71,49 @@
         </div>
      </div>
     </div>
+
+
+    <div *ngIf="toggleField=='product'" style="background-color: #eee;" fxLayoutGap="5%" class="container py-5" fxLayout="column" >
+            <div class="row text-center text-white mb-5">
+                <div class="col-lg-7 mx-auto">
+                    <h1 class="display-4">Product List</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <!-- List group-->
+                    <ul class="list-group shadow">
+                        <!-- list group item-->
+                        <li  style="cursor:pointer" class="list-group-item"  *ngFor="let data of userProd;" >
+                            <!-- Custom content-->
+                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                <div class="media-body order-2 order-lg-1" fxLayout="column">
+
+                                    <h5 class="mt-0 font-weight-bold mb-2">{{data.name}}</h5>
+                                    <p class="font-italic text-muted mb-0 small">{{data.shortDes}}</p>
+                                    <div class="d-flex align-items-center justify-content-between mt-1">
+                                        <h6 class="font-weight-bold my-2">₹{{data.price}}</h6>
+                                  
+    
+                                    </div>
+                                    <h4  class="mt-0 font-weight-bold mb-2" *ngIf="(data.status=='Pending')" style="color: rgb(255, 196, 0);">Status:{{data.status}}</h4>
+                                    <h4  class="mt-0 font-weight-bold mb-2" *ngIf="(data.status=='Approved')" style="color: rgb(89, 233, 5);">Status:{{data.status}}</h4>
+                                    <h4 class="mt-0 font-weight-bold mb-2"  *ngIf="(data.status=='Rejected')" style="color: rgb(235, 11, 11);">Status:{{data.status}}</h4>
+                                </div><img [src]="data.imageUrl" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                            </div> <!-- End -->
+                        </li> <!-- End -->
+                        <!-- list group item-->
+                    
+                       
+                    </ul> <!-- End -->
+            </div>
+        </div>
+      
+          </div>
+            
+    
+
+
 </body>
 
 <!--
@@ -192,7 +235,7 @@
                                     <h4 class="p5">Product:{{data.name}}</h4>
                                     <h4 class="p5">RM:{{data.price}}</h4>
                                     <h4 class="p5">Category:{{data.category}}</h4>
-                                    <h4 class="p5" *ngIf="(data.status=='P')" style="color: rgb(255, 196, 0);">Status:{{data.status}}</h4>
+                                    <h4 class="p5" *ngIf="(data.status=='Pending')" style="color: rgb(255, 196, 0);">Status:{{data.status}}</h4>
                                     <h4 class="p5" *ngIf="(data.status=='Approved')" style="color: rgb(89, 233, 5);">Status:{{data.status}}</h4>
                                     <h4 class="p5" *ngIf="(data.status=='Rejected')" style="color: rgb(235, 11, 11);">Status:{{data.status}}</h4>
 
@@ -289,7 +332,7 @@
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
-                      <!--
+                   
                 <mat-form-field  >
                     <input matInput placeholder="Category" name="category" id="category" ngModel required minlength="1">
                     <mat-hint align="end">eg. Men Garments</mat-hint>
@@ -430,7 +473,6 @@
 
 
 
-<!---
 
 <mat-card>
     <mat-card-content>

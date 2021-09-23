@@ -54,6 +54,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { ProfileComponent } from './profile/profile.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { ProductComponent } from './product/product.component';
+import { NewComponent } from './product/new/new.component';
 
 
 
@@ -83,8 +84,9 @@ firebase.initializeApp(environment.firebaseConfig)
     ProfileComponent,
     WishlistComponent,
     ProductComponent,
-    CartComponent
-    
+    CartComponent,
+    NewComponent,
+
     
     
     

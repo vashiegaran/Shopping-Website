@@ -1,0 +1,88 @@
+
+
+<div fxLayout="column wrap" fxFlex="100%">
+  <button mat-flat-button color="primary" (click)="Back()">Go Back</button>
+  <div fxLayout="column wrap" fxFlex="60%">
+ <form #addDataForm="ngForm" (ngSubmit)="setData(addDataForm.value);" novalidate>
+     <mat-error *ngIf="savedChanges">
+         Your product has been submitted for review. You will an email regarding the status as soon as possible.
+         <label class="small-spacer"></label>
+         <mat-icon (click)="this.addDataForm.reset();savedChanges=false;toggle('searchMode');">clear</mat-icon>
+     </mat-error>
+
+     <div fxLayout="column wrap" fxLayoutAlign="center center" *ngIf="!savedChanges">
+       
+
+      
+        
+                  <label for="file">File:</label>
+                 <input  type="file" name="image" id="image" (change)="upload($event)" accept=".png,.jpg,.jpeg" ngModel required />
+             <div style="width:50%;"  fxLayout="column wrap" fxLayoutGap="6px" >
+             <mat-form-field appearance="fill">
+                
+                 <mat-label>Category</mat-label>
+                 <mat-select [(ngModel)]="selectedValue" name="category" id="category" ngModel>
+                   <mat-option *ngFor="let cat of category" [value]="cat.value">
+                     {{cat.viewValue}}
+                   </mat-option>
+                 </mat-select>
+               </mat-form-field>
+            
+         <mat-form-field  >
+             <input style="width:50%;" matInput placeholder="Short Description about product" name="shortDes" id="shortDes" ngModel required minlength="1">
+             <mat-hint align="end"></mat-hint>
+         </mat-form-field>
+         <mat-form-field  style="width: 50%;">
+             <input matInput placeholder="Product Name" name="name" id="name" ngModel required minlength="1">
+             <mat-hint align="end">eg. Shirt</mat-hint>
+         </mat-form-field>
+
+         <mat-form-field  style="width: 50%;" >
+             <textarea matInput placeholder="Description" name="descr" id="descr" ngModel></textarea>
+         </mat-form-field>
+         <mat-form-field>
+             <input matInput placeholder="Color" name="color" id="color" ngModel>
+         </mat-form-field>
+         <mat-form-field>
+             <input matInput placeholder="Size" name="size" id="size" ngModel>
+         </mat-form-field>
+         <mat-form-field>
+             <input matInput placeholder="Price" name="price" id="price" ngModel required pattern="[0-9]+">
+         </mat-form-field>
+         <mat-form-field appearance="fill">
+
+         <mat-label>Courrier Service</mat-label>
+         <mat-select [(ngModel)]="shippingvalues" name="shipping" id="shipping" ngModel>
+           <mat-option *ngFor="let ship of shipping" [value]="ship.value">
+             {{ship.viewValue}}
+           </mat-option>
+         </mat-select>
+     </mat-form-field>
+     <mat-form-field>
+         <input matInput placeholder="Shipping Price" name="shipPrice" id="shipPrice" ngModel pattern="[0-9]+">
+         <mat-hint align="end"></mat-hint>
+     </mat-form-field>
+         <mat-form-field>
+             <input matInput placeholder="Discount" name="discount" id="discount" ngModel pattern="[0-9]+">
+             <mat-hint align="end"></mat-hint>
+         </mat-form-field>
+         <mat-form-field>
+             <input matInput placeholder="Address" name="address" id="Address" ngModel required >
+             <mat-hint align="end">eg. 0 if no discount is offered.</mat-hint>
+         </mat-form-field>
+       </div>
+
+       <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
+       <mat-error *ngIf="error">Error: {{ errorMessage }}</mat-error>
+       <mat-card-actions align="start">
+         <button type="submit" mat-raised-button [disabled]="!addDataForm.valid"  color="primary">Submit</button>
+         <button type="reset" (click)="this.addDataForm.reset();" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Clear</button>
+         <span class="med-spacer"></span>
+        
+         <mat-divider></mat-divider>
+
+     </mat-card-actions>
+     </div>
+ </form>
+</div>
+</div>

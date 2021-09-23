@@ -1,60 +1,45 @@
 
+body {
+  background: rgb(99, 39, 120)
+}
 
+.form-control:focus {
+  box-shadow: none;
+  border-color: #BA68C8
+}
 
-.font{
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 20px;
-    color: #363636;
-    margin-top: 2px;
-  
-  }
+.profile-button {
+  background: rgb(99, 39, 120);
+  box-shadow: none;
+  border: none
+}
 
+.profile-button:hover {
+  background: #682773
+}
 
-.font2{
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 15px;
-    color: #5a5a5a;
-    margin-top: 1px;
-    margin-left: 25px;
-  
-  }
+.profile-button:focus {
+  background: #682773;
+  box-shadow: none
+}
 
-  .font3{
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 15px;
-    color: #5a5a5a;
-    margin-top: 20px;
-  
-  }
+.profile-button:active {
+  background: #682773;
+  box-shadow: none
+}
 
+.back:hover {
+  color: #682773;
+  cursor: pointer
+}
 
-  .borderLine{
-    border-bottom: 1px solid rgb(211, 209, 209);
-    padding: 0px;
-    margin: 0px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-  
-  }
-  
-  
-  .border{
-    background-color: rgb(255, 255, 255);
-    width: 100%;
-    height: 800px;
-    border: 1px solid rgb(160, 160, 160);
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 20px;
-  }
+.labels {
+  font-size: 11px
+}
 
-  .borderPurchase{
-    background-color: rgb(255, 255, 255);
-    width: 800px;
-    border: 1px solid rgb(160, 160, 160);
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 20px;
-  }
-  
-  
+.add-experience:hover {
+  background: #BA68C8;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #BA68C8
+}

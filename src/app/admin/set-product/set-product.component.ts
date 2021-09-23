@@ -5,7 +5,8 @@ import { BackendService } from 'src/app/services/backend.service';
 import { of } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {Location} from '@angular/common';
-
+import { AppComponent } from 'src/app/app.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-set-product',
@@ -51,7 +52,7 @@ export class SetProductComponent implements OnInit {
  // public userList : IUser[]=[];
   displayedColumns = [ 'category', 'name', 'price','_id'];
 
-  constructor(private _backendService:BackendService,private _location: Location) { }
+  constructor(private _backendService:BackendService,private _location: Location,private router:Router) { }
   upload(event) {    
     this.filePath = event.target.files[0]
     console.log(this.filePath)
@@ -66,6 +67,14 @@ export class SetProductComponent implements OnInit {
     console.log(this.toggleField)
 
 
+
+    
+  }
+
+
+  UploadProd(page:string,):void{
+    let Link = new AppComponent(this.router,this._backendService);
+    Link.goTo(page)
   }
 
   showDetails(item: any) {
@@ -93,6 +102,8 @@ export class SetProductComponent implements OnInit {
     if (!filter) { filter = "main" }
     else { filter = filter; }
     this.toggleField = filter;
+    console.log(this.toggleField)
+
 }
 
   getData(){
