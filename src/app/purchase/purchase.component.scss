@@ -7,7 +7,8 @@ body {
 
 .container {
     margin-top: 50px;
-    margin-bottom: 50px
+    margin-bottom: 50px;
+    padding:  0 !important;
 }
 
 .card {
@@ -212,13 +213,7 @@ ngb-rating {
   
   }
 
-  body {
-    background: linear-gradient(to right, #c04848, #480048);
-    min-height: 100vh;
-    border-radius: 20px;
-    
-}
-
+ 
 
 
 .text-gray {
@@ -229,4 +224,26 @@ img {
     height: 170px;
     width: 140px
 }
-  
+
+.toolbar{
+    background: #2cdd9b;
+    background: -webkit-linear-gradient(legacy-direction(to right), #2cdd9b 0%, #1dc8cc 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#2cdd9b), to(#1dc8cc));
+    background: -webkit-linear-gradient(left, #2cdd9b 0%, #1dc8cc 100%);
+    background: -o-linear-gradient(left, #2cdd9b 0%, #1dc8cc 100%);
+    background: linear-gradient(to right, #2cdd9b 0%, #1dc8cc 100%)
+
+}
+
+.header2 {
+    font-family: "Montserrat", sans-serif;
+    color: #8d97ad;
+    font-weight: 300;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    
+}
+
+
+
+

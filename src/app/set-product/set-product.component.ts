@@ -236,9 +236,4 @@ interface Shipping {
   viewValue: string;
 }
 
-@Component({
-  selector: 'dialog',
-  templateUrl: 'dialog.html',
-})
-export class Message {}
 

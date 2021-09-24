@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../services/backend.service';
+import {Location} from '@angular/common';
+
+
 @Component({
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
@@ -13,7 +16,8 @@ export class PurchaseComponent implements OnInit {
   dataLoading : boolean= false;
   savedChanges: boolean;
   myDocData;
-  constructor(private _backendService:BackendService) { }
+  constructor(private _backendService:BackendService,    private _location: Location
+    ) { }
   listItem :any[];
   review:any[]
   rating;
@@ -24,6 +28,12 @@ export class PurchaseComponent implements OnInit {
     this.toggleField = "main";
 
   }
+  
+  Back(){
+    this._location.back();
+
+  }
+  
 
   setData(formData,data){
     console.log(formData)

@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit {
 
 
   link(page:string):void{
+    console.log(page)
     let Link = new AppComponent(this.router,this._backendService);
     Link.goTo(page);
   }

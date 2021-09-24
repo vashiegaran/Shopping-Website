@@ -61,6 +61,8 @@ export class NewComponent implements OnInit {
   }
   Back(){
     this._location.back();
+
+
   }
   
 

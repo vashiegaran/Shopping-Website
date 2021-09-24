@@ -1,39 +1,43 @@
 <body>
 <app-header></app-header>
-<div class="container rounded bg-white mt-5 mb-5">
+<div  class="container rounded bg-white mt-5 mb-5">
   <div class="row">
       <div class="col-md-3 border-right">
-          <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQF2psCzfbB611rnUhxgMi-lc2oB78ykqDGYb4v83xQ1pAbhPiB&usqp=CAU"><span class="font-weight-bold">Amelly</span><span class="text-black-50">amelly12@bbb.com</span><span> </span></div>
       </div>
-      <div class="col-md-5 border-right">
+      <form #editDataForm="ngForm"  (ngSubmit)="updateData(editDataForm.value);" class="col-md-5 border-right">
           <div class="p-3 py-5">
               <div class="d-flex justify-content-between align-items-center mb-3">
                   <h4 class="text-right">Profile Settings</h4>
               </div>
               <div class="row mt-2">
-                  <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                  <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
+                  <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" name="Username" id="Username"  [ngModel]="myDocData.Username "></div>
               </div>
               <div class="row mt-3">
-                  <div class="col-md-12"><label class="labels">PhoneNumber</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                  <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" placeholder="enter address" value=""></div>
-                  <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                  <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
+                  <div class="col-md-12"><label class="labels">PhoneNumber</label><input type="text" class="form-control" name="PhoneNumber" id="PhoneNumber"  [ngModel]="myDocData.PhoneNumber"></div>
+                  <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" placeholder="enter address" name="Address" id="Address" [ngModel]="myDocData.Address"></div>
+                  <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id"   name="Useremail" id="Useremail" [ngModel]="myDocData.Useremail" ></div>
               </div>
               <div class="row mt-3">
-                  <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                  <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
+                  <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" name="country" id="country" [ngModel]="myDocData.country " ></div>
+                  <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control"name="State" id="State"  [ngModel]="myDocData.State " placeholder="state"></div>
               </div>
-              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
           </div>
-      </div>
-      <div class="col-md-4">
+        </form>
+      <form  #editDataForm="ngForm"  (ngSubmit)="updateData(editDataForm.value);"  class="col-md-4">
           <div class="p-3 py-5">
-              <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-              <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-              <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+              <div class="d-flex justify-content-between align-items-center experience"><span>Change Password</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i></span></div><br>
+              <div class="col-md-12"><label class="labels">Your New Password</label><input  class="form-control" placeholder="New Password" type="password" name="Password" id="Password"[(ngModel)]="Password"  #password="ngModel" required  minlength="6"></div> <br>
+              <div class="col-md-12"><label class="labels">Verify Your Password</label><input  class="form-control" placeholder="Verify Password" type="password" name="pass2" id="pass2"  [(ngModel)]="pass2" (ngModelChange)="checkSame(Password,pass2)" required  ></div>
+
+            <span >
+
+              <mat-error *ngIf="!checkSame(Password,pass2)">Password not matched</mat-error>
+
+            </span>
+              <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Password</button></div>
           </div>
-      </div>
+        </form>
   </div>
 </div>
 </body>
@@ -82,13 +86,13 @@
             <input  matInput  name="username" id="Username" class="font4" [ngModel]="myDocData.Username " >
           </mat-form-field>
           <mat-form-field >
-            <input  matInput  name="Useremail" id="Useremail" class="font4" [ngModel]="myDocData.Useremail" >
+            <input  matInput  name="Useremail" id="Useremail" [ngModel]="myDocData.Useremail" >
           </mat-form-field>
           <mat-form-field >
             <input  matInput  name="PhoneNumber" id="PhoneNumber" class="font4" [ngModel]="myDocData.PhoneNumber" >
           </mat-form-field>
           <mat-form-field >
-            <input  matInput  name="Address" id="Address" class="font4" [ngModel]="myDocData.Address" >
+            <input  matInput  name="Address" id="Address"  [ngModel]="myDocData.Address" >
           </mat-form-field>
 
           <button (click)="alertUser(alert)" fxLayoutAlign="flex-center" style="width: 20%;"type="submit" mat-raised-button [disabled]="!this.editDataForm.valid || this.editDataForm.pristine" color="primary">Update</button>
@@ -159,7 +163,7 @@
           </mat-form-field>
     
           <mat-form-field >
-            <input   matInput type="password" name="pass2" id="pass2" class="font4" [(ngModel)]="pass2" (ngModelChange)="checkSame(Password,pass2)" required   >
+            <input   matInput type="password" name="pass2" id="pass2"  [(ngModel)]="pass2" (ngModelChange)="checkSame(Password,pass2)" required   >
           </mat-form-field>
 
             <span >

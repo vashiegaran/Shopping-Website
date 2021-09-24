@@ -40,16 +40,23 @@ export class BackendService {
    }
 
 
+   /* Return only one value based on document ID*/
 
   getDoc(callUrl:string){
       this.itemDoc= this.afs.doc<any>(callUrl);
       return this.itemDoc.valueChanges();
   }
 
+     /* Return only one value based on document ID*/
+
+
   getDocs(coll:string,filters?:any){
     this.itemCollection = this.afs.collection<any>(this.getCollectionURL(coll));
     return this.itemCollection.valueChanges();
   }
+
+       /* Return product that is not approved by ADMIN */
+
 
   getPendingProd(coll:string,filters?:any){
     this.itemCollection = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
@@ -57,6 +64,7 @@ export class BackendService {
     return this.itemCollection.valueChanges();
   }
 
+  /*return user authentication */
 
   isUserLoggedIn(){
     return Observable.from(this.afAuth.authState)
@@ -68,13 +76,21 @@ export class BackendService {
     });
 
   }
- 
+   /*return boolean isAdmin true or false */
+
   isUserAdmin(){
 
     let collUrl = !this.isUserLoggedin()? "nouser" :this.afAuth.auth.currentUser.uid;
     collUrl = "/OnlineStore/Store/admins/"+collUrl;
     return this.getDoc(collUrl);
   }
+
+  isUserLoggedin(){
+    return this.afAuth.authState;
+
+  }
+
+   /*Save user details */
 
   saveUserData(coll,user){
     console.log("user info")
@@ -104,6 +120,7 @@ export class BackendService {
 
   }
  
+   /*Admin Approve or reject product */
 
   approveStatus(coll:string,data,app:string){
 
@@ -116,6 +133,8 @@ export class BackendService {
     })
 
   }
+
+     /*Login api */
 
   
   login(loginType,formData?){
@@ -139,21 +158,7 @@ export class BackendService {
   
   }
 
-  redirectLogin(){
-
-      return this.afAuth.auth.onAuthStateChanged(function(user){
-        if (user!=null)
-        {
-
-          return true;
-        }else{
-          console.log(user.displayName)
-
-          return false;
-        }
-
-      });
-  }
+       /*Return customers' product based on User ID*/
 
   getYourItem(coll) {
     console.log(this.afAuth.auth.currentUser.uid)
@@ -162,47 +167,27 @@ export class BackendService {
     )
     return this.cartColletion.valueChanges();
   
-    /*
-    console.log(this.afAuth.auth.currentUser.uid);
-    this.cartColletion =this.afs.collection(this.getCollectionURL(coll), ref =>
-        ref.where('delete_flag', '==', 'N')
-            .where('authid', '==', this.afAuth.auth.currentUser.uid)
-            .orderBy('name', 'desc')
-            
-    )
-    //console.log(this.cartColletion);
-    return this.cartColletion.valueChanges();
-    */
 }
 
-getReview(coll,id) {
+       /*Return review comments based on Item ID*/
 
-      
-      return this.afs.collection(this.getCollectionURL(coll),ref=>
-      ref.where('itemId','==',id)  
-      ).valueChanges();
-  /*
-  console.log(this.afAuth.auth.currentUser.uid);
-  this.cartColletion =this.afs.collection(this.getCollectionURL(coll), ref =>
-      ref.where('delete_flag', '==', 'N')
-          .where('authid', '==', this.afAuth.auth.currentUser.uid)
-          .orderBy('name', 'desc')
-          
-  )
-  //console.log(this.cartColletion);
-  return this.cartColletion.valueChanges();
-  */
-}
+
+  getReview(coll,id) {
+
+        
+        return this.afs.collection(this.getCollectionURL(coll),ref=>
+        ref.where('itemId','==',id)  
+        ).valueChanges();
+
+  }
+       /*API logout*/
 
 
   logout(){
     return this.afAuth.auth.signOut();
   }
 
-  isUserLoggedin(){
-    return this.afAuth.authState;
 
-  }
 
 
 
@@ -217,10 +202,11 @@ getReview(coll,id) {
     return "/OnlineStore/Store/" +filter;
   }
 
+         /*Add Review comments into review database*/
+
+
   addReviewDoc(coll:string,formData:any[],data:any){
 
-  
-  
     const timestamp = this.timestamp
     console.log(this.getCollectionURL(coll))
     return this.afs.collection(this.getCollectionURL(coll)).add({
@@ -239,6 +225,9 @@ getReview(coll,id) {
     })
    
   }
+
+           /*Add product to wishlist if only product does'nt exist in wishlist*/
+
 
   addWishList(coll,data){
     const id = this.afs.createId();
@@ -275,7 +264,8 @@ getReview(coll,id) {
   }
 
 
-  
+             /*Upload Product into the database*/
+
   async setNewDoc(coll: string, data: any,filePath) {
     const id = this.afs.createId();
     const item = { id, name };
@@ -298,6 +288,8 @@ getReview(coll,id) {
     });
   });    
 }
+
+             /*Update Product into the existing documents*/
 
   setDocs(coll:string,data:any,docId?:any)
   {
@@ -334,18 +326,7 @@ getReview(coll,id) {
   }
 
 
-
-  updateProduct(coll,formData:any){
-    console.log(formData._id)
-    var docId=this.afs.collection(this.getCollectionURL(coll),ref => ref.where('_id', '==', formData._id)
-     .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-          const id = a.payload.doc.id;
-          return  id ;
-      })))
-     
-    return this.updateDocs(this.getCollectionURL(coll),formData,docId);
-}
+             /*Get one  product based on Product ID*/
 
   getOneProductDoc(_collType,docId){
    return this.afs.collection(this.getCollectionURL(_collType)).doc(docId).valueChanges();
@@ -353,7 +334,8 @@ getReview(coll,id) {
     
   }
 
-  
+               /*Dummy method*/
+
   updateShoppingInterest(coll: string, data){
     const id = this.afs.createId();
     const item = { id, name };
@@ -371,6 +353,9 @@ getReview(coll,id) {
         delete_flag: "N",
     });
 }
+
+
+               /*Upload Your shopping cart*/
 
   updateShoppingCart(coll: string, data){
     const id = this.afs.createId();
@@ -395,7 +380,10 @@ getReview(coll,id) {
     });
 }
 
-updatePurchase(coll: string, data,total){
+               /*Upload Your Purchase list*/
+
+
+updatePurchase(coll: string, data,total,detail){
 
   const timestamp = this.timestamp
 
@@ -405,6 +393,7 @@ updatePurchase(coll: string, data,total){
   const item = { id, name };
     this.afs.collection(this.getCollectionURL(coll)).doc(item.id).set({
       ...data,
+      ...detail,
       //author: this.afAuth.currentUser.uid,
       cusmterId: this.authState.uid,
       // authorName: this.afAuth.currentUser.displayName,
@@ -419,56 +408,19 @@ updatePurchase(coll: string, data,total){
       purhcasedAt: timestamp,
       createdAt: timestamp,
       delete_flag: "N",
+      status:"Sold"
     })
 
-  /*
-  const id = this.afs.createId();
-  const item = { id, name };
-  const timestamp = this.timestamp
-  var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(item.id);
-  return docRef.set({
-      ...data,
-      //author: this.afAuth.currentUser.uid,
-      author: this.authState.uid,
-      // authorName: this.afAuth.currentUser.displayName,
-      // authorEmail: this.afAuth.currentUser.email,
-      // authorPhoto: this.afAuth.currentUser.photoURL,
-      // authorPhone: this.afAuth.currentUser.phoneNumber,
-      Customer: this.authState.displayName,
-      authorEmail: this.authState.email,
-      authorPhoto: this.authState.photoURL,
-      authorPhone: this.authState.phoneNumber,
-      purhcasedAt: timestamp,
-      createdAt: timestamp,
-      delete_flag: "N",
-  })
-  */
+
 }
 
-  updateDocs(coll:string,data:any,docId:any)
-  { 
-      console.log(data._id);
-      console.log(coll)
-      const id = this.afs.createId();
-      const item = { id,name };
-      const timestamp = this.timestamp;
-      var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(data._id);
-      return docRef.update({
-        
-        ...data,
-        _id:id, 
-        updatedAt:timestamp,
-        authid: this.afAuth.auth.currentUser.uid,
-        userName:this.afAuth.auth.currentUser.displayName,
-        userEmail:this.afAuth.auth.currentUser.email
 
 
-      })
-  }
+  
 
   updateUser(coll:string,data:any,docId:any)
   { 
-     
+     console.log(data)
       var docRef = this.afs.collection(this.getCollectionURL(coll)).doc(docId);
       return docRef.update({
         
@@ -479,7 +431,34 @@ updatePurchase(coll: string, data,total){
       })
   }
 
+                 /*Update Your shopping cart inside checkout Page*/
 
+
+  updateCart(coll:string,data:any,quantity)
+  { 
+    var docRef= this.afs.collection(this.getCollectionURL(coll),ref=>ref.where('_id', '==', data._id)).snapshotChanges().pipe(
+     map(actions => actions.map(a => {
+         const id = a.payload.doc.id;
+         return  id ;
+     })))
+     .subscribe(docID=>{
+       docID.map(a=>{
+         console.log(a)
+         return this.afs.collection(this.getCollectionURL(coll)).doc(a).update({
+          qty:quantity,
+       
+  
+        })
+
+       })
+     })
+
+  }
+
+  
+
+
+                 /*Delete document*/
 
 
   deleteOneDocs(coll,data)
@@ -506,39 +485,7 @@ updatePurchase(coll: string, data,total){
      
   }
 
- addProduct(data,filter){
-
-  if(filter =="add"){
-    
-    data.qty=data.qty+1
-    }else{
-        if(data.qty>0){
-          data.qty =data.qty-1;
-        }
-    }
-
-
-
-    /*
-    var docRef= this.afs.collection(this.getCollectionURL('cart'),ref=>ref.where('_id', '==', data._id)
-    .where('author','==',this.afAuth.auth.currentUser.uid)).snapshotChanges().pipe(
-     map(actions => actions.map(a => {
-         const id = a.payload.doc.id;
-         return  id ;
-     })))
-     .subscribe(docID=>{
-       docID.map(a=>{
-         console.log(a)
-         return this.afs.collection(this.getCollectionURL('cart')).doc(a).update({
-          qty :data.qty,   
-
-  
-        })
-  
-       })
-     })
-   */
- }
+ 
 
 
 

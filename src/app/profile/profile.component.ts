@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  providers:[BackendService]
 })
 export class ProfileComponent implements OnInit {
   error: boolean;
@@ -61,9 +62,7 @@ export class ProfileComponent implements OnInit {
 
     console.log("this data:"+formData)
     this.querySubcription =this._backendService.updateUser('user',formData,this._backendService.afAuth.auth.currentUser.uid);
-       
-     
-  
+        
   }
 
   alertUser(templateRef: TemplateRef<any>) {

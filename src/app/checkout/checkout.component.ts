@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { CartComponent } from '../cart/cart.component';
 import { BackendService } from '../services/backend.service';
+import {Location} from '@angular/common';
+import { AppComponent } from '../app.component';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -22,7 +28,7 @@ export class CheckoutComponent implements OnInit {
   total=0;
   quantity=1;
 
-  constructor(private _backendService:BackendService) { }
+  constructor(private _backendService:BackendService, private dialog:MatDialog, private _location: Location,private router:Router) { }
   count=0;
   ngOnInit() {
     this.getCartDetails();
@@ -30,6 +36,8 @@ export class CheckoutComponent implements OnInit {
 
   countProd(filter,data){
 
+
+   
 
   if(filter =="add"){
     
@@ -48,6 +56,17 @@ export class CheckoutComponent implements OnInit {
     
   
   }
+
+  link(page:string):void{
+    let app= new AppComponent(this.router,this._backendService);
+    app.goTo(page)
+    
+  }
+
+  getProductData(item:any,counter){
+    this.myDocData=item
+    this.counter=counter
+  }
   
   getCartDetails(){
     this.dataLoading = true;
@@ -59,7 +78,7 @@ export class CheckoutComponent implements OnInit {
     this.querySubcription =this._backendService.getYourItem('cart')
     .subscribe(carts =>{
       this.carts = carts;
-
+      this.myDocData=carts;
       for (let i = 0; i <   this.carts.length; i++) {
         this.total = this.total+Number(this.carts[i].price*this.carts[i].qty)
       }
@@ -77,13 +96,26 @@ export class CheckoutComponent implements OnInit {
         ()=>{this.error=false; this.dataLoading=false});
         
   }
-  purchaseProd(total){
+
+  Back(){
+    this._location.back();
+
+  }
+  
+
+
+ alertUser(templateRef: TemplateRef<any>) {
+  this.dialog.open(templateRef);
+}
+
+  purchaseProd(total,detail){
+    console.log("purchase this prod")
     this.dataLoading = true;
   
     console.log(this.carts.length)
     for(let x=0; x<this.carts.length;x++)
     {
-       this._backendService.updatePurchase('purchase',this.carts[x],total)
+       this._backendService.updatePurchase('purchase',this.carts[x],total,detail)
 
     }
   }

@@ -3,6 +3,7 @@ import { Component, ViewChild,AfterViewInit,EventEmitter, Input, OnInit, Output 
 import { FormBuilder,ReactiveFormsModule, FormGroup,FormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
+import { CheckoutComponent } from '../checkout/checkout.component';
 
 
 @Component({
@@ -11,6 +12,9 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+
+
+  @ViewChild(CheckoutComponent) cO;
 
   carts:any[];
   members :any[];
@@ -30,6 +34,7 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.getCartDetails();
     console.log("working")
+    this.counter=1;
   }
 
   test(){
@@ -41,6 +46,7 @@ export class CartComponent implements OnInit {
   }
 
   checkOut(page:string):void{
+    console.log("checking out")
     let Link = new AppComponent(this.router,this._backendService);
     Link.goTo(page);
   }
@@ -55,7 +61,8 @@ export class CartComponent implements OnInit {
     this.querySubcription =this._backendService.getYourItem('cart')
     .subscribe(carts =>{
       this.carts = carts;
-
+  
+      this.myDocData=carts;
       for (let i = 0; i <   this.carts.length; i++) {
         this.total = this.total+Number(this.carts[i].price*this.carts[i].qty)
       }
@@ -72,7 +79,7 @@ export class CartComponent implements OnInit {
   }
 
   showDetails(item: any) {
-    this.counter = 0;
+    this.counter = 1;
     this.myDocData = item;
    // this.getPic(item.path);
     // capture user interest event, user has looked into product details
@@ -81,6 +88,11 @@ export class CartComponent implements OnInit {
     return this._backendService.updateShoppingInterest('interests',data).then((success)=> {
         this.dataLoading = false;
     });
+}
+
+  cartUpdate(data,quantity){
+    console.log(data)
+    this._backendService.updateCart('cart',data,quantity);
 }
 
   getData(){
@@ -108,13 +120,15 @@ export class CartComponent implements OnInit {
       data.qty=data.qty+1
       this.total = this.total+Number(data.price)
       }else{
-          if(data.qty>0){
+          if(data.qty>1){
             data.qty =data.qty-1;
             this.total = this.total-Number(data.price)
   
           }
       }
-      this.total =this.total+10;
+      this.counter=data.qty;
+      this.myDocData=data;
+      this.total =this.total;
     //  this._backendService.addProduct(data,filter);
         console.log("this is working")
       

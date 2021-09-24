@@ -1,12 +1,16 @@
 
-<body *ngIf="toggleField=='main'">
-<div class="container py-5">
-    <div class="row text-center text-white mb-5">
+<body>
+<div style="height: 10%;" class="header2 toolbar " fxLayoutAlign="flex-center">
+    <mat-icon  (click)="Back()" fxLayoutAlign.xs="flex-start" style="font-size: 450% ;cursor: pointer;">keyboard_return</mat-icon>
+
+ </div>
+<ng-container   *ngIf="toggleField=='main'" class="container py-5">
+    <div fxLayout="row wrap" fxLayout.xs="column"class=" text-center text-white mb-5">
         <div class="col-lg-7 mx-auto">
-            <h1 class="display-4">Purchase List</h1>
+            <h1 class="display-4" style="color: rgb(138, 133, 133);">Purchase List</h1>
         </div>
     </div>
-    <div class="row">
+    <div fxLayout="row">
         <div class="col-lg-8 mx-auto">
             <!-- List group-->
             <ul class="list-group shadow">
@@ -34,12 +38,12 @@
             </ul> <!-- End -->
         </div>
     </div>
-</div>
-</body>
+</ng-container >
 
-<ng-container *ngIf="(toggleField=='detail')">
 
-    <div fxLayout="column" class="card-body">
+<ng-container *ngIf="(toggleField=='detail')" class="container py-5">
+
+    <div fxLayout="column" class="card-body" >
         <h6 style="margin-top: 50px;">Order ID: OD45345345435</h6>
         <article class="card">
             <div class="card-body row">
@@ -57,45 +61,58 @@
         </div>
         <mat-divider></mat-divider>
 
+        <div    class="col-md-7">
+            <div class="card">
+                <div class="d-flex flex-row align-items-center">
+                    <div class="p-ratings"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div> <span class="ml-1"></span>
+                </div>
+                <div class="about"> <span class="font-weight-bold">{{myDocData.name}}</span>
+                 
+                  
+                </div>
+                <div class="d-flex flex-row align-items-center" fxLayoutGap="20%"> 
 
-        <div  fxLayout="column" fxLayoutAlign="flex-start">
-            <img style="width:700px;height:550px; margin-top: 10px;" [src]=myDocData.imageUrl>
-            <div style="margin-left:0px ;">
-              <h3 class="size">{{myDocData.category}}</h3>
-              <h2 class ="font1">{{myDocData.name}}</h2>
-              <div class="borderLine"></div>
+                  <h4 class="font-weight-bold">${{myDocData.total}}</h4>
+                  
+              </div>
+                <hr>
+                <div class="product-description">
+                 <div class="d-flex align-items-center" ><mat-icon> location_on </mat-icon><span class="aligned-with-icon">Delivery to entire Malaysia</span> </div> 
+                 <hr>                   
+                    <div class="d-flex flex-row align-items-center">   <mat-icon> local_shipping</mat-icon><span class="aligned-with-icon">Estimated Delivery Date : {{date | date: 'dd-MMM'}} - {{date2 | date: 'dd-MMM-yyyy'}}</span>
+                    </div>
+                    <hr>
 
-              <h2 class="title2">Total:RM:{{myDocData.Total}}</h2>
-              <div class="borderLine"></div>
+                    <div class="mt-2"> <span class="font-weight-bold">Description</span>
+                        <p>{{myDocData.descr}}</p>
+                    </div> 
 
-              <h2 class="title">Product Description</h2> 
-              <p class="des">{{myDocData.descr}}</p>  
-              <div style="height:400px;"></div>
-              <div class="borderLine"></div>
-              <h2 class="title" >Delivery Term</h2>
-              <p class="des">I will send out your product once order is confirmed.</p>
-              <p class="des"> The product is expected to reach you in 4-7 working days.</p> 
-              <div  class="borderLine"></div>
-              <h2 class="tittle">Ratings & Reviews </h2>
-     
-              <ngb-rating class="star"  [max]="5" [(rate)]="myDocData.rating" [readonly]="false"></ngb-rating>
-              <form #addReview="ngForm" (ngSubmit)="setData(addReview.value,data);" novalidate>                   
-                       <mat-form-field  style="width: 900px;" appearance="outline">
-                      <mat-label>Write your review here</mat-label>
-                      <input matInput placeholder="Product Review" name="review" id="review" ngModel required >
-                  </mat-form-field>
-                  <button type="submit" mat-raised-button [disabled]="!addReview.form.valid"color="primary">Submit</button>
+                    <hr>
 
-              </form>    
+                    <div class="mt-2"> <span class="font-weight-bold">Ratings</span>
+                      <div class="d-flex flex-row align-items-center">   <ngb-rating class="star2"  [max]="5" [(rate)]="myDocData.rating" [readonly]="true"></ngb-rating></div>
+                    </div> 
+                  </div> 
+                    <div class="mt-2"> <span class="font-weight-bold">Store</span> </div>
+                    <div class="d-flex flex-row align-items-center"> <img src="https://i.imgur.com/N2fYgvD.png" class="rounded-circle store-image">
+                        <div class="d-flex flex-column ml-1 comment-profile">
+                            <div class="comment-ratings"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div> <span class="username">Rare Boutique</span> <small class="followers">25K Followers</small>
+                        </div>
+
+        </div>
+    </div>
+    <div fxFlex="10%"></div>
+
+</div>
   
-            </div>
-  
-          </div>
 
         </div>
 
-</ng-container>
 
+        
+
+</ng-container>
+</body>
 <!-----
 <div  fxLayout="column">
   <app-header pageTitle="Order Tracking"></app-header>

@@ -33,7 +33,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressSpinnerModule} from '@angular/material'
 import {MatChipsModule} from '@angular/material/chips';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { SetProductComponent } from './admin/set-product/set-product.component';
+import { SetProductComponent } from './set-product/set-product.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { AdmintabComponent } from './admin/admintab/admintab.component';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -52,7 +52,6 @@ import { AdmincartsComponent } from './admin/admincarts/admincarts.component';
 import { WindowService } from './window.service';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ProfileComponent } from './profile/profile.component';
-import { WishlistComponent } from './wishlist/wishlist.component';
 import { ProductComponent } from './product/product.component';
 import { NewComponent } from './product/new/new.component';
 
@@ -82,7 +81,6 @@ firebase.initializeApp(environment.firebaseConfig)
     ProdVerificationComponent,
     AdmincartsComponent,
     ProfileComponent,
-    WishlistComponent,
     ProductComponent,
     CartComponent,
     NewComponent,

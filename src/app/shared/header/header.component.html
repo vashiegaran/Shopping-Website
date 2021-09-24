@@ -112,34 +112,13 @@
   
                 <button   fxLayoutAlign="center center" mat-mini-fab color="blue" [matMenuTriggerFor]="Account" yPosition="below"   >
                   <mat-icon  >account_box</mat-icon>
-                  <mat-menu fxLayout="row" #Account="matMenu">
-                    <button *ngIf="!Login" mat-menu-item (click)="link('login')">log In</button>
-                    <div  *ngIf="Login" fxLayout="column">
-                      <button mat-menu-item (click)="link('profile');">Account</button>
-                      <button mat-menu-item (click)="link('Purchase');">Your Purchase</button>
-                      <button mat-menu-item (click)="Logout();alertUser(logout);">Log Out</button>
-                      <button mat-menu-item (click)="openModal();">Wish List</button>
-                  
-                    </div>
-                  
-                    <ng-template #logout>
-                      <h2 matDialogTitle>Message!</h2>
-                      <mat-dialog-content>
-                        You Are Logged Out!
-                  
-                      </mat-dialog-content>
-                      <mat-dialog-actions align="end">
-                        <button mat-button matDialogClose color="primary">Dismiss</button>
-                      </mat-dialog-actions>
-                    </ng-template>
-                  
-                  </mat-menu>
+                 
                 </button>
                   <mat-menu fxLayout="row" #Account="matMenu">
     <button *ngIf="!Login" mat-menu-item (click)="link('login')">log In</button>
     <div  *ngIf="Login" fxLayout="column">
       <button mat-menu-item (click)="link('profile');">Account</button>
-      <button mat-menu-item (click)="link('Purchase');">Your Purchase</button>
+      <button mat-menu-item (click)="link('purchase');">Your Purchase</button>
       <button mat-menu-item (click)="Logout();alertUser(logout);">Log Out</button>
       <button mat-menu-item (click)="openModal();">Wish List</button>
   

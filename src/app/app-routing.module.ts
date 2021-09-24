@@ -5,7 +5,6 @@ import { AboutusComponent } from './shared/aboutus/aboutus.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './main/home/home.component';
-import { SetProductComponent } from './admin/set-product/set-product.component';
 import { AdmintabComponent } from './admin/admintab/admintab.component';
 import { LoginComponent } from './login/login/login.component';
 import { AuthGuardAdminService } from './services/auth-guard-admin.service';
@@ -16,6 +15,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProductComponent } from './product/product.component';
 import { NewComponent } from './product/new/new.component';
+import { SetProductComponent } from './set-product/set-product.component';
 const routes:Routes=[
 
   {path:'',redirectTo: '/home', pathMatch:'full'},  
