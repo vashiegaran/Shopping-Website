@@ -79,7 +79,8 @@ export class BackendService {
    /*return boolean isAdmin true or false */
 
   isUserAdmin(){
-
+      console.log('working admin')
+      console.log(this.afAuth.auth.currentUser.uid)
     let collUrl = !this.isUserLoggedin()? "nouser" :this.afAuth.auth.currentUser.uid;
     collUrl = "/OnlineStore/Store/admins/"+collUrl;
     return this.getDoc(collUrl);
@@ -168,6 +169,15 @@ export class BackendService {
     return this.cartColletion.valueChanges();
   
 }
+
+  getYourOrderItem(coll) {
+    console.log(this.afAuth.auth.currentUser.uid)
+    this.cartColletion = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
+    ref.where('cusmterId','==',this.afAuth.auth.currentUser.uid)
+    )
+    return this.cartColletion.valueChanges();
+
+  }
 
        /*Return review comments based on Item ID*/
 
@@ -334,6 +344,16 @@ export class BackendService {
     
   }
 
+  getPurchasedProd(_collType,data){
+      this.itemCollection = this.afs.collection<any>(this.getCollectionURL(_collType),ref=>
+      ref.where('OrderID','==',data.OrderID))
+      return this.itemCollection.valueChanges();
+    }
+   
+     
+   
+  
+
                /*Dummy method*/
 
   updateShoppingInterest(coll: string, data){
@@ -383,17 +403,20 @@ export class BackendService {
                /*Upload Your Purchase list*/
 
 
-updatePurchase(coll: string, data,total,detail){
+updatePurchase(coll: string, data,total,detail,numOfProd){
 
   const timestamp = this.timestamp
 
 
     
     const id = this.afs.createId();
+    const OrderID = this.afs.createId();
   const item = { id, name };
     this.afs.collection(this.getCollectionURL(coll)).doc(item.id).set({
       ...data,
       ...detail,
+      OrderID:"OID"+OrderID,
+      numOfProduct:numOfProd,
       //author: this.afAuth.currentUser.uid,
       cusmterId: this.authState.uid,
       // authorName: this.afAuth.currentUser.displayName,
@@ -405,7 +428,7 @@ updatePurchase(coll: string, data,total,detail){
       CustomerEmail: this.authState.email,
       CustomerPhoto: this.authState.photoURL,
       CustomerPhone: this.authState.phoneNumber,
-      purhcasedAt: timestamp,
+      purchasedAt: timestamp,
       createdAt: timestamp,
       delete_flag: "N",
       status:"Sold"

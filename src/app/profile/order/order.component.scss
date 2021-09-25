@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
 
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: #eee;
     font-family: "Poppins", sans-serif;
     font-weight: 300
 }
@@ -58,6 +58,16 @@ body {
     color: #b8b9bc
 }
 
+.star {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+    margin-right: 10px;
+    border-radius: 5px
+}
 
 .time-text {
     font-size: 12px;
@@ -141,51 +151,4 @@ body {
     
 }
 
-
-.close:focus {
-    outline: 1px dotted #fff !important
-}
-
-.modal-body {
-    padding: 0rem !important
-}
-
-.modal-title {
-    color: #fff
-}
-
-.modal-header {
-    background: #9C27B0;
-    color: #fff !important
-}
-
-.fa-close {
-    color: #fff
-}
-
-.heading {
-    font-weight: 500 !important
-}
-
-.subheadings {
-    font-size: 12px;
-    color: #9c27b0
-}
-
-.dots {
-    height: 10px;
-    width: 10px;
-    background-color: green;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 5px
-}
-
-.gallery img {
-    margin-right: 10px
-}
-
-.fs-9 {
-    font-size: 9px
-}
 

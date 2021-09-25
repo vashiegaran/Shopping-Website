@@ -16,6 +16,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProductComponent } from './product/product.component';
 import { NewComponent } from './product/new/new.component';
 import { SetProductComponent } from './set-product/set-product.component';
+import { OrderComponent } from './profile/order/order.component';
+
 const routes:Routes=[
 
   {path:'',redirectTo: '/home', pathMatch:'full'},  
@@ -24,13 +26,16 @@ const routes:Routes=[
   {path:'merchant', component: SetProductComponent,canActivate:[AuthGuardService]},
   {path:'cart', component: CartComponent,canActivate:[AuthGuardService]},
   {path:'login', component: LoginComponent},
-  {path:'admin', component: AdmintabComponent , } ,
+  {path:'admin', component: AdmintabComponent } ,
   {path:'purchase', component: PurchaseComponent ,canActivate:[AuthGuardService] } ,
   {path:'checkout', component: CheckoutComponent ,canActivate:[AuthGuardService] } ,
   {path:'profile', component: ProfileComponent ,canActivate:[AuthGuardService] } ,
   {path:'cart', component: CartComponent ,canActivate:[AuthGuardService] } ,
   {path:'product/:prodId', component: ProductComponent ,canActivate:[AuthGuardService] } ,
   {path:'uploadProduct', component: NewComponent ,canActivate:[AuthGuardService] } ,
+  {path:'profile/myOrder', component: OrderComponent ,canActivate:[AuthGuardService] } ,
+
+
 
 
 

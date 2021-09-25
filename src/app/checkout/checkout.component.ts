@@ -27,6 +27,7 @@ export class CheckoutComponent implements OnInit {
   toggle: boolean =true;
   total=0;
   quantity=1;
+  numOfProd:number;
 
   constructor(private _backendService:BackendService, private dialog:MatDialog, private _location: Location,private router:Router) { }
   count=0;
@@ -81,6 +82,7 @@ export class CheckoutComponent implements OnInit {
       this.myDocData=carts;
       for (let i = 0; i <   this.carts.length; i++) {
         this.total = this.total+Number(this.carts[i].price*this.carts[i].qty)
+        this.numOfProd=this.carts.length;
       }
       console.log("total price"+this.total)
     
@@ -113,11 +115,9 @@ export class CheckoutComponent implements OnInit {
     this.dataLoading = true;
   
     console.log(this.carts.length)
-    for(let x=0; x<this.carts.length;x++)
-    {
-       this._backendService.updatePurchase('purchase',this.carts[x],total,detail)
+     this._backendService.updatePurchase('purchase',this.carts,total,detail,  this.numOfProd)
 
-    }
+    
   }
 
   deleteCart(data){ 

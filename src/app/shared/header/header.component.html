@@ -118,9 +118,9 @@
     <button *ngIf="!Login" mat-menu-item (click)="link('login')">log In</button>
     <div  *ngIf="Login" fxLayout="column">
       <button mat-menu-item (click)="link('profile');">Account</button>
-      <button mat-menu-item (click)="link('purchase');">Your Purchase</button>
+      <button mat-menu-item (click)="link('profile/myOrder');">Your Purchase</button>
       <button mat-menu-item (click)="Logout();alertUser(logout);">Log Out</button>
-      <button mat-menu-item (click)="openModal();">Wish List</button>
+      <button mat-menu-item (click)="link('admin')">Admin</button>
   
     </div>
   

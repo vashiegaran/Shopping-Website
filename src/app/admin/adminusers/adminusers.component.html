@@ -1,17 +1,82 @@
+<body>
 
-
-<div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100%"   >
-  <div class="border" style="margin-top: 10px;" fxLayoutAlign="flex-center" fxLayout="row "  fxFlex="100%%" *ngFor="let data of members;" >
-     
-       <div fxLayoutGap ="1px" fxFlex=40%>
-          <h4 class="p5">Product:{{data.name}}</h4>
-          <h4 class="p5">RM:{{data.price}}</h4>
-          <h4 class="p5">Category:{{data.category}}</h4>
- 
-
-
-      </div>
-   
+  <div class="container">
+    <div class="row d-flex justify-content-center mt-5 ">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="d-flex justify-content-between align-items-center"> <span class="font-weight-bold">Your Orders</span>
+                    <div class="d-flex flex-row"> <button routerLink="/home" class="btn btn-primary mr-2 active">Home</button> <button routerLink="/profile" class="btn btn-primary new"><i class="fa fa-plus"></i> Profile</button> </div>
+                </div>
+                <div class="mt-3 inputs"> <i class="fa fa-search"></i> <input type="text" class="form-control " placeholder="Search Tasks..."> </div>
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between align-items-center " *ngFor="let data of userProf">
+                        <div class="d-flex flex-row align-items-center"> <span class="star"><i class="fa fa-star yellow"></i></span>
+                            <div class="d-flex flex-column" style="font-size: 80%;"> <span>Name: {{data.Username}}</span>
+                                <div style="border-bottom: 100%;" class="d-flex flex-row align-items-center time-text"> <medium>email:{{data.Useremail}} </medium> <span class="dots"></span> <small>Country:{{data.country}}</small> <span class="dots"></span> <small></small> </div>
+                            </div>
+                        </div> <span style="cursor:pointer" (click)="openModal(data)" class="">View Details</span>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
     </div>
+</div>
 
+
+  </body>
+
+<!-- Modal -->
+<div style="height:100%" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">User Information</h5> <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="row g-0">
+                <div class="col-md-8 border-right">
+                    <div class="status p-3">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex flex-column"> <span class="heading d-block">Name</span> <span class="subheadings">{{myDocData.Username}}</span> </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column"> <span class="heading d-block">Email</span> <span class="subheadings">{{myDocData.Useremail}}</span> </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column"> <span class="heading d-block">Phone Number</span> <span class="subheadings"> {{myDocData.PhoneNumber}}</span> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex flex-column"> <span class="heading d-block">Address</span> <span class="subheadings">{{myDocData.Address}}</span> </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column"> <span class="heading d-block">State</span> <span class="subheadings">{{myDocData.State}}</span> </div>
+                                    </td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex flex-column"> <span class="heading d-block">Country</span> <span class="subheadings">{{myDocData.country}}</span> </div>
+                                    </td>
+                                    <td colspan="2">
+                                        <div class="d-flex flex-column"> <span class="heading d-block">Password</span> <span class="subheadings">{{myDocData.Password}}</span> </div>
+                                    </td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-4">
+      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

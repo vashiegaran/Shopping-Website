@@ -59,21 +59,7 @@ export class PurchaseComponent implements OnInit {
 
 
     //console.log(this._backendService.getCart('cart'))
-    this.querySubcription =this._backendService.getYourItem('purchase')
-    .subscribe(items =>{
-      this.items = items;
-      console.log(this.items[0].rating)
-      console.log(items)
-      console.log("subscribe is working")
-        },
 
-        (error)=>{
-          this.error=true;
-          this.errorMessage=error.message;
-          this.dataLoading=false;
-        },
-        ()=>{this.error=false; this.dataLoading=false});
-        
   }
 
   toggle(filter?) {

@@ -108,6 +108,7 @@ export class SetProductComponent implements OnInit {
     else { filter = filter; }
     this.toggleField = filter;
     console.log(this.toggleField)
+    this.userProd=null;
 
     if(status=='approved'){
       this.userProd=this.aprrovedProd
@@ -117,9 +118,12 @@ export class SetProductComponent implements OnInit {
     }   
     else if(status=='rejected'){
       this.userProd=this.rejectedProd
-
+    
     }
 
+  
+
+  
 }
 
   getData(){

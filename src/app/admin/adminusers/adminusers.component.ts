@@ -8,10 +8,32 @@ import { BackendService } from 'src/app/services/backend.service';
 export class AdminusersComponent implements OnInit {
 
   userProf;
+  myDocData;
+  display;
   constructor(private _backendService:BackendService) { }
 
   ngOnInit() {
+    this.getUserData();
   }
+
+  getUserData(){
+    this._backendService.getDocs('user').subscribe(prof=>{
+
+      this.userProf=prof;
+    })
+
+  }
+
+
+  openModal(data) {
+    console.log(data)
+    this.myDocData=data;
+        this.display = "block";
+  }
+  onCloseHandled() {
+    this.display = "none";
+  }
+
 
 /*
   getAuthStatus() {

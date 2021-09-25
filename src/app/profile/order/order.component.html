@@ -1,0 +1,94 @@
+<body>
+  <div style="height: 10%;" class="header2 toolbar " fxLayoutAlign="flex-center"></div>
+
+  <div class="container">
+    <div class="row d-flex justify-content-center mt-5 ">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="d-flex justify-content-between align-items-center"> <span class="font-weight-bold">Your Orders</span>
+                    <div class="d-flex flex-row"> <button routerLink="/home" class="btn btn-primary mr-2 active">Home</button> <button routerLink="/profile" class="btn btn-primary new"><i class="fa fa-plus"></i> Profile</button> </div>
+                </div>
+                <div class="mt-3 inputs"> <i class="fa fa-search"></i> <input type="text" class="form-control " placeholder="Search Tasks..."> </div>
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between align-items-center " *ngFor="let data of items">
+                        <div class="d-flex flex-row align-items-center"> <span class="star"><i class="fa fa-star yellow"></i></span>
+                            <div class="d-flex flex-column" style="font-size: 80%;"> <span>Order ID: {{data.OrderID}}</span>
+                                <div style="border-bottom: 100%;" class="d-flex flex-row align-items-center time-text"> <medium>{{items.length+1}} Product</medium> <span class="dots"></span> <small>Date:{{data.purhcasedAt.Date}}</small> <span class="dots"></span> <small></small> </div>
+                            </div>
+                        </div> <span style="cursor:pointer" (click)="openModal(data)" class="">View Details</span>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  </body>
+
+  <div style="height:100%" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog modal-lg" role="document" >
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Order List</h5> <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex flex-column justify-content-center align-items-center" id="order-heading">
+              <div class="text-uppercase">
+                  <p>Order detail</p>
+              </div>
+              <div class="h4">Thursday, July 24, 2017</div>
+              <div class="pt-1">
+                  <p>Order:{{myDocData.OrderID}}is currently<b class="text-dark"> processing</b></p>
+              </div>
+              <div class="btn close text-white"> &times; </div>
+          </div>
+          <div class="wrapper bg-white">
+              <div class="table-responsive">
+                  <table class="table table-borderless">
+                      <thead>
+                          <tr class="text-uppercase text-muted">
+                              <th scope="col">product</th>
+                              <th scope="col" class="text-right">total</th>
+                          </tr>
+                      </thead>
+                  
+                  </table>
+              </div>
+              <div class="d-flex justify-content-start align-items-center list py-1" *ngFor="let item of [].constructor(loop); let i = index">
+                  <div><b>{{myDocData[i].qty}}PX</b></div>
+                  <div class="mx-3"> <img [src]="myDocData[i].imageUrl"  class="rounded-circle" width="30" height="30"> </div>
+                  <div class="order-item">{{myDocData[i].name}}</div>
+              </div>
+   
+              <div class="pt-2 border-bottom mb-3"></div>
+              <div class="d-flex justify-content-start align-items-center pl-3">
+                  <div class="text-muted">Payment Method</div>
+                  <div class="ml-auto"> <img src="https://www.freepnglogos.com/uploads/mastercard-png/mastercard-logo-logok-15.png" alt="" width="30" height="30"> <label>Mastercard ******5342</label> </div>
+              </div>
+              <div class="d-flex justify-content-start align-items-center py-1 pl-3">
+                  <div class="text-muted">Shipping</div>
+                  <div class="ml-auto"> <label>Free</label> </div>
+              </div>
+          
+              <div class="d-flex justify-content-start align-items-center pl-3 py-3 mb-4 border-bottom">
+                  <div class="text-muted"> Today's Total </div>
+                  <div class="ml-auto h5"> ${{myDocData.Total}} </div>
+              </div>
+              <div class="row border rounded p-1 my-3">
+              
+                  <div class="col-md-6 py-3">
+                      <div class="d-flex flex-column align-items start"> <b>Shipping Address</b>
+                          <p class="text-justify pt-2">{{myDocData.Address}},</p>
+                          <p class="text-justify">{{myDocData.State}},{{myDocData.country}} </p>
+                      </div>
+                  </div>
+              </div>
+            
+          </div>
+          </div>
+      </div>
+    </div>
+    </div>

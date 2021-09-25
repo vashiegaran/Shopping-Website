@@ -54,6 +54,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { ProfileComponent } from './profile/profile.component';
 import { ProductComponent } from './product/product.component';
 import { NewComponent } from './product/new/new.component';
+import { OrderComponent } from './profile/order/order.component';
+import { AdminusersComponent } from './admin/adminusers/adminusers.component';
 
 
 
@@ -84,6 +86,8 @@ firebase.initializeApp(environment.firebaseConfig)
     ProductComponent,
     CartComponent,
     NewComponent,
+    OrderComponent,
+    AdminusersComponent
 
     
     
