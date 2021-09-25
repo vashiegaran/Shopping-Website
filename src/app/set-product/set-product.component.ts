@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { environment } from 'src/environments/environment';
 import { BackendService } from 'src/app/services/backend.service';
@@ -33,26 +33,36 @@ export class SetProductComponent implements OnInit {
     {value: 'Pos Laju', viewValue: 'Pos Laju'},
   ];
   
-  filePath:string
-  image:any;
-  userProd:any[];
-  savedChanges = false;
-  error: boolean = false;
-  errorMessage :String = "";
-  dataLoading : boolean= false;
-  private querySubcription;
-  dataSource: MatTableDataSource<any>;
-  myDocData:any;
-    toggleField: string;
-    changePage: boolean =true;
-  members: any[];
+    filePath:string
+    image:any;
+    userProd:any[];
+    savedChanges = false;
+    error: boolean = false;
+    errorMessage :String = "";
+    dataLoading : boolean= false;
+    private querySubcription;
+    dataSource: MatTableDataSource<any>;
+    myDocData:any;
+      toggleField: string;
+      changePage: boolean =true;
+    members: any[];
+    approve=0;
+    pending=0
+    rejected=0;
+    display = "none";
+
+    aprrovedProd:any[];
+    pendingProd: any[] =new Array();
+    rejectedProd:any[];
+
+  
   //public form: FormGroup ;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
  // public userList : IUser[]=[];
   displayedColumns = [ 'category', 'name', 'price','_id'];
 
-  constructor(private _backendService:BackendService,private _location: Location,private router:Router) { }
+  constructor(private _backendService:BackendService,private _location: Location,private router:Router,private dialog:MatDialog) { }
   upload(event) {    
     this.filePath = event.target.files[0]
     console.log(this.filePath)
@@ -66,16 +76,11 @@ export class SetProductComponent implements OnInit {
     this.toggleField = "main";
     console.log(this.toggleField)
 
-
+ 
 
     
   }
 
-
-  UploadProd(page:string,):void{
-    let Link = new AppComponent(this.router,this._backendService);
-    Link.goTo(page)
-  }
 
   showDetails(item: any) {
     this.myDocData = item;
@@ -97,12 +102,23 @@ export class SetProductComponent implements OnInit {
     }
   }
 
-  toggle(filter?) {
+  toggle(filter?,status?:string) {
     this.dataLoading = false;
     if (!filter) { filter = "main" }
     else { filter = filter; }
     this.toggleField = filter;
     console.log(this.toggleField)
+
+    if(status=='approved'){
+      this.userProd=this.aprrovedProd
+    }else if(status=='pending'){
+      this.userProd=this.pendingProd
+
+    }   
+    else if(status=='rejected'){
+      this.userProd=this.rejectedProd
+
+    }
 
 }
 
@@ -137,8 +153,33 @@ export class SetProductComponent implements OnInit {
       
       this.querySubcription =this._backendService.getYourItem('product')
       .subscribe(userProd =>{
-        this.userProd = userProd;
-        console.log("this is working"+this.userProd)
+        this.approve=0;
+        this.pending=0
+        this.rejected=0;
+        console.log("prod", userProd  )
+        for(let x=0; x<userProd.length;x++)
+        {
+          console.log(x)
+         if(userProd[x].status=='Pending'){
+           this.pending=this.pending+1;
+           this.pendingProd.push(userProd[x]);
+           console.log("pending obj",this.pendingProd)
+
+         } if(userProd[x].status=='Approved'){
+          console.log("working 2")
+            this.approve=this.approve+1
+            this.aprrovedProd=userProd[x];
+
+         } if(userProd[x].status=='Rejected'){
+           this.rejected=this.rejected+1
+           this.rejectedProd=userProd[x];
+           console.log("working 3")
+
+         }
+    
+        }
+
+        console.log("this is working",this.pendingProd)
           },
   
           (error)=>{
@@ -190,7 +231,6 @@ export class SetProductComponent implements OnInit {
          //   console.log(res);
             this.myDocData = res;
             console.log(this.myDocData.name)
-            this.toggle('editMode');
 
 
           } else{
@@ -219,7 +259,15 @@ export class SetProductComponent implements OnInit {
   this._backendService.deleteOneDocs('product',data)
 
  }
-  
+
+ openModal(docId) {
+  this.getDoc(docId)
+  this.display = "block";
+}
+onCloseHandled() {
+  this.display = "none";
+}
+
 
 
  

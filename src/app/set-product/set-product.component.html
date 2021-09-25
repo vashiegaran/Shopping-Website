@@ -1,7 +1,6 @@
 
 
 
-<app-header></app-header>
 <div  fxLayoutAlign="flex-start"  style="background-color: #eee; " class="container mt-5 box-shadow-1" fxLayoutGap="10px"  >
     <div fxLayout="row">
         <div class="col-md-2 " class="" >
@@ -72,7 +71,124 @@
     </div>
 
 
-    <div *ngIf="toggleField=='product'" style="background-color: #eee;" fxLayoutGap="5%" class="container py-5" fxLayout="column" >
+    <div *ngIf="toggleField=='product'" style="background-color: #eee; margin-top: 5%; " fxLayoutGap="5%" class="container mt-5" fxLayout="column">
+            
+     <div _ngcontent-c14="" class="p-3 cursor-pointer border-radius-5px" fxlayout="row" fxlayoutalign="start center" fxlayoutgap="30px"  tabindex="0" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center; align-items:center; ">
+        <div fxLayout="column">
+        <div _ngcontent-c14="" class="sub-header" fxflex="100%" fxLayoutAlign="center center !important" style="margin-right: 30px; flex: 1 1 100%; box-sizing: border-box; max-width: 100%;"> <h4>Approved Product</h4></div>
+        <div _ngcontent-c14="" class="sub-header click-font " fxflex="100%" fxLayoutAlign="flex-start !important" (click)="toggle('Prod','approved')"  style="margin-right: 30px; flex: 1 1 100%; box-sizing: border-box; max-width: 100%; cursor: pointer; "> <p>{{approve}} Product Approved</p></div>
+
+    </div>
+        <div _ngcontent-c14="" fxflex="" style="flex: 1 1 0%; box-sizing: border-box;">
+           <!----><!---->
+           <mdb-icon _ngcontent-c14="" fas="" icon="check-circle" size="lg" style="color:#008489 !important" class="fas ng-star-inserted"><i class="fa-check-circle fa-lg fas"></i></mdb-icon>
+        </div>
+     </div>
+
+     <div _ngcontent-c14="" class="p-3 cursor-pointer border-radius-5px" fxlayout="row" fxlayoutalign="start center" fxlayoutgap="30px"  tabindex="0" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center; align-items:center;">
+        <div fxLayout="column">
+        <div _ngcontent-c14="" class="sub-header" fxflex="100%" fxLayoutAlign="center center !important" style="margin-right: 30px; flex: 1 1 100%; box-sizing: border-box; max-width: 100%;"> <h4>Pending Product</h4></div>
+        <div _ngcontent-c14="" class="sub-header click-font " fxflex="100%" fxLayoutAlign="flex-start !important" (click)="toggle('Prod','pending')" style="margin-right: 30px; flex: 1 1 100%; box-sizing: border-box; max-width: 100%; cursor: pointer; "> <p>{{pending}} Product Pending</p></div>
+
+    </div>
+        <div _ngcontent-c14="" fxflex="" style="flex: 1 1 0%; box-sizing: border-box;">
+           <!----><!---->
+           <mdb-icon _ngcontent-c14="" fas="" icon="check-circle" size="lg" style="color:#008489 !important" class="fas ng-star-inserted"><i class="fa-check-circle fa-lg fas"></i></mdb-icon>
+        </div>
+     </div>
+
+     <div _ngcontent-c14="" class="p-3 border-radius-5px" fxlayout="row" fxlayoutalign="start center" fxlayoutgap="30px"  tabindex="0" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center; align-items:center; ">
+        <div fxLayout="column">
+        <div _ngcontent-c14="" class="sub-header" fxflex="100%" fxLayoutAlign="center center !important" style="margin-right: 30px; flex: 1 1 100%; box-sizing: border-box; max-width: 100%;"> <h4>Rejected Product</h4></div>
+        <div _ngcontent-c14="" class="sub-header click-font " fxflex="100%" fxLayoutAlign="flex-start !important" (click)="toggle('Prod','rejected')"  style="margin-right: 30px; flex: 1 1 100%; box-sizing: border-box; max-width: 100%; cursor: pointer; "> <p>{{rejected}} Product Rejected</p></div>
+
+    </div>
+        <div _ngcontent-c14="" fxflex="" style="flex: 1 1 0%; box-sizing: border-box;">
+           <!----><!---->
+           <mdb-icon _ngcontent-c14="" fas="" icon="check-circle" size="lg" style="color:#008489 !important" class="fas ng-star-inserted"><i class="fa-check-circle fa-lg fas"></i></mdb-icon>
+        </div>
+     </div>
+      
+          </div>
+
+          <div *ngIf="toggleField=='Prod'" style="background-color: #eee; margin-top: 5%; " fxLayoutGap="5%" class="container mt-5" fxLayout="column">
+            <div _ngcontent-c14="" class="p-3" fxlayout="row" fxlayoutalign="start center" fxlayoutgap="30px" routerlink="/internal/merchant/product/new" tabindex="0" style="flex-direction: row; display: flex; max-height: 100%; place-content: center; align-items:center; ">
+                <div class="row">
+                    <div  class="col-lg-8 mx-auto">
+                        <!-- List group-->
+                        <ul class="list-group shadow">
+                            <!-- list group item-->
+                            <li style="cursor:pointer" class="list-group-item"  *ngFor="let data of userProd;" (click)="openModal(data._id)"   >
+                                <!-- Custom content-->
+                                <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                    <div class="media-body order-2 order-lg-1">
+                                        <h5 class="mt-0 font-weight-bold mb-2">{{data.name}}</h5>
+                                        <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p>
+                                        <div class="d-flex align-items-center justify-content-between mt-1">
+                                            <h6 class="font-weight-bold my-2">${{data.price}}</h6>
+                                            <ul class="list-inline small">
+                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                                <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div><img [src]=data.imageUrl alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                                </div> <!-- End -->
+                            </li> <!-- End -->
+                            
+                        </ul> <!-- End -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+                   
+            
+    
+
+
+
+        <div style="height:100%" class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+            <div class="modal-dialog modal-lg" role="document" >
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Wish List</h5> <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div  class="col-lg-8 mx-auto">
+                          <!-- List group-->
+                          <ul class="list-group shadow">
+                              <!-- list group item-->
+                              <li style="cursor:pointer" class="list-group-item"    >
+                                  <!-- Custom content-->
+                                  <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                      <div class="media-body order-2 order-lg-1">
+                                          <h5 class="mt-0 font-weight-bold mb-2">{{myDocData.name}}</h5>
+                                          <p class="font-italic text-muted mb-0 small">{{myDocData.shortDes}}</p>
+                                              <h6 class="font-weight-bold">${{myDocData.price}}</h6>
+                                              <p class="font-italic text-muted mb-0 small">{{myDocData.descr}}</p>
+                                              <p class="font-italic text-muted mb-0 small">Email:{{myDocData.useremail}}</p>
+                                              <p class="font-italic text-muted mb-0 small">Location:{{myDocData.address}}</p>
+
+
+
+                                      </div><img [src]=myDocData.imageUrl alt="Generic placeholder image" width="70" class="ml-lg-5 order-1 order-lg-2">
+                                  </div> <!-- End -->
+                              </li> <!-- End -->
+                              
+                          </ul> <!-- End -->
+                      </div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+            </div>
+<!--
+  <div *ngIf="toggleField=='product'" style="background-color: #eee;" fxLayoutGap="5%" class="container py-5" fxLayout="column" >
             <div class="row text-center text-white mb-5">
                 <div class="col-lg-7 mx-auto">
                     <h1 class="display-4">Product List</h1>
@@ -80,11 +196,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <!-- List group-->
+                     
                     <ul class="list-group shadow">
-                        <!-- list group item-->
                         <li  style="cursor:pointer" class="list-group-item"  *ngFor="let data of userProd;" >
-                            <!-- Custom content-->
                             <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                                 <div class="media-body order-2 order-lg-1" fxLayout="column">
 
@@ -99,541 +213,16 @@
                                     <h4  class="mt-0 font-weight-bold mb-2" *ngIf="(data.status=='Approved')" style="color: rgb(89, 233, 5);">Status:{{data.status}}</h4>
                                     <h4 class="mt-0 font-weight-bold mb-2"  *ngIf="(data.status=='Rejected')" style="color: rgb(235, 11, 11);">Status:{{data.status}}</h4>
                                 </div><img [src]="data.imageUrl" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
-                            </div> <!-- End -->
-                        </li> <!-- End -->
-                        <!-- list group item-->
+                            </div> 
+                        </li> 
                     
                        
-                    </ul> <!-- End -->
+                    </ul> 
             </div>
         </div>
       
           </div>
             
-    
 
-
-
-<!--
-    
-<div fxLayout="column"  fxFlex="100%" fxLayoutGap="20px">
-    <app-header pageTitle="Welcome to merchant page"></app-header>
-    <div  fxLayoutAlign="center center">
-        <div fxFlex="5%"></div>
-        <div fxFlex="60%" fxLayout="column">
-        <div *ngIf="(toggleField!='editMode') && (toggleField!='addMode')" fxLayout="row" fxlayout.gt-sm="column"  fxLayoutAlign="center center" fxLayoutGap="0%"  class="border">
-            <div fxLayout="row" fxLayoutGap="10%">
-                <div fxLayout="column" fxFlex="20%"class="example-button-container">
-                    <button (click)="toggle('main')"  mat-fab color="" aria-label="Example icon button with a home icon">
-                    <mat-icon style="size: 2px;"  class="icon" >build</mat-icon>
-                    </button>
-                <h4 class="titleProd"> Steps</h4> 
-                </div>
-
-                <div fxLayout="column" fxFlex="20%"class="example-button-container">
-                    <button (click)="toggle('dashboard')" mat-fab color="" aria-label="Example icon button with a home icon">
-                    <mat-icon style="size: 2px;"  class="icon" >dashboard</mat-icon>
-                    </button>
-                <h4 class="titleProd"> Dashboard</h4> 
-                </div>
-
-                <div fxLayout="column" fxFlex="20%"class="example-button-container">
-                    <button  mat-fab color="" aria-label="Example icon button with a home icon">
-                    <mat-icon style="size: 2px;"  class="icon" >shopping_basket</mat-icon>
-                    </button>
-                <h4 class="titleProd"> Orders</h4> 
-                </div>
-            </div>
-            <div fxLayout="row"  fxLayoutGap="20%" > 
-                <div fxLayout="column" fxFlex="20%"class="example-button-container">
-                    <button (click)="toggle('product');getUserProd()" mat-fab color="" aria-label="Example icon button with a home icon">
-                    <mat-icon style="size: 2px;"  class="icon" >laptop</mat-icon>
-                    </button>
-                <h4 class="titleProd"> Products</h4> 
-                </div>
-                <div fxLayout="column" fxFlex="20%"class="example-button-container">
-                    <button  mat-fab color="" aria-label="Example icon button with a home icon">
-                    <mat-icon style="size: 2px;"  class="icon" >help</mat-icon>
-                    </button>
-                <h4 class="titleProd">Help</h4> 
-                </div>
-            </div>
-
-         </div>
-
-         <div *ngIf="(toggleField=='main') else (toggleField=='addMode')? showAddMode : ((toggleField=='editMode')? showEditMode : showResMode)" >
-            <div fxFlexAlign="flex-start">
-             <h2 style="margin-top: 50px; " class="titleProd">Continue setting up your store</h2>
-        </div>
-
-            <div (click)="toggle('addMode')"   style = "cursor: pointer;" fxLayoutAlign="start center"  class="borderChild">
-                <h2 class="titleProd2"> Upload Product </h2>
-            </div>
-
-
-            <div  fxLayoutAlign="start center" style = "cursor: pointer;" class="borderChild2">
-                <h2 class="titleProd2"> Create Coupon </h2>
-            </div>
-
-
-            <div  fxLayoutAlign="start center" style = "cursor: pointer;" class="borderChild2">
-                <h2 class="titleProd2"> Set up delivery schedule </h2>
-            </div>
-
-
-            <div  fxLayoutAlign="start center" style = "cursor: pointer;" class="borderChild2">
-                <h2 class="titleProd2"> Share your store link </h2>
-            </div>
-        </div  >
-- DashBoard
-
-        <div *ngIf="(toggleField=='dashboard')">
-            <div fxFlexAlign="flex-start">
-             <h1 style="margin-top: 50px; " class="titleProd">Dashboard</h1>
-        </div>
-
-            <div  class="borderChild3">
-            
-                <h2 style="margin-left: 20px;" fxLayoutAlign="flex-start"  class="titleProd2"> Total sales this month
-                </h2>
-
-                <h1  style="margin-left: 20px;" fxLayoutAlign="flex-start"  class="titleProd3"> RM0.00
-                </h1>
-            </div>
-
-            <div fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex=40% fxLayout="column" fxLayoutAlign="flex-center"  class="borderChild4">
-                <h2 style="margin-left: 20px;" class="titleProd2">Number of orders </h2>
-                <h1 style="margin-left: 20px;" class="titleProd3">0 </h1>
-            </div>
-
-            <div fxFlex=40% fxLayout="column" fxLayoutAlign="flex-center"  class="borderChild4">
-                <h2 style="margin-left: 20px;" class="titleProd2">Number of Product sold </h2>
-                <h1 style="margin-left: 20px;" class="titleProd3">0 </h1>
-
-            </div>
-
-            
-
-        </div>
-
-
-
-           
-        </div>
-
-        <ng-container  *ngIf="toggleField=='product'">
-
-                    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100%"   >
-                            <mat-card style="margin-top: 10px;" fxLayoutAlign="flex-center" fxLayout="row "  fxFlex="100%%" *ngFor="let data of userProd;" >
-                                <div fxLayoutAlign="center center" fxFlex=40%>
-                                    <img style="width:180px;height:130px;" [src]=data.imageUrl>
-                                 </div>
-                                 <div fxLayoutGap ="1px" fxFlex=40%>
-                                    <h4 class="p5">Product:{{data.name}}</h4>
-                                    <h4 class="p5">RM:{{data.price}}</h4>
-                                    <h4 class="p5">Category:{{data.category}}</h4>
-                                    <h4 class="p5" *ngIf="(data.status=='Pending')" style="color: rgb(255, 196, 0);">Status:{{data.status}}</h4>
-                                    <h4 class="p5" *ngIf="(data.status=='Approved')" style="color: rgb(89, 233, 5);">Status:{{data.status}}</h4>
-                                    <h4 class="p5" *ngIf="(data.status=='Rejected')" style="color: rgb(235, 11, 11);">Status:{{data.status}}</h4>
-
-
-                                </div>
-                                <div fxLayoutAlign="center center " fxFlex=20%>
-            
-                                    <button mat-raised-button (click)="deleteProd(data._id)" >Remove</button>
-                                    <button mat-raised-button color ="primary" (click)="getDoc(data._id)" >Edit</button>
-                                </div>
-            
-                            <mat-error *ngIf="savedChanges">
-                              <br/>
-                              <br/> 
-                              <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
-                              <span class="med-spacer"></span>
-                              <br/>
-                          </mat-error>
-                        </mat-card>
-                
-                    </div>
-            
-                    
-            </ng-container >
-        
-
-     </div>
-        <div  fxFLex="20%"></div>
-                <mat-card fxLayoutAlign="flex-start" 
-        style="background-color: rgb(228, 233, 227); margin-top: 2%; height:300px;width:50%;">
-    
-       <h4 class="p3"> We welcome you to sell your products with only few steps 
-
-       </h4> 
-
-    </mat-card>
-    </div>
-    <div fxLayout="row wrap" fxLayoutAlign="flex-start" >
-        <mat-card (click)="toggle('resMode'); getUserProd();" fxLayoutAling="center center" fxFlex="15%" style="margin-left: 15%; margin-top: 50px; height: 300px; background-color: rgb(248, 245, 252);"  >
-            <mat-icon class="mat-icon "> fastfood</mat-icon>
-            <h2 class="p3" >Your Product</h2>
-        </mat-card>
-
-        <mat-card  (click)="toggle('addMode')" fxFlex="15%" style="margin-left: 5%; margin-top: 50px; height: 300px; background-color: rgb(255, 255, 255);"  >
-            <mat-icon class="mat-icon "> add_shopping_cart</mat-icon>
-            <h2 class="p3" >Add Product</h2>
-        </mat-card>
-
-        <mat-card fxFlex="15%" style="margin-left: 5%; margin-top: 50px; height: 300px;; background-color: rgb(242, 236, 247);"  >
-            <mat-icon class="mat-icon "> screen_share</mat-icon>
-            <h2 class="p3" >Share Your Product</h2>
-        </mat-card>
-
-        <mat-card fxFlex="15%" style="margin-left: 5%; margin-top: 50px; height: 300px; background-color: rgb(247, 247, 247);"  >
-            <mat-icon class="mat-icon "> help_outline</mat-icon>
-            <h2 class="p3" >Help</h2>
-        </mat-card>
-
-    </div>
-    <ng-contaier *ngIf="toggleField=='addMode'">
-        <div fxLayout="column wrap" fxFlex="100%">
-         <button mat-flat-button color="primary" (click)="Back()">Go Back</button>
-         <div fxLayout="column wrap" fxFlex="60%">
-        <form #addDataForm="ngForm" (ngSubmit)="setData(addDataForm.value);" novalidate>
-            <mat-error *ngIf="savedChanges">
-                Your product has been submitted for review. You will an email regarding the status as soon as possible.
-                <label class="small-spacer"></label>
-                <mat-icon (click)="this.addDataForm.reset();savedChanges=false;toggle('searchMode');">clear</mat-icon>
-            </mat-error>
-    
-            <div fxLayout="column wrap" fxLayoutAlign="center center" *ngIf="!savedChanges">
-              
-    
-                <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
-                <mat-error *ngIf="error">Error: {{ errorMessage }}</mat-error>
-                <mat-card-actions align="start">
-                  <button type="submit" mat-raised-button [disabled]="!addDataForm.valid"  color="primary">Submit</button>
-                  <button type="reset" (click)="this.addDataForm.reset();" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Clear</button>
-                  <span class="med-spacer"></span>
-                 
-                  <mat-divider></mat-divider>
-    
-              </mat-card-actions>
-               
-                         <label for="file">File:</label>
-                        <input  type="file" name="image" id="image" (change)="upload($event)" accept=".png,.jpg,.jpeg" ngModel required />
-                    <div style="width:800px;"  fxLayout="column wrap" fxLayoutGap="6px" >
-                    <mat-form-field appearance="fill">
-                       
-                        <mat-label>Category</mat-label>
-                        <mat-select [(ngModel)]="selectedValue" name="category" id="category" ngModel>
-                          <mat-option *ngFor="let cat of category" [value]="cat.value">
-                            {{cat.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                   
-                <mat-form-field  >
-                    <input matInput placeholder="Category" name="category" id="category" ngModel required minlength="1">
-                    <mat-hint align="end">eg. Men Garments</mat-hint>
-                </mat-form-field>
-                <mat-form-field  style="width: 500px;">
-                    <input matInput placeholder="Product Name" name="name" id="name" ngModel required minlength="1">
-                    <mat-hint align="end">eg. Shirt</mat-hint>
-                </mat-form-field>
-    
-                <mat-form-field style="width:800px;">
-                    <textarea matInput placeholder="Description" name="descr" id="descr" ngModel></textarea>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Color" name="color" id="color" ngModel>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Size" name="size" id="size" ngModel>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Price" name="price" id="price" ngModel required pattern="[0-9]+">
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-    
-                <mat-label>Courrier Service</mat-label>
-                <mat-select [(ngModel)]="shippingvalues" name="shipping" id="shipping" ngModel>
-                  <mat-option *ngFor="let ship of shipping" [value]="ship.value">
-                    {{ship.viewValue}}
-                  </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="Shipping Price" name="shipPrice" id="shipPrice" ngModel pattern="[0-9]+">
-                <mat-hint align="end"></mat-hint>
-            </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Discount" name="discount" id="discount" ngModel pattern="[0-9]+">
-                    <mat-hint align="end"></mat-hint>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Address" name="address" id="Address" ngModel required >
-                    <mat-hint align="end">eg. 0 if no discount is offered.</mat-hint>
-                </mat-form-field>
-              </div>
-            </div>
-        </form>
-    </div>
-    </div>
-    </ng-contaier>
-    
-    <ng-contaier *ngIf="toggleField=='editMode'">
-        <form #editDataForm="ngForm" (ngSubmit)="updateData(editDataForm.value);" novalidate>
-            <input type="hidden" name="_id" id="_id" [ngModel]="myDocData._id" required>
-            <mat-error *ngIf="savedChanges">
-                Data is saved.
-                <label class="small-spacer"></label>
-                <mat-icon (click)="this.editDataForm.reset();savedChanges=false;toggle('searchMode');">clear</mat-icon>
-            </mat-error>
-            <div *ngIf="!savedChanges">
-                <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
-                <mat-error *ngIf="error">Error: {{ errorMessage }}</mat-error>
-                <mat-card-actions align="start">
-                    <button type="submit" mat-raised-button [disabled]="!this.editDataForm.valid || this.editDataForm.pristine" color="primary">Update</button>
-                    <span class="med-spacer"></span>
-                    <span matTooltip="Search">
-                        <mat-icon color="primary" (click)="toggle('searchMode')">search</mat-icon>
-                    </span>
-                    <span class="small-spacer"></span>
-                    <span matTooltip="Shwo Recent Results">
-                        <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
-                    </span>
-                </mat-card-actions>
-                <mat-form-field appearance="fill">
-                    <mat-label>Category</mat-label>
-                    <mat-select name="category" id="category" [ngModel]="myDocData.category" >
-                      <mat-option *ngFor="let cat of category" [value]="cat.value">
-                        {{cat.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            
-                <br>
-    
-                <br>
-                <mat-form-field>
-                    <input matInput placeholder="Product Name" name="name" id="name" [ngModel]="myDocData.name" required minlength="1">
-                    <mat-hint align="end">eg. Shirt</mat-hint>
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Short Name" name="sname" id="sname" [ngModel]="myDocData.sname">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Long Name" name="lname" id="lname" [ngModel]="myDocData.lname">
-                </mat-form-field>
-                <br>
-                <mat-form-field>
-                    <textarea matInput placeholder="Description" name="descr" id="descr" [ngModel]="myDocData.descr"></textarea>
-                </mat-form-field>
-                <br>
-                <mat-form-field>
-                    <input matInput placeholder="Color" name="color" id="color" [ngModel]="myDocData.color">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Size" name="size" id="size" [ngModel]="myDocData.size">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Price" name="price" id="price" [ngModel]="myDocData.price" required pattern="[0-9]+">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Shipping" name="shipping" id="shipping" [ngModel]="myDocData.shipping" pattern="[0-9]+">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput placeholder="Discount" name="discount" id="discount" [ngModel]="myDocData.discount" pattern="[0-9]+">
-                    <mat-hint align="end">eg. 0 if no discount is offered.</mat-hint>
-                </mat-form-field>
-            </div>
-        </form>
-        
-    </ng-contaier>
-    
-    
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<mat-card>
-    <mat-card-content>
-        <div *ngIf="(toggleField=='searchMode') else (toggleField=='addMode')? showAddMode : ((toggleField=='editMode')? showEditMode : showResMode)">
-            <form #searchFormData="ngForm" class="example-form">
-                <mat-card-actions align="start">
-                    <button type="button" (click)="toggle('resMode');getFilterData(searchFormData.value);" mat-raised-button [disabled]="!searchFormData.valid"
-                        color="primary">Search</button>
-                    <span class="med-spacer"></span>
-                    <span matTooltip="Add New">
-                        <mat-icon color="primary" (click)="toggle('addMode');">add</mat-icon>
-                    </span>
-                    <span class="small-spacer"></span>
-                    <span matTooltip="Show Recent Results">
-                        <mat-icon color="primary" (click)="toggle('resMode');getData();">cached</mat-icon>
-                    </span>
-                </mat-card-actions>
-                <mat-form-field class="example-form">
-                    <input matInput [disabled]="name.value > ''" type="text" placeholder="Category" id="category" name="category" #category="ngModel" ngModel
-                        minlength="3" maxlength="50">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="example-form">
-                    <input matInput [disabled]="category.value > ''" type="text" placeholder="Product Name" id="name" name="name" #name="ngModel" ngModel
-                        minlength="3" maxlength="50">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="example-form">
-                    <input matInput [matDatepicker]="pickerfromdt" placeholder="From Date" id="fromdt" name="fromdt" #fromdt="ngModel" [ngModel]="currentDate7">
-                    <mat-datepicker-toggle matSuffix [for]="pickerfromdt"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerfromdt></mat-datepicker>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="example-form">
-                    <input matInput [matDatepicker]="pickertodt" placeholder="To Date" id="todt" name="todt" #todt="ngModel" [ngModel]="currentDate">
-                    <mat-datepicker-toggle matSuffix [for]="pickertodt"></mat-datepicker-toggle>
-                    <mat-datepicker #pickertodt></mat-datepicker>
-                </mat-form-field>
-            </form>
-        </div>
-    </mat-card-content>
-</mat-card>
- --->
-
-<!---
-<ng-template  #showResMode>
-
-<div style="width: 100px;"   fxFlex="100%" fxLayout="column" >
-        <app-header pageTitle="Your Product"></app-header>
-        <button mat-flat-button color="primary" (click)="Back()">Go Back</button>
-        <mat-divider></mat-divider>
-        <h1>Your Product</h1>
-        <mat-divider></mat-divider>
-        <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100%"   >
-                <mat-card fxLayoutAlign="flex-center" fxLayout="row "  fxFlex="60%" *ngFor="let data of userProd;" >
-                    <div fxLayoutAlign="center center" fxFlex=40%>
-                        <img style="width:180px;height:130px;" [src]=data.imageUrl>
-                     </div>
-                     <div fxLayoutGap ="1px" fxFlex=40%>
-                        <h4 class="p3">Product:{{data.name}}</h4>
-                        <h4 class="p3">RM:{{data.price}}</h4>
-                        <h4 class="p3">Category:{{data.category}}</h4>
-                    </div>
-                    <div fxLayoutAlign="center center " fxFlex=20%>
-
-                        <button mat-raised-button (click)="deleteProd(data._id)" >Remove</button>
-                        <button mat-raised-button color ="primary" (click)="getDoc(data._id)" >Edit</button>
-                    </div>
-                    <mat-divider></mat-divider>
-
-                <mat-error *ngIf="savedChanges">
-                  <br/>
-                  <br/> 
-                  <mat-icon (click)="savedChanges=!savedChanges" color="primary">close</mat-icon>
-                  <span class="med-spacer"></span>
-                  <br/>
-              </mat-error>
-            </mat-card>
-    
-        </div>
-
-        
-</div>
-</ng-template>
--->
-<!--
-
-<ng-template #showResMode>
-    <mat-card-actions align="start">
-        <span class="med-spacer"></span>
-        <span class="med-spacer"></span>
-        <span class="med-spacer"></span>
-        <span matTooltip="Add New">
-            <mat-icon color="primary" (click)="toggle('addMode')">add</mat-icon>
-        </span>
-        <span class="small-spacer"></span>
-        <span matTooltip="Search All">
-            <mat-icon color="primary" (click)="toggle('searchMode')">search</mat-icon>
-        </span>
-    </mat-card-actions>
-    <div *ngIf="takeHostSelfie" width="300">
-            <button type="reset" (click)="takeHostSelfie=false;" mat-icon-button color="primary"><mat-icon>clear</mat-icon></button>
-            <br>
-            <fileupload fileUrl="product" docId="{{this.myDocId}}"></fileupload>
-        </div>
-        <div *ngIf="showHostSelfie" width="300">
-            <button type="reset" (click)="showHostSelfie=false;" mat-icon-button color="primary"><mat-icon>clear</mat-icon></button>
-            <br>
-            <img [src]="profileUrl | async" width="300" height="300"/>
-            <br>
-        </div>
-    <div class="example-header">
-        <mat-form-field>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Search Recent Results">
-        </mat-form-field>
-    </div>
-    <div class="example-container mat-elevation-z8">
-        <mat-table [dataSource]="dataSource" matSort>
-            <ng-container matColumnDef="category">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.category}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="scategory">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>SubCategory</mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.scategory}} </mat-cell>
-                </ng-container>
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="price">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
-                </ng-container>
-            <ng-container matColumnDef="_id">
-                <mat-header-cell *matHeaderCellDef> action </mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                        <button mat-icon-button matTooltip="Show Picture" *ngIf="row.path" (click)="getPic(row.path);this.showHostSelfie=true;">
-                            <mat-icon color="primary">photo_camera</mat-icon>
-                        </button>
-                        <button mat-icon-button matTooltip="Remove Picture" *ngIf="row.path" (click)="deleteProductPic(row._id);this.showHostSelfie=false;">
-                            <mat-icon color="primary">camera_roll</mat-icon>
-                        </button>
-                        <button mat-icon-button matTooltip="Take Picture" (click)="this.myDocId=row._id;this.takeHostSelfie=true;" class="label-error"
-                            *ngIf="!row.path" class="label-error"><mat-icon>camera_roll</mat-icon></button>
-                    <span matTooltip="Edit">
-                        <button mat-icon-button (click)="getDoc(row._id)">
-                            <mat-icon color="primary">edit</mat-icon>
-                        </button>
-                    </span>
-                    <span matTooltip="Delete">
-                        <button mat-icon-button (click)="deleteDoc(row._id)">
-                            <mat-icon color="primary">delete</mat-icon>
-                        </button>
-                    </span>
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
-</ng-template>
 
 -->

@@ -52,6 +52,14 @@ element.style {
   border: 1px solid #0b6ed1!important;
 }
 
+.border-radius-5px {
+  border-width: 20px !important;
+  box-shadow: none!important;
+  border-radius: 5px!important;
+  border: 1px solid #0b6ed1!important;
+}
+
+
 .point-number[_ngcontent-c14] {
   width: 30px;
   height: 30px;
@@ -75,4 +83,54 @@ element.style {
 
 .box-shadow-1 {
   box-shadow: 10px 10px 100px 1px #ebebeb!important;
+}
+
+.click-font{
+
+  font-size: 15px !important;
+  color: #008489;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 20px
+}
+
+iframe {
+  border-radius: 10px
+}
+
+.responsive {
+  min-height: 200px;
+  max-height: 400px
+}
+
+
+
+
+.btn,
+.btn:active,
+.btn:hover {
+  color: #b7b1b1;
+  font-size: 80%;
+  font-weight: bold;
+  border-radius: 10px
+}
+
+.btn {
+  background-color: #f2f2f3
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #dddddf
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none
+}
+
+*:focus {
+  outline: none
 }
