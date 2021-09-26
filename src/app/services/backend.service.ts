@@ -60,7 +60,7 @@ export class BackendService {
 
   getPendingProd(coll:string,filters?:any){
     this.itemCollection = this.afs.collection<any>(this.getCollectionURL(coll),ref=>
-    ref.where('status','==','P'))
+    ref.where('status','==','Pending'))
     return this.itemCollection.valueChanges();
   }
 

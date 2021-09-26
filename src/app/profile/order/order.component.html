@@ -13,7 +13,7 @@
                     <div class="d-flex justify-content-between align-items-center " *ngFor="let data of items">
                         <div class="d-flex flex-row align-items-center"> <span class="star"><i class="fa fa-star yellow"></i></span>
                             <div class="d-flex flex-column" style="font-size: 80%;"> <span>Order ID: {{data.OrderID}}</span>
-                                <div style="border-bottom: 100%;" class="d-flex flex-row align-items-center time-text"> <medium>{{items.length+1}} Product</medium> <span class="dots"></span> <small>Date:{{data.purhcasedAt.Date}}</small> <span class="dots"></span> <small></small> </div>
+                                <div style="border-bottom: 100%;" class="d-flex flex-row align-items-center time-text"> <medium>{{items.length+1}} Product</medium> <span class="dots"></span> <small>Date:</small> <span class="dots"></span> <small></small> </div>
                             </div>
                         </div> <span style="cursor:pointer" (click)="openModal(data)" class="">View Details</span>
                     </div>
@@ -85,6 +85,16 @@
                           <p class="text-justify">{{myDocData.State}},{{myDocData.country}} </p>
                       </div>
                   </div>
+                  <div class="col-md-6 py-3">
+                    <form #addReview="ngForm" (ngSubmit)="setData(addReview.value,data);" novalidate>                   
+                             <mat-form-field   appearance="outline">
+                            <mat-label>Write your review here</mat-label>
+                            <input matInput placeholder="Product Review" name="review" id="review" ngModel required >
+                        </mat-form-field>
+                        <button type="submit" mat-raised-button [disabled]="!addReview.form.valid"color="primary">Submit</button>
+
+                    </form>    
+                </div>
               </div>
             
           </div>

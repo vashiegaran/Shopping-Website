@@ -1,6 +1,68 @@
 
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+<body>
+  <div class="row d-flex justify-content-center container">
+    <div class="col-md-8">
+        <div class="card-hover-shadow-2x mb-3 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;</div>
+              <h4 style="color: black;"> Product list</h4> 
+            </div>
+            <div class="scroll-area-sm">
+                <perfect-scrollbar class="ps-show-limits">
+                    <div style="position: static;" class="ps ps--active-y">
+                        <div class="ps-content">
+                            <ul class=" list-group list-group-flush" *ngFor="let data of members">
+                                <div class="list-group-item">
+                                    <div class="todo-indicator bg-warning"></div>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-2">
+                                                <div class="custom-checkbox custom-control"> <input class="custom-control-input" id="exampleCustomCheckbox12" type="checkbox"><label class="custom-control-label" for="exampleCustomCheckbox12">&nbsp;</label> </div>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">{{data.name}}<div class="badge badge-danger ml-2"></div>
+                                                </div>
+                                                <div class="widget-subheading"><i>{{data.price}}</i></div>
+                                            </div>
+                                            <div class="widget-content-right"> <button  (click)="Approval(data,'Approve'); alertUser(Approve)" class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button  (click)="Approval(data,'Reject'); alertUser(Reject);"  class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                            </ul>
+                        </div>
+                    </div>
+                </perfect-scrollbar>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+<ng-template #Approve>
+  <h2 matDialogTitle>Message!</h2>
+  <mat-dialog-content>
+      Product has been Approved!
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose color="primary">Dismiss</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #Reject>
+  <h2 matDialogTitle>Dialog!</h2>
+  <mat-dialog-content>
+    Product has been Rejected!
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose color="primary">Dismiss</button>
+  </mat-dialog-actions>
+</ng-template>
+</body>
+<!--
 <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="100%"   >
   <mat-card style="margin-top: 10px;" fxLayoutAlign="flex-center" fxLayout="row "  fxFlex="100%%" *ngFor="let data of members;" >
       <div fxLayoutAlign="center center" fxFlex=40%>
@@ -25,22 +87,5 @@
 
 </div>
 
-<ng-template #Approve>
-  <h2 matDialogTitle>Message!</h2>
-  <mat-dialog-content>
-      Product has been Approved!
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-button matDialogClose color="primary">Dismiss</button>
-  </mat-dialog-actions>
-</ng-template>
 
-<ng-template #Reject>
-  <h2 matDialogTitle>Dialog!</h2>
-  <mat-dialog-content>
-    Product has been Rejected!
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-button matDialogClose color="primary">Dismiss</button>
-  </mat-dialog-actions>
-</ng-template>
+-->

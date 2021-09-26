@@ -20,6 +20,8 @@ export class AdminusersComponent implements OnInit {
     this._backendService.getDocs('user').subscribe(prof=>{
 
       this.userProf=prof;
+      this.myDocData=prof;
+
     })
 
   }

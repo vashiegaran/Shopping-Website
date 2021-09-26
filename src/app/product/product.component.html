@@ -52,7 +52,7 @@
                   </button>
                 </div>
               </div>
-                <div fxLayoutGap="5%" class="buttons"> <button class="btn btn-outline-warning btn-long cart" (click)="addToCart(myDocData, counter); alertUser(alert) ">Add to Cart</button> <button class="btn btn-warning btn-long buy">Buy it Now</button> <button class="btn btn-light wishlist"> <i class="fa fa-heart"></i> </button> </div>
+                <div fxLayoutGap="5%" class="buttons"> <button class="btn btn-outline-warning btn-long cart" (click)="addToCart(myDocData, counter); alertUser(alert) ">Add to Cart</button> <button (click)="addToWishlist(myDocData); " class="btn btn-warning btn-long buy">Add to Wishlist</button> </div>
                 <hr>
                 <div class="product-description">
                  <div class="d-flex align-items-center" ><mat-icon> location_on </mat-icon><span class="aligned-with-icon">Delivery to entire Malaysia</span> </div> 

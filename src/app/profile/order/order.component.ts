@@ -21,6 +21,7 @@ export class OrderComponent implements OnInit {
   myDocData;
   display;
   loop:number[];
+  listItem: any;
   constructor(private _backendService: BackendService) { }
 
   ngOnInit() {
@@ -56,6 +57,26 @@ export class OrderComponent implements OnInit {
   }
   onCloseHandled() {
     this.display = "none";
+  }
+
+
+  setData(formData,data){
+    console.log(formData)
+    this.listItem=formData;
+    this.dataLoading = true;
+    this.querySubcription =this._backendService.addReviewDoc('review',this.listItem,data)
+        .then((res) =>{
+          console.log("res is working fine")
+          console.log("working"+res)
+          this.savedChanges=true;
+          this.dataLoading=false;
+
+        }).catch(error=>{
+          this.error=true;
+          this.errorMessage=error.message;
+          this.dataLoading=false;
+        })
+        
   }
 
   

@@ -124,8 +124,9 @@
                                 <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                                     <div class="media-body order-2 order-lg-1">
                                         <h5 class="mt-0 font-weight-bold mb-2">{{data.name}}</h5>
-                                        <p class="font-italic text-muted mb-0 small">128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera | 7MP Front Camera A12 Bionic Chip Processor</p>
-                                        <div class="d-flex align-items-center justify-content-between mt-1">
+                                        <h4  class="mt-0 font-weight-bold mb-2" *ngIf="(data.status=='Pending')" style="color: rgb(255, 196, 0);">Status:{{data.status}}</h4>
+                                        <h4  class="mt-0 font-weight-bold mb-2" *ngIf="(data.status=='Approved')" style="color: rgb(89, 233, 5);">Status:{{data.status}}</h4>
+                                        <h4 class="mt-0 font-weight-bold mb-2"  *ngIf="(data.status=='Rejected')" style="color: rgb(235, 11, 11);">Status:{{data.status}}</h4>                                        <div class="d-flex align-items-center justify-content-between mt-1">
                                             <h6 class="font-weight-bold my-2">${{data.price}}</h6>
                                             <ul class="list-inline small">
                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>

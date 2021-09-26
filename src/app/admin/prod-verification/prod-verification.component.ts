@@ -34,8 +34,9 @@ alertUser(templateRef: TemplateRef<any>) {
   
     this.querySubcription =this._backendService.getPendingProd('product')
         .subscribe(members =>{
+       //   console.log(members)
           this.members = members;
-           // console.log(this.members);
+           console.log(this.members);
         },
 
         (error)=>{
